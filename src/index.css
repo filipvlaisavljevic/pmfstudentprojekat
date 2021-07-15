@@ -152,3 +152,9 @@ p{
     border-right: 0;
   }
 }
+@media screen and (max-width: 575px) {
+  .bezpaddinga{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
