@@ -59,7 +59,22 @@ p{
 
 .profilna-slika{
   object-fit: cover;
-  max-height: 300px!important;
+  width: 100px;
+  height: 100px;
+}
+
+.follow{
+  font-size: 18px;
+}
+
+.recommended-slika{
+  object-fit: cover;
+  width: 85px !important;
+  height: 85px !important;
+}
+
+.nick-recommended{
+  font-size: 14px;
 }
 
 .inline-htag{
@@ -67,26 +82,42 @@ p{
   font-size: 26px;
 }
 
+.followeri{
+  text-decoration: none !important;
+  color: #0EBD60 !important;
+}
+
 .font-podaci{
   font-size: 24px;
 }
+.font-nick{
+  font-size: 16px;
+}
 .font-osebi{
-  font-size: 26px;
+  font-size: 16px;
 }
 .glavni{
-  font-size: 20px;
+  font-size: 16px;
   text-align: center;
   padding: 0!important;
 }
+
+
 .red{
   padding: 0px!important;
-  border-bottom: 1px solid lightgrey;
 }
-.sugestije{
-  position: relative;
-  overflow-y: auto;
-  overflow-x: hidden;
-  max-height: 740px!important;
+
+.scrollbar
+{
+  float: left;
+  height: 450px;
+  overflow-y: scroll;
+  margin-bottom: 25px;
+}
+
+.force-overflow
+{
+  min-height: 450px;
 }
 
 .objave-profil{
@@ -95,3 +126,23 @@ p{
   max-height: 400px!important;
 }
 
+#style-1::-webkit-scrollbar-track
+{
+  border-radius: 10px;
+}
+
+.recommended{
+  font-size:24px;
+  font-weight: bold;
+}
+
+#style-1::-webkit-scrollbar
+{
+  width: 12px;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+  border-radius: 10px;
+  background-color: #0EBD60;
+}

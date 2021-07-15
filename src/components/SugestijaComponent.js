@@ -1,28 +1,41 @@
 import React from "react";
-import {Col, Image, Row,Button} from "react-bootstrap";
+import {Col, Image, Row, Button, Container, Card} from "react-bootstrap";
+import {HandThumbsUpFill} from "react-bootstrap-icons";
+import {PersonPlusFill} from "react-bootstrap-icons";
 
 
 function SugestijaComponent(){
     return(
-      <Row>
-          <Col xs={8}>
-              <Row>
-                  <Col xs={4} >
-                      <Image src="https://i.imgur.com/MLKU6yM.jpg" style={{objectFit: 'cover'}}
-                             width="70px" height="70px"/>
-                  </Col>
-                  <Col xs={8} style={{padding: 0}}>
-                      <div>
-                          <b>Nickname</b>
-                      </div>
-                      <p>Ime i prezime</p>
-                  </Col>
-              </Row>
-          </Col>
-          <Col xs={4}>
-              <Button style={{marginTop: "10px"}}>Zaprati</Button>
-          </Col>
-      </Row>
+        <div>
+            <Card className={"mb-3"}>
+                <Card.Img variant="top" src="https://i.imgur.com/MLKU6yM.jpg" className={"d-none d-lg-block recommended-slika"}
+                />
+                <Card.Body>
+                    <Card.Text className={"follow"}>
+                        <Row>
+                            <span className={"ml-1"}>Edah Siječić</span>
+                        </Row>
+                        <Row className={"nick-recommended"}>
+                            <span className={"ml-1"}>@Edahus69</span>
+                        </Row>
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+            <Card className={"mb-3"}>
+                <Card.Img variant="top" src="https://i.imgur.com/S4gTsXX.jpg" className={"d-none d-lg-block recommended-slika"}
+                />
+                <Card.Body>
+                    <Card.Text className={"follow"}>
+                        <Row>
+                            <span className={"ml-1"}>Tarik Pašić</span>
+                        </Row>
+                        <Row className={"nick-recommended"}>
+                            <span className={"ml-1"}>@TarikPashich</span>
+                        </Row>
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+        </div>
     );
 }
 

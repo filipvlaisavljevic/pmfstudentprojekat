@@ -6,71 +6,60 @@ import {Link} from "react-router-dom";
 
 
 function ProfilComponent(){
-    const [x,setX]=useState({text: "nesto"})
-    var nesto=[];
-    for(let i=0;i<500;i++){
-        nesto.push(
-           <div className="red">
-               <SugestijaComponent/>
-           </div>
-        );
-    }
-
     return(
         <Container>
             <Row className={"mt-4 mb-4"}>
                 <Col md={8} className={"pt-2 pb-2 okvir-desni"}>
-                    <Row className="banner p-2">
-                        <Col md={4} style={{paddingLeft: 0}}>
+                    <Row className="banner">
+                        <Col md="auto" style={{paddingLeft: 0}}>
                             <Image src="https://i.imgur.com/FW4FhbQ.png"
-                                   className='profilna-slika' fluid/>
+                                   className='profilna-slika d-none d-lg-block' fluid/>
                         </Col>
-                        <Col md={8}>
+                        <Col md="auto" className={"mt-1"}>
                             <Row>
-                                <Col md={5}>
-                                    <b className='inline-htag'>Ime i prezime: </b>
-                                </Col>
-                                <Col md={7}>
-                                    <span className='font-podaci'> Filip Vlaisavljević</span>
+                                <Col>
+                                    <span className='font-podaci'><b>Filip Vlaisavljević</b></span>
                                 </Col>
                             </Row>
-                            <br/>
                             <Row>
-                                <Col md={5}>
-                                    <b className='inline-htag'>Nickname: </b>
-                                </Col>
-                                <Col md={7}>
-                                    <span className='font-podaci'> Exzone</span>
+                                <Col>
+                                    <span className='font-nick'>@Exzone</span>
                                 </Col>
                             </Row>
-                            <br/>
-                            <Row>
-                                <span className='font-osebi'> <i>Volim gledati anime, hentai, uživam u igranju warzone</i></span>
-                            </Row>
-                            <br/>
-                            <Row className="mb-1">
-                                <Col md={6} xs={6}>
-                                    <span>Prati: <b>320</b></span>
+                            <Row className="mb-1 mt-1">
+                                <Col md="auto">
+                                    <span>Prati: <b><a href={"#"} className={"followeri"}>320</a></b></span>
                                 </Col>
-                                <Col md={6} xs={6}>
-                                    <span>Pratitelji: <b>420</b></span>
+                                <Col md="auto">
+                                    <span>Pratitelji: <b><a href={"#"} className={"followeri"}>420</a></b></span>
                                 </Col>
                             </Row>
                         </Col>
-                        <Row>
+                        {/*<Row>
                            <Link to="/profil/edit" className="p-0"> <Button className="w-100">Uredi profil</Button></Link>
-                        </Row>
+                        </Row>*/}
                     </Row>
-                    <Row className="mt-4 objave-profil">
+                    {/*<Row className="mt-4 objave-profil">
                         <ObjavaComponent/>
-                    </Row>
+                    </Row>*/}
                 </Col>
                 <Col md={4} className="pt-2 pb-2">
-                    <Row className="banner sugestije">
-                        <div className="red">
-                            <div className="glavni"><b>Zapratite</b></div>
+                    <Row className="banner">
+                        <div>
+                            <div className="recommended mt-1 mb-1">Predloženi profili</div>
                         </div>
-                        {nesto}
+                    </Row>
+                    <Row className={"banner"}>
+                        <div className="scrollbar" id="style-1">
+                            <div className="force-overflow">
+                                <SugestijaComponent/>
+                                <SugestijaComponent/>
+                                <SugestijaComponent/>
+                                <SugestijaComponent/>
+                                <SugestijaComponent/>
+                                <SugestijaComponent/>
+                            </div>
+                        </div>
                     </Row>
                 </Col>
             </Row>
