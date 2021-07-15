@@ -2,7 +2,7 @@ import React from "react"
 
 function LoginComponent(){
     return(
-        <h1>Login</h1>
+        <h1>Ovo je kurac</h1>
     )
 }
 
