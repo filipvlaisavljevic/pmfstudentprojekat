@@ -33,3 +33,36 @@ button{
 .navbar-light .navbar-toggler-icon{
   color: white !important;
 }
+
+.profilna-slika{
+  max-width: 100%;
+  max-height: 300px!important;
+}
+
+.inline-htag{
+  display: inline-block;
+  font-size: 26px;
+}
+
+.font-podaci{
+  font-size: 24px;
+}
+.font-osebi{
+  font-size: 26px;
+}
+.glavni{
+  font-size: 20px;
+  text-align: center;
+  padding: 0!important;
+}
+.red{
+  padding: 0px!important;
+  border-bottom: 1px solid lightgrey;
+}
+.sugestije{
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 500px!important;
+}
+
