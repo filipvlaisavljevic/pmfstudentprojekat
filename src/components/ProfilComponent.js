@@ -3,12 +3,13 @@ import {Container, Row, Col, Image,Button} from "react-bootstrap";
 import SugestijaComponent from "./SugestijaComponent";
 import ObjavaComponent from "./ObjavaComponent";
 import {Link} from "react-router-dom";
+import {CaretDownFill} from "react-bootstrap-icons";
 
 
 function ProfilComponent(){
     return(
         <Container>
-            <Row className={"mt-4 mb-4"}>
+            <Row className={"mt-5 mb-4"}>
                 <Col md={8} className={"pt-2 pb-2 okvir-desni"}>
                     <Row className="banner">
                         <Col md="auto" style={{paddingLeft: 0}}>
@@ -45,11 +46,11 @@ function ProfilComponent(){
                 </Col>
                 <Col md={4} className="pt-2 pb-2">
                     <Row className="banner">
-                        <div>
-                            <div className="recommended mt-1 mb-1">Predloženi profili</div>
+                        <div className={"pt-2 pb-2"}>
+                            <CaretDownFill/> Dodajte i nove studente
                         </div>
                     </Row>
-                    <Row className={"banner"}>
+                    <Row className={"mt-4"}>
                         <div className="scrollbar" id="style-1">
                             <div className="force-overflow">
                                 <SugestijaComponent/>
