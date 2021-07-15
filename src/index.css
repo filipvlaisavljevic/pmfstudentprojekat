@@ -155,3 +155,9 @@ p{
   border-radius: 10px;
   background-color: #0EBD60;
 }
+
+@media screen and (max-width: 768px){
+  .okvir-desni{
+    border-right: 0;
+  }
+}
