@@ -10,6 +10,7 @@ function NavigationComponent(){
                     <Nav className="me-auto">
                         <Nav.Link href="/login">Loguj se</Nav.Link>
                         <Nav.Link href="/register">Registruj se</Nav.Link>
+                        <Nav.Link href="/profil">Profil</Nav.Link>
                     </Nav>
 
                     {/*Pretraživanje*/}

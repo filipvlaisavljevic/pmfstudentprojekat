@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import LoginComponent from "./components/LoginComponent";
 import RegisterComponent from "./components/RegisterComponent";
+import ProfilComponent from "./components/ProfilComponent";
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
             <Switch>
                 <Route path="/login">
                     <LoginComponent />
+                </Route>
+                <Route path="/profil">
+                    <ProfilComponent/>
                 </Route>
                 <Route path="/register">
                     <RegisterComponent />
