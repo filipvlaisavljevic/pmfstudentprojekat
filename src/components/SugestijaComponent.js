@@ -5,13 +5,13 @@ import {Col, Image, Row,Button} from "react-bootstrap";
 function SugestijaComponent(){
     return(
       <Row>
-          <Col>
+          <Col xs={8}>
               <Row>
-                  <Col xs={5} >
-                      <Image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVLqfekg_kitC_QJ5kgBUTh2tt5EIcxEnQDQ&usqp=CAU"
+                  <Col xs={4} >
+                      <Image src="https://i.imgur.com/MLKU6yM.jpg" style={{objectFit: 'cover'}}
                              width="70px" height="70px"/>
                   </Col>
-                  <Col xs={7}>
+                  <Col xs={8} style={{padding: 0}}>
                       <div>
                           <b>Nickname</b>
                       </div>
@@ -19,8 +19,8 @@ function SugestijaComponent(){
                   </Col>
               </Row>
           </Col>
-          <Col style={{textAlign: "center"}}>
-              <Button>Zaprati</Button>
+          <Col xs={4}>
+              <Button style={{marginTop: "10px"}}>Zaprati</Button>
           </Col>
       </Row>
     );

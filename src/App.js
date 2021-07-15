@@ -14,6 +14,7 @@ import {
 import LoginComponent from "./components/LoginComponent";
 import RegisterComponent from "./components/RegisterComponent";
 import ProfilComponent from "./components/ProfilComponent";
+import EditProfilaComponent from "./components/EditProfilaComponent";
 
 function App() {
   return (
@@ -25,11 +26,14 @@ function App() {
                 <Route path="/login">
                     <LoginComponent />
                 </Route>
-                <Route path="/profil">
-                    <ProfilComponent/>
-                </Route>
                 <Route path="/register">
                     <RegisterComponent />
+                </Route>
+                <Route path="/profil/edit">
+                    <EditProfilaComponent/>
+                </Route>
+                <Route path="/profil">
+                    <ProfilComponent/>
                 </Route>
                 <Route path="/">
                     <HomeComponent/>

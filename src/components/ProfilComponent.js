@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react"
 import {Container, Row, Col, Image,Button} from "react-bootstrap";
 import SugestijaComponent from "./SugestijaComponent";
+import ObjavaComponent from "./ObjavaComponent";
+import {Link} from "react-router-dom";
 
 
 function ProfilComponent(){
@@ -18,10 +20,10 @@ function ProfilComponent(){
         <Container>
             <Row className={"mt-4 mb-4"}>
                 <Col md={8} className={"pt-2 pb-2 okvir-desni"}>
-                    <Row className="banner">
-                        <Col md={4}>
-                            <Image src="https://wallpaperaccess.com/full/2213424.jpg"
-                                   thumbnail className='profilna-slika'/>
+                    <Row className="banner p-2">
+                        <Col md={4} style={{paddingLeft: 0}}>
+                            <Image src="https://i.imgur.com/FW4FhbQ.png"
+                                   className='profilna-slika' fluid/>
                         </Col>
                         <Col md={8}>
                             <Row>
@@ -54,13 +56,13 @@ function ProfilComponent(){
                                     <span>Pratitelji: <b>420</b></span>
                                 </Col>
                             </Row>
-                            <Row>
-                                <Button className="w-100">Uredi profil</Button>
-                            </Row>
                         </Col>
+                        <Row>
+                           <Link to="/profil/edit" className="p-0"> <Button className="w-100">Uredi profil</Button></Link>
+                        </Row>
                     </Row>
-                    <Row>
-                        <h1>Objave</h1>
+                    <Row className="mt-4 objave-profil">
+                        <ObjavaComponent/>
                     </Row>
                 </Col>
                 <Col md={4} className="pt-2 pb-2">
