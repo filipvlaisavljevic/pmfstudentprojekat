@@ -17,6 +17,19 @@ button{
   border-color: rgb(118, 118, 118) !important;
 }
 
+.banner{
+  color: rgba(0,0,0,.55) !important;
+  background-color: #f8f9fa !important;
+}
+
+.navbar-toggler{
+  background-color: #f8f9fa !important;
+}
+
+.okvir-desni{
+  border-right: 15px solid white;
+}
+
 .navbar-light .navbar-toggler-icon{
   color: white !important;
 }
