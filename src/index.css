@@ -30,6 +30,29 @@ button{
   border-right: 15px solid white;
 }
 
+.bezpaddinga{
+  padding-left: 0 !important;
+}
+
+.card {
+  flex-direction: row !important;
+}
+.card img {
+  width:100px;
+  height: 100px;
+  height: auto;
+  object-fit:cover;
+}
+
+p{
+  font-size: 16px;
+  text-align: justify;
+}
+
+.palac{
+  color: #F1C27D !important;
+}
+
 .navbar-light .navbar-toggler-icon{
   color: white !important;
 }
