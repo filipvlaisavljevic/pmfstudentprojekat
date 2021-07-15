@@ -2,6 +2,7 @@ import React from "react"
 import {Row,Col,Container} from "react-bootstrap";
 import { CaretDownFill } from 'react-bootstrap-icons';
 import ObjavaComponent from "./ObjavaComponent";
+import SugestijaComponent from "./SugestijaComponent";
 
 function HomeComponent(){
     return(
@@ -17,12 +18,23 @@ function HomeComponent(){
                 </Row>
             </Container>
             <Container>
-                <Row className={"mb-3"}>
+                <Row className={"mb-3 equal"}>
                     <Col sm={8} className={"bezpaddinga"}>
                         <ObjavaComponent/>
                     </Col>
                     <Col sm={4}>
-
+                            <Row>
+                                <div className="scrollbar" id="style-1">
+                                    <div className="force-overflow">
+                                        <SugestijaComponent/>
+                                        <SugestijaComponent/>
+                                        <SugestijaComponent/>
+                                        <SugestijaComponent/>
+                                        <SugestijaComponent/>
+                                        <SugestijaComponent/>
+                                    </div>
+                                </div>
+                            </Row>
                     </Col>
                 </Row>
             </Container>

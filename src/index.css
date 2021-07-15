@@ -107,10 +107,19 @@ p{
   padding: 0px!important;
 }
 
+@media (min-width: 768px) {
+  .row.equal {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
 .scrollbar
 {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
   float: left;
-  height: 450px;
+  height: 650px;
   overflow-y: scroll;
   margin-bottom: 25px;
 }
