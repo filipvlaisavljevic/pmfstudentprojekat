@@ -4,7 +4,7 @@ import {CaretDownFill, HandThumbsUp, HandThumbsDown, Facebook, HandThumbsUpFill}
 
 function ObjavaComponent(){
     return(
-        <div>
+        <div className="bezpaddinga">
             <Card className={"mb-3"}>
                 <Card.Img variant="top" src="https://i.imgur.com/FW4FhbQ.png" className={"d-none d-lg-block"}/>
                 <Card.Body>
