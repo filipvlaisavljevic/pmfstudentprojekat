@@ -9,7 +9,7 @@ function NavigationComponent(){
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link href="/login">Loguj se</Nav.Link>
-                        <Nav.Link href="#">Registruj se</Nav.Link>
+                        <Nav.Link href="/register">Registruj se</Nav.Link>
                     </Nav>
 
                     {/*Pretraživanje*/}
@@ -20,7 +20,7 @@ function NavigationComponent(){
                             className="mr-2"
                             aria-label="Search"
                         />
-                        <Button variant="outline-success">Pretraži</Button>
+                        <Button variant="primary">Pretraži</Button>
                     </Form>
 
                 </Navbar.Collapse>

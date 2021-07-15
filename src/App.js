@@ -12,6 +12,7 @@ import {
     Link
 } from "react-router-dom";
 import LoginComponent from "./components/LoginComponent";
+import RegisterComponent from "./components/RegisterComponent";
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
             <Switch>
                 <Route path="/login">
                     <LoginComponent />
+                </Route>
+                <Route path="/register">
+                    <RegisterComponent />
                 </Route>
                 <Route path="/">
                     <HomeComponent/>

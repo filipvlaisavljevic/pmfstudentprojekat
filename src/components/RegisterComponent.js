@@ -1,9 +1,25 @@
 import React from "react"
-import {Form,Button} from "react-bootstrap";
+import {Button, Form} from "react-bootstrap";
 
-function LoginComponent(){
+function RegisterComponent(){
     return(
         <Form className={"mt-4 mb-4"}>
+
+            <Form.Group className="mb-3">
+                <Form.Label>Ime</Form.Label>
+                <Form.Control type="email" placeholder="Unesite ime" />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+                <Form.Label>Prezime</Form.Label>
+                <Form.Control type="email" placeholder="Unesite prezime" />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+                <Form.Label>Korisničko ime</Form.Label>
+                <Form.Control type="email" placeholder="Unesite željeno korisničko ime" />
+            </Form.Group>
+
             <Form.Group className="mb-3">
                 <Form.Label>Email adresa</Form.Label>
                 <Form.Control type="email" placeholder="Uniste email adresu" />
@@ -22,8 +38,9 @@ function LoginComponent(){
             <Button variant="primary" type="submit" className={"w-100"}>
                 Loguj se
             </Button>
+
         </Form>
     )
 }
 
-export default LoginComponent
+export default RegisterComponent

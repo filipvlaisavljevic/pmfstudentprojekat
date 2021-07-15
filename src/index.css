@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+button{
+  background-color: #0EBD60 !important;
+  border-color: rgb(118, 118, 118) !important;
+}
+
+.navbar-light .navbar-toggler-icon{
+  color: white !important;
+}

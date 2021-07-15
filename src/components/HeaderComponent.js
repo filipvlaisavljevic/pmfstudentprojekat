@@ -5,7 +5,7 @@ import NavigationComponent from "./NavigationComponent";
 function HeaderComponent(){
     return(
         <div className={"mt-5"}>
-            <Image src={"../logo.png"}/>
+            <a href={"/"}><Image src={"../logo.png"}/></a>
             <NavigationComponent/>
         </div>
     );
