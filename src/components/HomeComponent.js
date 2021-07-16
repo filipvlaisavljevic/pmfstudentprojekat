@@ -8,21 +8,36 @@ function HomeComponent(){
     /*return(
         <div>
             <Container>
-                <Row className={"mt-5 mb-4"}>
-                    <Col sm={8} className={"banner pt-2 pb-2 okvir-desni"}>
-                        <CaretDownFill/> Nedavne objave ostalih studenata
+                <Row className={"mb-4"}>
+                    <Col sm={8}>
+                        <div className={"mt-5 banner pt-2 pb-2 mb-4"}>
+                            <CaretDownFill/> Nedavne objave ostalih studenata
+                        </div>
+                        <ObjavaComponent/>
                     </Col>
-                    <Col sm={4} className={"banner pt-2 pb-2"}>
-                        <CaretDownFill/> Dodajte i nove studente
+                    <Col sm={4}>
+                        <div className={"mt-5 banner pt-2 pb-2 mb-4"}>
+                            <CaretDownFill/> Dodajte i nove studente
+                        </div>
+                            <div className="scrollbar w-100" id="style-1">
+                                <div className="force-overflow">
+                                    <SugestijaComponent/>
+                                    <SugestijaComponent/>
+                                    <SugestijaComponent/>
+                                    <SugestijaComponent/>
+                                    <SugestijaComponent/>
+                                    <SugestijaComponent/>
+                                </div>
+                            </div>
                     </Col>
                 </Row>
             </Container>
             <Container>
                 <Row className={"mb-3 equal"}>
-                    <Col sm={8} className={"bezpaddinga"}>
+                    {/*<Col sm={8} className={"bezpaddinga"}>
                         <ObjavaComponent/>
-                    </Col>
-                    <Col sm={4}>
+                    </Col>*/}
+                    {/*<Col sm={4}>
                             <Row>
                                 <div className="scrollbar" id="style-1">
                                     <div className="force-overflow">
@@ -35,7 +50,7 @@ function HomeComponent(){
                                     </div>
                                 </div>
                             </Row>
-                    </Col>
+                    </Col>*/}
                 </Row>
             </Container>
         </div>

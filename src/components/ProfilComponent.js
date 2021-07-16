@@ -4,6 +4,7 @@ import SugestijaComponent from "./SugestijaComponent";
 import ObjavaComponent from "./ObjavaComponent";
 import {Link} from "react-router-dom";
 import {CaretDownFill} from "react-bootstrap-icons";
+import {PencilSquare} from "react-bootstrap-icons";
 
 
 function ProfilComponent(){

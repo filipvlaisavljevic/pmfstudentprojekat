@@ -2,6 +2,7 @@ import React from "react";
 import {Col, Image, Row, Button, Container, Card} from "react-bootstrap";
 import {HandThumbsUpFill} from "react-bootstrap-icons";
 import {PersonPlusFill} from "react-bootstrap-icons";
+import {Link} from "react-router-dom";
 
 
 function SugestijaComponent(){
