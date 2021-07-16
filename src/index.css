@@ -82,6 +82,19 @@ p{
   color: #212529 !important;
 }
 
+.spiner{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.velicinaspinera{
+  width: 6rem !important;
+  height: 6rem !important;
+}
+
 .nick-recommended{
   font-size: 14px;
 }

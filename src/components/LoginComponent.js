@@ -3,26 +3,35 @@ import {Form,Button} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 
-function LoginComponent({postaviSesiju}){
+axios.defaults.withCredentials = true;
+
+function LoginComponent({postaviSesiju,unistiSesiju}){
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => logujKorisnika(data);
 
     function logujKorisnika(data){
-        axios.post("https://dwsproject.herokuapp.com/login",{
+        axios.post("https://dwsproject.herokuapp.com/logIn",{
             username: data.username,
             password: data.password
         }).then(
             (response) =>{
-                console.log(response)
-                if(response){
+                console.log(response.data.success)
+                if(response.data.success){
                     postaviSesiju();
                 }
             },
             (error) =>{
                 console.log(error)
             }
-        )
+        ).catch((error) => {
+            switch (error.response.status) {
+                case 403:
+                    unistiSesiju();
+                default:
+                    console.log(error)
+            }
+        });
     }
 
     return(

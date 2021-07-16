@@ -3,7 +3,7 @@ import {Button, Form} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 
-function RegisterComponent({postaviSesiju}){
+function RegisterComponent({postaviSesiju,unistiSesiju}){
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => registrujKorisnika(data);
@@ -23,7 +23,14 @@ function RegisterComponent({postaviSesiju}){
             (error) =>{
                 console.log(error)
             }
-        )
+        ).catch((error) => {
+            switch (error.response.status) {
+                case 403:
+                    unistiSesiju();
+                default:
+                    console.log(error)
+            }
+        });
     }
 
     return(

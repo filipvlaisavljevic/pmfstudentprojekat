@@ -1,7 +1,21 @@
 import React from "react"
 import {Container, Nav, Navbar,Form,FormControl,Button} from "react-bootstrap";
+import axios from "axios";
 
-function NavigationComponent({sesija}){
+function NavigationComponent({sesija,unistiSesiju}){
+
+    function odlogujKorisnika(){
+        axios.post("https://dwsproject.herokuapp.com/logoutUser").then(
+            (response) =>{
+                console.log(response.data.success)
+                unistiSesiju();
+            },
+            (error) =>{
+                console.log(error)
+            }
+        )
+    }
+
     return(
         <Navbar bg="light" expand="lg" className={"mt-3"}>
             <Container>
@@ -14,6 +28,7 @@ function NavigationComponent({sesija}){
                         { sesija ? <Nav.Link href="/objava">Objava</Nav.Link> : <div></div> }
                         { sesija ? <Nav.Link href="/pretraga">Pretraga</Nav.Link> : <div></div> }
                         { sesija ? <Nav.Link href="/chat">Chat</Nav.Link> : <div></div> }
+                        { sesija ? <Nav.Link onClick={() => odlogujKorisnika()}>Logout</Nav.Link> : <div></div>}
                     </Nav>
 
                     {/*Pretraživanje*/}
