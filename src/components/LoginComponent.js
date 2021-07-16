@@ -1,20 +1,43 @@
 import React from "react"
 import {Form,Button} from "react-bootstrap";
+import {useForm} from "react-hook-form";
+import axios from "axios";
 
-function LoginComponent(){
+function LoginComponent({postaviSesiju}){
+
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const onSubmit = data => logujKorisnika(data);
+
+    function logujKorisnika(data){
+        axios.post("https://dwsproject.herokuapp.com/login",{
+            username: data.username,
+            password: data.password
+        }).then(
+            (response) =>{
+                console.log(response)
+                if(response){
+                    postaviSesiju();
+                }
+            },
+            (error) =>{
+                console.log(error)
+            }
+        )
+    }
+
     return(
-        <Form className={"mt-4 mb-4"}>
+        <Form className={"mt-4 mb-4"} onSubmit={handleSubmit(onSubmit)}>
             <Form.Group className="mb-3">
-                <Form.Label>Email adresa</Form.Label>
-                <Form.Control type="email" placeholder="Uniste email adresu" />
+                <Form.Label>Korisničko ime</Form.Label>
+                <Form.Control type="text" placeholder="Unesite korisničko ime" {...register("username")}/>
                 <Form.Text className="text-muted">
-                    Vašu email adresu nećemo dijeliti sa drugima.
+                    Vaše privatne podatke nećemo dijeliti sa drugima.
                 </Form.Text>
             </Form.Group>
 
             <Form.Group className="mb-3">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Unesite password" />
+                <Form.Control type="password" placeholder="Unesite password" {...register("password")}/>
                 <Form.Text className="text-muted">
                     Vaš password nećemo dijeliti sa drugima.
                 </Form.Text>

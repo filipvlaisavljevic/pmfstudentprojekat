@@ -9,7 +9,8 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
+    Redirect
 } from "react-router-dom";
 import LoginComponent from "./components/LoginComponent";
 import RegisterComponent from "./components/RegisterComponent";
@@ -19,12 +20,13 @@ import FullObjavaComponent from "./components/FullObjavaComponent";
 import PretragaComponent from "./components/PretragaComponent";
 import ChatComponent from "./components/ChatComponent";
 import NovaPorukaComponent from "./components/NovaPorukaComponent";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 function App() {
 
     const [sesija,setSesija] = useState(false);
     const [korisnik,setKorisnik] = useState(false);
+    const [promjena,setPromjena] = useState(false);
 
     function postaviSesiju(){
         setSesija(true);
@@ -34,38 +36,42 @@ function App() {
         setSesija(false);
     }
 
+    function handler(){
+        setPromjena(!promjena);
+    }
+
   return (
       <Router>
         <Container>
-          <HeaderComponent/>
+          <HeaderComponent sesija={sesija}/>
             {/*  Prikaz početne stranice za sve logovane korisnike*/}
             <Switch>
                 <Route path="/login">
-                    <LoginComponent />
+                    <LoginComponent postaviSesiju={() => postaviSesiju()}/>
                 </Route>
                 <Route path="/register">
                     <RegisterComponent postaviSesiju={() => postaviSesiju()}/>
                 </Route>
                 <Route path="/profil/edit">
-                    <EditProfilaComponent/>
+                    {sesija ? <EditProfilaComponent/> : <Redirect to={'/login'}/>}
                 </Route>
                 <Route path="/profil">
-                    <ProfilComponent/>
+                    {sesija ? <ProfilComponent/> : <Redirect to={'/login'}/>}
                 </Route>
                 <Route path="/objava">
-                    <FullObjavaComponent/>
+                    {sesija ? <FullObjavaComponent/> : <Redirect to={'/login'}/>}
                 </Route>
                 <Route path="/pretraga">
-                    <PretragaComponent/>
+                    {sesija ? <PretragaComponent/> : <Redirect to={'/login'}/>}
                 </Route>
                 <Route path="/chat">
-                    <ChatComponent/>
+                    {sesija ? <ChatComponent/> : <Redirect to={'/login'}/>}
                 </Route>
                 <Route path="/novaporuka">
-                    <NovaPorukaComponent/>
+                    {sesija ?  <NovaPorukaComponent/> : <Redirect to={'/login'}/>}
                 </Route>
                 <Route path="/">
-                    <HomeComponent/>
+                    {sesija ? <HomeComponent/> : <Redirect to={'/login'}/>}
                 </Route>
             </Switch>
           <FooterComponent/>

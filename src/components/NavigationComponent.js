@@ -1,19 +1,19 @@
 import React from "react"
 import {Container, Nav, Navbar,Form,FormControl,Button} from "react-bootstrap";
 
-function NavigationComponent(){
+function NavigationComponent({sesija}){
     return(
         <Navbar bg="light" expand="lg" className={"mt-3"}>
             <Container>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="/login">Loguj se</Nav.Link>
-                        <Nav.Link href="/register">Registruj se</Nav.Link>
-                        <Nav.Link href="/profil">Profil</Nav.Link>
-                        <Nav.Link href="/objava">Objava</Nav.Link>
-                        <Nav.Link href="/pretraga">Pretraga</Nav.Link>
-                        <Nav.Link href="/chat">Chat</Nav.Link>
+                        {!sesija ? <Nav.Link href="/login">Loguj se</Nav.Link> : <div></div>}
+                        {!sesija ? <Nav.Link href="/register">Registruj se</Nav.Link> : <div></div>}
+                        { sesija ? <Nav.Link href="/profil">Profil</Nav.Link> : <div></div> }
+                        { sesija ? <Nav.Link href="/objava">Objava</Nav.Link> : <div></div> }
+                        { sesija ? <Nav.Link href="/pretraga">Pretraga</Nav.Link> : <div></div> }
+                        { sesija ? <Nav.Link href="/chat">Chat</Nav.Link> : <div></div> }
                     </Nav>
 
                     {/*Pretraživanje*/}
