@@ -15,6 +15,10 @@ import LoginComponent from "./components/LoginComponent";
 import RegisterComponent from "./components/RegisterComponent";
 import ProfilComponent from "./components/ProfilComponent";
 import EditProfilaComponent from "./components/EditProfilaComponent";
+import FullObjavaComponent from "./components/FullObjavaComponent";
+import PretragaComponent from "./components/PretragaComponent";
+import ChatComponent from "./components/ChatComponent";
+import NovaPorukaComponent from "./components/NovaPorukaComponent";
 
 function App() {
   return (
@@ -34,6 +38,18 @@ function App() {
                 </Route>
                 <Route path="/profil">
                     <ProfilComponent/>
+                </Route>
+                <Route path="/objava">
+                    <FullObjavaComponent/>
+                </Route>
+                <Route path="/pretraga">
+                    <PretragaComponent/>
+                </Route>
+                <Route path="/chat">
+                    <ChatComponent/>
+                </Route>
+                <Route path="/novaporuka">
+                    <NovaPorukaComponent/>
                 </Route>
                 <Route path="/">
                     <HomeComponent/>

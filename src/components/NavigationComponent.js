@@ -11,6 +11,9 @@ function NavigationComponent(){
                         <Nav.Link href="/login">Loguj se</Nav.Link>
                         <Nav.Link href="/register">Registruj se</Nav.Link>
                         <Nav.Link href="/profil">Profil</Nav.Link>
+                        <Nav.Link href="/objava">Objava</Nav.Link>
+                        <Nav.Link href="/pretraga">Pretraga</Nav.Link>
+                        <Nav.Link href="/chat">Chat</Nav.Link>
                     </Nav>
 
                     {/*Pretraživanje*/}

@@ -45,6 +45,10 @@ button{
   object-fit:cover;
 }
 
+.w-30{
+  width:30% !important;
+}
+
 p{
   font-size: 16px;
   text-align: justify;
@@ -74,6 +78,7 @@ p{
   height: 85px !important;
 }
 
+
 .nick-recommended{
   font-size: 14px;
 }
@@ -86,6 +91,10 @@ p{
 .followeri{
   text-decoration: none !important;
   color: #0EBD60 !important;
+}
+
+textarea {
+  resize: none !important;
 }
 
 .font-podaci{
@@ -120,7 +129,7 @@ p{
   margin-left: 0 !important;
   padding-left: 0 !important;
   float: left;
-  height: 650px;
+  height: 700px;
   overflow-y: scroll;
   margin-bottom: 25px;
 }

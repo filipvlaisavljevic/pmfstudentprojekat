@@ -1,71 +1,73 @@
 import React, {useEffect, useState} from "react"
-import {Container, Row, Col, Image,Button} from "react-bootstrap";
+import {Container, Row, Col, Image, Button, Card,ListGroup} from "react-bootstrap";
 import SugestijaComponent from "./SugestijaComponent";
 import ObjavaComponent from "./ObjavaComponent";
 import {Link} from "react-router-dom";
-import {CaretDownFill} from "react-bootstrap-icons";
+import {CaretDownFill, HandThumbsUpFill} from "react-bootstrap-icons";
 import {PencilSquare} from "react-bootstrap-icons";
+import FullObjavaComponent from "./FullObjavaComponent";
 
 
 function ProfilComponent(){
     return(
-        <Container>
-            <Row className={"mt-5 mb-4"}>
-                <Col md={8} className={"pt-2 pb-2 okvir-desni"}>
-                    <Row className="banner">
-                        <Col md="auto" style={{paddingLeft: 0}}>
-                            <Image src="https://i.imgur.com/FW4FhbQ.png"
-                                   className='profilna-slika d-none d-lg-block' fluid/>
-                        </Col>
-                        <Col md="auto" className={"mt-1"}>
+        <div>
+            <Container>
+                <Row className={"mb-4"}>
+
+                    <Col sm={8}>
+                        <div className="mt-5 banner mb-4">
                             <Row>
-                                <Col>
-                                    <span className='font-podaci'><b>Filip Vlaisavljević</b></span>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    <span className='font-nick'>@Exzone</span>
-                                </Col>
-                            </Row>
-                            <Row className="mb-1 mt-1">
                                 <Col md="auto">
-                                    <span>Prati: <b><a href={"#"} className={"followeri"}>320</a></b></span>
+                                    <Image src="https://i.imgur.com/FW4FhbQ.png"
+                                           className='profilna-slika d-none d-lg-block' fluid/>
                                 </Col>
-                                <Col md="auto">
-                                    <span>Pratitelji: <b><a href={"#"} className={"followeri"}>420</a></b></span>
+                                <Col md="auto" className={"mt-1"}>
+                                    <Row>
+                                        <Col>
+                                            <span className='font-podaci'><b>Filip Vlaisavljević</b></span>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <span className='font-nick'>@Exzone</span>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-1 mt-1">
+                                        <Col md="auto">
+                                            <span>Prati: <b><a href={"#"} className={"followeri"}>320</a></b></span>
+                                        </Col>
+                                        <Col md="auto">
+                                            <span>Pratitelji: <b><a href={"#"} className={"followeri"}>420</a></b></span>
+                                        </Col>
+                                    </Row>
                                 </Col>
                             </Row>
-                        </Col>
-                        {/*<Row>
-                           <Link to="/profil/edit" className="p-0"> <Button className="w-100">Uredi profil</Button></Link>
-                        </Row>*/}
-                    </Row>
-                    {/*<Row className="mt-4 objave-profil">
-                        <ObjavaComponent/>
-                    </Row>*/}
-                </Col>
-                <Col md={4} className="pt-2 pb-2">
-                    <Row className="banner">
-                        <div className={"pt-2 pb-2"}>
+                        </div>
+
+                        <FullObjavaComponent/>
+                        <FullObjavaComponent/>
+
+                    </Col>
+
+                    <Col sm={4}>
+                        <div className={"mt-5 banner pt-2 pb-2 mb-4"}>
                             <CaretDownFill/> Dodajte i nove studente
                         </div>
-                    </Row>
-                    <Row className={"mt-4"}>
-                        <div className="scrollbar" id="style-1">
-                            <div className="force-overflow">
-                                <SugestijaComponent/>
-                                <SugestijaComponent/>
-                                <SugestijaComponent/>
-                                <SugestijaComponent/>
-                                <SugestijaComponent/>
-                                <SugestijaComponent/>
+                            <div className="scrollbar w-100" id="style-1">
+                                <div className="force-overflow">
+                                    <SugestijaComponent/>
+                                    <SugestijaComponent/>
+                                    <SugestijaComponent/>
+                                    <SugestijaComponent/>
+                                    <SugestijaComponent/>
+                                    <SugestijaComponent/>
+                                </div>
                             </div>
-                        </div>
-                    </Row>
-                </Col>
-            </Row>
-        </Container>
+                    </Col>
+
+                </Row>
+            </Container>
+        </div>
     )
 }
 

@@ -19,6 +19,7 @@ function ObjavaComponent(){
                         <footer className="blockquote-footer mt-2">
                             Filip Vlaisavljević
                         </footer>
+
                         <Card.Text>
                             <HandThumbsUpFill className={"palac"}/> <small>15 oznaka sviđa mi se</small>
                         </Card.Text>
