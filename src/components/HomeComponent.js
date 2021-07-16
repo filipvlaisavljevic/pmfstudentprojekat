@@ -5,7 +5,7 @@ import ObjavaComponent from "./ObjavaComponent";
 import SugestijaComponent from "./SugestijaComponent";
 
 function HomeComponent(){
-    /*return(
+    return(
         <div>
             <Container>
                 <Row className={"mb-4"}>
@@ -54,42 +54,6 @@ function HomeComponent(){
                 </Row>
             </Container>
         </div>
-    );*/
-    return(
-        <Container>
-            <Row className={"mt-5 mb-4"}>
-                <Col sm={8} className={" pt-2 pb-2 okvir-desni"}>
-                    <Row className="banner">
-                        <div>
-                            <CaretDownFill/> Nedavne objave ostalih studenata
-                        </div>
-                    </Row>
-                    <Row className="mt-3">
-                        <ObjavaComponent/>
-                    </Row>
-                </Col>
-                <Col sm={4} className={"pt-2 pb-2 pl-0"}>
-                    <Row className="banner">
-                        <div>
-                            <CaretDownFill/> Dodajte i nove studente
-                        </div>
-                    </Row>
-                    <Row className="mt-3">
-                        <div className="scrollbar" id="style-1">
-                            <div className="force-overflow">
-                                <SugestijaComponent/>
-                                <SugestijaComponent/>
-                                <SugestijaComponent/>
-                                <SugestijaComponent/>
-                                <SugestijaComponent/>
-                                <SugestijaComponent/>
-                            </div>
-                        </div>
-                    </Row>
-                </Col>
-            </Row>
-        </Container>
-
     );
 }
 
