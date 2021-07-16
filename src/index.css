@@ -78,6 +78,9 @@ p{
   height: 85px !important;
 }
 
+.form-select{
+  color: #212529 !important;
+}
 
 .nick-recommended{
   font-size: 14px;

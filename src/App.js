@@ -19,8 +19,21 @@ import FullObjavaComponent from "./components/FullObjavaComponent";
 import PretragaComponent from "./components/PretragaComponent";
 import ChatComponent from "./components/ChatComponent";
 import NovaPorukaComponent from "./components/NovaPorukaComponent";
+import {useState} from "react";
 
 function App() {
+
+    const [sesija,setSesija] = useState(false);
+    const [korisnik,setKorisnik] = useState(false);
+
+    function postaviSesiju(){
+        setSesija(true);
+    }
+
+    function unistiSesiju(){
+        setSesija(false);
+    }
+
   return (
       <Router>
         <Container>
@@ -31,7 +44,7 @@ function App() {
                     <LoginComponent />
                 </Route>
                 <Route path="/register">
-                    <RegisterComponent />
+                    <RegisterComponent postaviSesiju={() => postaviSesiju()}/>
                 </Route>
                 <Route path="/profil/edit">
                     <EditProfilaComponent/>
