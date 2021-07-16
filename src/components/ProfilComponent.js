@@ -14,7 +14,7 @@ function ProfilComponent(){
             <Container>
                 <Row className={"mb-4"}>
 
-                    <Col sm={8}>
+                    <Col sm={8} style={{paddingLeft: 0}}>
                         <div className="mt-5 banner mb-4">
                             <Row>
                                 <Col md="auto">
@@ -49,7 +49,7 @@ function ProfilComponent(){
 
                     </Col>
 
-                    <Col sm={4}>
+                    <Col sm={4} style={{paddingRight: 0}}>
                         <div className={"mt-5 banner pt-2 pb-2 mb-4"}>
                             <CaretDownFill/> Dodajte i nove studente
                         </div>
