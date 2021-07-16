@@ -12,7 +12,9 @@ function RegisterComponent({postaviSesiju}){
         axios.post("https://dwsproject.herokuapp.com/register",{
             username: data.username,
             password: data.password,
-            email: data.email
+            email: data.email,
+            first_name: data.ime,
+            last_name: data.prezime
         }).then(
             (response) =>{
                 console.log(response)
