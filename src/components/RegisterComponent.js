@@ -60,7 +60,7 @@ function RegisterComponent({postaviSesiju}){
                 </Form.Text>
             </Form.Group>
             <Button variant="primary" type="submit" className={"w-100"}>
-                Loguj se
+                Registruj se
             </Button>
 
         </Form>
