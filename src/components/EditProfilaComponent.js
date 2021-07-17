@@ -25,7 +25,6 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
     const [poruka,setPoruka]=useState("");
     const [pass,setPass]=useState("");
 
-
     const uploadImage = () => {
         if(image) {
             const data = new FormData()
@@ -124,10 +123,6 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
                         response.data.reason
                     );
                     setShow1(true)
-                }else{
-                    document.getElementById('t').value=""
-                    document.getElementById('p').value=""
-                    document.getElementById('p1').value=""
                 }
 
 
@@ -160,7 +155,7 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
             <Form className={"mt-3"} onSubmit={handleSubmit1(onSubmit1)}>
                 <Alert variant="danger" show={show} onClose={zatvoriAlert.bind(this)} dismissible>
                     <p className="bez-margine">
-                        <XCircle/> {poruka}
+                        <XCircle style={{marginBottom: "3px"}}/> <span>{poruka}</span>
                     </p>
                 </Alert>
                 <Form.Group className="mb-3">
@@ -178,7 +173,7 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
 
                 <Form.Group className="mb-3">
                     <Form.Label>Novo korisničko ime:</Form.Label>
-                    <Form.Control type="text" aria-invalid={errors1.username ? 'true' : 'false'} placeholder={korisnik.username} value={podaci.user}
+                    <Form.Control type="text" aria-invalid={errors1.username ? 'true' : 'false'} placeholder={korisnik.username} value={korisnik.username}
 
                                   {...register1('username',{
                                       required: "Morate unijet korisničko ime"
@@ -192,7 +187,7 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
 
                 <Form.Group className="mb-3">
                     <Form.Label>Novo ime:</Form.Label>
-                    <Form.Control type="text" aria-invalid={errors1.ime ? 'true' : 'false'} placeholder={korisnik.first_name} value={podaci.ime}
+                    <Form.Control type="text" aria-invalid={errors1.ime ? 'true' : 'false'} placeholder={korisnik.first_name} value={korisnik.first_name}
                                   {...register1('ime',{
                                       required: "Morate unijeti ime"
                                   })}
@@ -205,7 +200,7 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
 
                 <Form.Group className="mb-3" >
                     <Form.Label>Novo prezime:</Form.Label>
-                    <Form.Control type="text" aria-invalid={errors1.prezime ? 'true' : 'false'} placeholder={korisnik.last_name} value={podaci.prezime}
+                    <Form.Control type="text" aria-invalid={errors1.prezime ? 'true' : 'false'} placeholder={korisnik.last_name} value={korisnik.last_name}
                                   {...register1('prezime',{
                                       required: "Morate unijeti prezime"
                                   })}
@@ -224,12 +219,12 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
             <Form className={"mt-3"} onSubmit={handleSubmit2(onSubmit2)}>
                 <Alert variant="danger" show={show1} onClose={zatvoriAlert1.bind(this)} dismissible>
                     <p className="bez-margine">
-                        <XCircle/> {poruka}
+                        <XCircle style={{marginBottom: "3px"}}/> <span>{poruka}</span>
                     </p>
                 </Alert>
                 <Form.Group className="mb-3">
                     <Form.Label>Trenutna lozinka:</Form.Label>
-                    <Form.Control type="password" id="t" aria-invalid={errors2.trenutna ? 'true' : 'false'} placeholder="Unesite trenutnu lozinku"
+                    <Form.Control type="password" aria-invalid={errors2.trenutna ? 'true' : 'false'} placeholder="Unesite trenutnu lozinku"
                                   {...register2('trenutna',{
                                       required: "Morate unijeti trenutnu lozinku"
                                   })}
@@ -238,7 +233,7 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Nova lozinka:</Form.Label>
-                    <Form.Control type="password" id="p" aria-invalid={errors2.password ? 'true' : 'false'} placeholder={"Unesite novu lozinku"}
+                    <Form.Control type="password"  aria-invalid={errors2.password ? 'true' : 'false'} placeholder={"Unesite novu lozinku"}
                                   {...register2("password",{
                                       required: "Morate unijeti lozinku",
                                       minLength: {
@@ -252,7 +247,7 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Potvrdite novu lozinku</Form.Label>
-                    <Form.Control type="password" id="p1" aria-invalid={errors2.password1 ? 'true' : 'false'} placeholder={"Potvrdite novu lozinku"}
+                    <Form.Control type="password" aria-invalid={errors2.password1 ? 'true' : 'false'} placeholder={"Potvrdite novu lozinku"}
                                   {...register2("password1",{
                                       validate: value =>
                                           value === pass || "Lozinke se ne poklapaju"
