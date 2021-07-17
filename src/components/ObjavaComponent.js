@@ -8,10 +8,10 @@ function ObjavaComponent({objava}){
             <Card className={"mb-3"}>
                 <Card.Img variant="top" src={objava.post.picture} className={"d-none d-lg-block"}/>
                 <Card.Body>
-                    <blockquote className="blockquote mb-0">
-                        <p>
-                            {' '}
-                            {objava.post.text}{' '}
+                    <div className="blockquote mb-0">
+                        <p style={{wordBreak: 'break-all!important'}}>
+
+                            {objava.post.text}
                         </p>
                         <footer className="blockquote-footer mt-2">
                             @{objava.post.username}
@@ -20,7 +20,7 @@ function ObjavaComponent({objava}){
                         <Card.Text>
                             <HandThumbsUpFill className={"palac"}/> <small>{objava.post.likes} oznaka sviđa mi se</small>
                         </Card.Text>
-                    </blockquote>
+                    </div>
                 </Card.Body>
             </Card>
         </div>
