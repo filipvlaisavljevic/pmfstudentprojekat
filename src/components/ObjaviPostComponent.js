@@ -16,6 +16,7 @@ function ObjaviPostComponent(){
         })
             .then((response)=>{
                 console.log(response)
+                document.getElementById('text').value=""
             })
             .catch((error)=>{
                 switch (error.response.status) {
@@ -62,7 +63,7 @@ function ObjaviPostComponent(){
     return(
         <Form className={"mb-3"} onSubmit={handleSubmit(onSubmit)}>
             <Form.Group className="mb-3">
-                <Form.Control as="textarea" maxLength="250" rows={3} {...register('text',{
+                <Form.Control as="textarea" id="text" maxLength="250" rows={3} {...register('text',{
                     required: "Morate unijeti text"
                 })}
                               onChange={promjena.bind(this)} placeholder={"Unesite sadržaj nove objave..."}
