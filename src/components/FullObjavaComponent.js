@@ -52,7 +52,7 @@ function FullObjavaComponent({objava}){
                       </Card>
                   ))}
 
-                  <ObjaviKomentarComponent objava={objava}/>
+                  <ObjaviKomentarComponent objava={objava.post}/>
               </div> :
               <div></div>}
       </div>
