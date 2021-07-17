@@ -193,3 +193,14 @@ textarea {
     padding-right: 0 !important;
   }
 }
+
+.preostalo-poruka{
+  color: #0EBD60 !important;
+}
+
+.preostalo-manje{
+  color: #FFD523;
+}
+.preostalo-nista{
+  color: red;
+}
