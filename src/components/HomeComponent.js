@@ -10,6 +10,7 @@ import MiniLoadingComponent from "./MiniLoadingComponent";
 function HomeComponent({unistiSesiju}){
 
     const[predlozeni,setPredlozeni] = useState([]);
+    const[feed,setFeed] = useState([]);
     const[loading,setLoading] = useState(true);
 
     function getPredlozeni(){
@@ -31,6 +32,28 @@ function HomeComponent({unistiSesiju}){
         });
     }
 
+    function getFeed(){
+        axios.get("https://dwsproject.herokuapp.com/getFeed").then(
+            (response) =>{
+                setFeed(response.data);
+            },
+            (error) =>{
+                console.log(error)
+            }
+        ).catch((error) => {
+            switch (error.response.status) {
+                case 403:
+                    unistiSesiju();
+                default:
+                    console.log(error)
+            }
+        });
+    }
+
+    useEffect(() =>{
+        getFeed()
+    },[])
+
     useEffect(() =>{
         getPredlozeni()
     },[])
@@ -44,7 +67,17 @@ function HomeComponent({unistiSesiju}){
                             <CaretDownFill/> Nedavne objave ostalih studenata
                         </div>
                         <ObjaviPostComponent/>
-                        <ObjavaComponent/>
+                        {loading ? <div className={"text-center"}>
+                                <MiniLoadingComponent/>
+                            </div> :
+                            <div className="scrollbar2 w-100 containerm" id="style-1">
+                                <div className="force-overflow">
+                                    {feed.map((objava)=>(
+                                        <ObjavaComponent objava={objava}/>
+                                    ))}
+                                </div>
+                            </div>
+                        }
                     </Col>
                     <Col sm={4} style={{paddingRight: 0}}>
                         <div className={"mt-5 banner pt-2 pb-2 mb-4"}>
