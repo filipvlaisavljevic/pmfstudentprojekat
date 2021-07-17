@@ -10,8 +10,13 @@ import MiniLoadingComponent from "./MiniLoadingComponent";
 function HomeComponent({unistiSesiju}){
 
     const[predlozeni,setPredlozeni] = useState([]);
+    const[promjena,setPromjena] = useState(false);
     const[feed,setFeed] = useState([]);
     const[loading,setLoading] = useState(true);
+
+    function handler(){
+        setPromjena(!promjena);
+    }
 
     function getPredlozeni(){
         axios.get("https://dwsproject.herokuapp.com/recommendations").then(
@@ -55,6 +60,10 @@ function HomeComponent({unistiSesiju}){
     },[])
 
     useEffect(() =>{
+        getFeed()
+    },[promjena])
+
+    useEffect(() =>{
         getPredlozeni()
     },[])
 
@@ -66,7 +75,7 @@ function HomeComponent({unistiSesiju}){
                         <div className={"mt-5 banner pt-2 pb-2 mb-4"}>
                             <CaretDownFill/> Nedavne objave ostalih studenata
                         </div>
-                        <ObjaviPostComponent/>
+                        <ObjaviPostComponent handler={() => handler()}/>
                         {loading ? <div className={"text-center"}>
                                 <MiniLoadingComponent/>
                             </div> :
