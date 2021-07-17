@@ -75,6 +75,10 @@ button{
   width:30% !important;
 }
 
+.w-70{
+  width: 70% !important;
+}
+
 p{
   font-size: 16px;
   text-align: justify;

@@ -93,6 +93,7 @@ function App() {
                     <Route path="/profil">
                         {sesija ? <ProfilComponent korisnik={korisnik}
                             unistiSesiju={() => unistiSesiju()}
+                            handler={() => handler()}
                         /> : <Redirect to={'/login'}/>}
                     </Route>
                     <Route path="/objava">

@@ -8,18 +8,39 @@ import {PencilSquare} from "react-bootstrap-icons";
 import FullObjavaComponent from "./FullObjavaComponent";
 import axios from "axios";
 import MiniLoadingComponent from "./MiniLoadingComponent";
+import ObjaviPostComponent from "./ObjaviPostComponent";
 
 axios.defaults.withCredentials = true;
 
-function ProfilComponent({korisnik,unistiSesiju}){
+function ProfilComponent({korisnik,unistiSesiju,handler}){
 
     const[predlozeni,setPredlozeni] = useState([]);
+    const[promjena,setPromjena] = useState(false);
+    const[objave,setObjave] = useState([]);
     const[loading,setLoading] = useState(true);
 
     function getPredlozeni(){
         axios.get("https://dwsproject.herokuapp.com/recommendations").then(
             (response) =>{
                 setPredlozeni(response.data);
+            },
+            (error) =>{
+                console.log(error)
+            }
+        ).catch((error) => {
+            switch (error.response.status) {
+                case 403:
+                    unistiSesiju();
+                default:
+                    console.log(error)
+            }
+        });
+    }
+
+    function getObjave(){
+        axios.get("https://dwsproject.herokuapp.com/getMyPosts").then(
+            (response) =>{
+                setObjave(response.data);
                 setLoading(false);
             },
             (error) =>{
@@ -39,6 +60,14 @@ function ProfilComponent({korisnik,unistiSesiju}){
         getPredlozeni()
     },[])
 
+    useEffect(() =>{
+        getObjave()
+    },[]);
+
+    useEffect(() =>{
+        getObjave()
+    },[promjena])
+
     const renderAktivan = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             Aktivan
@@ -55,7 +84,6 @@ function ProfilComponent({korisnik,unistiSesiju}){
         <div>
             <Container>
                 <Row className={"mb-4"}>
-
                     <Col sm={8} style={{paddingLeft: 0}}>
                         <div className="mt-5 banner mb-4">
                             <Row>
@@ -102,10 +130,14 @@ function ProfilComponent({korisnik,unistiSesiju}){
                                 </Col>
                             </Row>
                         </div>
-
-                        <FullObjavaComponent/>
-                        <FullObjavaComponent/>
-
+                        <ObjaviPostComponent/>
+                        <div className={"scrollbar2 w-100 containerm"} id={"style-2"}>
+                            <div className="force-overflow">
+                            {objave.map((objava) =>(
+                                <FullObjavaComponent objava={objava} handler={() => handler()}/>
+                            ))}
+                            </div>
+                        </div>
                     </Col>
 
                     <Col sm={4} style={{paddingRight: 0}}>
