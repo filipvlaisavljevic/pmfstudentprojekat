@@ -8,6 +8,7 @@ import axios from "axios";
 
 function EditProfilaComponent({korisnik,unistiSesiju}){
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const {register: register1, handleSubmit: handleSubmit1, formState: {errors: errors1}}=useForm()
     const onSubmit = data => console.log(data);
 
     const [image, setImage ] = useState("");
@@ -63,6 +64,29 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
         });
     }
 
+    const onSubmit1 = async data=>{
+
+       axios.post('https://dwsproject.herokuapp.com/editProfile',{
+                first_name: data.ime,
+                last_name: data.prezime,
+                username: data.username,
+                email: data.email
+        })
+            .then((response)=>{
+                console.log(response)
+
+            })
+            .catch((error)=>{
+                switch (error.response.status) {
+                    case 403:
+                        unistiSesiju();
+                    default:
+                        console.log(error)
+                }
+            })
+    }
+
+
     return(
         <div className={"mt-5"}>
             <div className={"banner pt-2 pb-2 mb-4"}>
@@ -76,25 +100,42 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
                 <Button type='button' id="dugme_za_slanje" className={"w-100"} onClick={uploadImage}>Promijeni sliku</Button>
             </Form>
 
-            <Form className={"mt-3"}>
+            <Form className={"mt-3"} onSubmit={handleSubmit1(onSubmit1)}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Nova email adresa:</Form.Label>
-                    <Form.Control type="email" placeholder={korisnik.email} value={korisnik.email}/>
+                    <Form.Control type="email" placeholder={korisnik.email} value={korisnik.email}
+                                  {...register1('email',{
+                                      required: "Morate unijeti mail"
+                                  })}
+                    />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Novo korisničko ime:</Form.Label>
-                    <Form.Control type="email" placeholder={korisnik.username} value={korisnik.username}/>
+                    <Form.Control type="text" placeholder={korisnik.username} value={korisnik.username}
+
+                                  {...register1('username',{
+                                      required: "Morate unijet korisničko ime"
+                                  })}
+                    />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Novo ime:</Form.Label>
-                    <Form.Control type="email" placeholder={korisnik.first_name} value={korisnik.first_name}/>
+                    <Form.Control type="text" placeholder={korisnik.first_name} value={korisnik.first_name}
+                                  {...register1('ime',{
+                                      required: "Morate unijeti ime"
+                                  })}
+                    />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Novo prezime:</Form.Label>
-                    <Form.Control type="email" placeholder={korisnik.last_name} value={korisnik.last_name}/>
+                    <Form.Control type="text" placeholder={korisnik.last_name} value={korisnik.last_name}
+                                  {...register1('prezime',{
+                                      required: "Morate unijeti prezime"
+                                  })}
+                    />
                 </Form.Group>
 
                 <Button variant="primary" type="submit" className={"w-100"}>
