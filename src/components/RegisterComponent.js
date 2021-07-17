@@ -55,7 +55,7 @@ function RegisterComponent({postaviSesiju,unistiSesiju}){
         <Form className={"mt-4 mb-4"} onSubmit={handleSubmit(onSubmit)} noValidate>
             <Alert variant="danger" show={show} onClose={zatvoriAlert.bind(this)} dismissible>
                 <p className="bez-margine">
-                    <XCircle/> {poruka}
+                    <XCircle style={{marginBottom: "3px"}}/> <span>{poruka}</span>
                 </p>
             </Alert>
             <Form.Group className="mb-3">

@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import {Container, Row, Col, Image, Form, Button, Alert} from "react-bootstrap";
 import {CaretDownFill, XCircle} from "react-bootstrap-icons";
 import {useForm} from "react-hook-form";
@@ -11,11 +11,12 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
     const {register: register1, handleSubmit: handleSubmit1, formState: {errors: errors1}}=useForm();
     const {register: register2, handleSubmit: handleSubmit2, formState: {errors: errors2}}=useForm()
     const onSubmit = data => console.log(data);
+    console.log(korisnik)
     const [podaci,setPodaci]=useState({
         ime: korisnik.first_name,
-        prezime: korisnik.last_name,
-        email: korisnik.email,
-        user: korisnik.username
+        prezime: "",
+        email: "",
+        user: ""
     })
     const [image, setImage ] = useState("");
     const [ url, setUrl ] = useState("");
@@ -24,7 +25,6 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
     const [show1,setShow1]=useState(false)
     const [poruka,setPoruka]=useState("");
     const [pass,setPass]=useState("");
-
 
     const uploadImage = () => {
         if(image) {
@@ -75,6 +75,7 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
         });
     }
 
+
     const onSubmit1 = async data=>{
         console.log(data)
         axios.post('https://dwsproject.herokuapp.com/editProfile',{
@@ -115,8 +116,8 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
     const onSubmit2=async data=>{
         console.log(data)
         axios.post('https://dwsproject.herokuapp.com/changePassword',{
-            oldPassword: data.trenutna,
-            newPassword: data.password
+            old_password: data.trenutna,
+            new_password: data.password
         })
             .then((response)=>{
                 if(!response.data.success){
@@ -124,10 +125,6 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
                         response.data.reason
                     );
                     setShow1(true)
-                }else{
-                    document.getElementById('t').value=""
-                    document.getElementById('p').value=""
-                    document.getElementById('p1').value=""
                 }
 
 
@@ -142,6 +139,22 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
                 }
             })
     }
+
+    useEffect(()=>{
+       axios.get('https://dwsproject.herokuapp.com/getMyProfileInformation')
+           .then((response)=>{
+                console.log(response)
+                setPodaci({
+                    ime: response.data.first_name,
+                    prezime: response.data.last_name,
+                    user: response.data.username,
+                    email: response.data.email
+                })
+           })
+           .catch((error)=>{
+
+           })
+    },[])
 
 
     return(
@@ -160,7 +173,7 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
             <Form className={"mt-3"} onSubmit={handleSubmit1(onSubmit1)}>
                 <Alert variant="danger" show={show} onClose={zatvoriAlert.bind(this)} dismissible>
                     <p className="bez-margine">
-                        <XCircle/> {poruka}
+                        <XCircle style={{marginBottom: "3px"}}/> <span>{poruka}</span>
                     </p>
                 </Alert>
                 <Form.Group className="mb-3">
@@ -224,12 +237,12 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
             <Form className={"mt-3"} onSubmit={handleSubmit2(onSubmit2)}>
                 <Alert variant="danger" show={show1} onClose={zatvoriAlert1.bind(this)} dismissible>
                     <p className="bez-margine">
-                        <XCircle/> {poruka}
+                        <XCircle style={{marginBottom: "3px"}}/> <span>{poruka}</span>
                     </p>
                 </Alert>
                 <Form.Group className="mb-3">
                     <Form.Label>Trenutna lozinka:</Form.Label>
-                    <Form.Control type="password" id="t" aria-invalid={errors2.trenutna ? 'true' : 'false'} placeholder="Unesite trenutnu lozinku"
+                    <Form.Control type="password" aria-invalid={errors2.trenutna ? 'true' : 'false'} placeholder="Unesite trenutnu lozinku"
                                   {...register2('trenutna',{
                                       required: "Morate unijeti trenutnu lozinku"
                                   })}
@@ -238,7 +251,7 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Nova lozinka:</Form.Label>
-                    <Form.Control type="password" id="p" aria-invalid={errors2.password ? 'true' : 'false'} placeholder={"Unesite novu lozinku"}
+                    <Form.Control type="password"  aria-invalid={errors2.password ? 'true' : 'false'} placeholder={"Unesite novu lozinku"}
                                   {...register2("password",{
                                       required: "Morate unijeti lozinku",
                                       minLength: {
@@ -252,7 +265,7 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Potvrdite novu lozinku</Form.Label>
-                    <Form.Control type="password" id="p1" aria-invalid={errors2.password1 ? 'true' : 'false'} placeholder={"Potvrdite novu lozinku"}
+                    <Form.Control type="password" aria-invalid={errors2.password1 ? 'true' : 'false'} placeholder={"Potvrdite novu lozinku"}
                                   {...register2("password1",{
                                       validate: value =>
                                           value === pass || "Lozinke se ne poklapaju"
