@@ -19,6 +19,10 @@ function ProfilComponent({korisnik,unistiSesiju,handler}){
     const[objave,setObjave] = useState([]);
     const[loading,setLoading] = useState(true);
 
+    function handler(){
+        setPromjena(!promjena);
+    }
+
     function getPredlozeni(){
         axios.get("https://dwsproject.herokuapp.com/recommendations").then(
             (response) =>{
@@ -54,10 +58,6 @@ function ProfilComponent({korisnik,unistiSesiju,handler}){
                     console.log(error)
             }
         });
-    }
-
-    function handlernovi(){
-        setPromjena(!promjena);
     }
 
     useEffect(() =>{
@@ -138,11 +138,11 @@ function ProfilComponent({korisnik,unistiSesiju,handler}){
                                 </Col>
                             </Row>
                         </div>
-                        <ObjaviPostComponent/>
+                        <ObjaviPostComponent handler={() => handler()}/>
                         <div className={"scrollbar2 w-100 containerm"} id={"style-2"}>
                             <div className="force-overflow">
                             {objave.map((objava) =>(
-                                <FullObjavaComponent objava={objava} handlernovi={() => handlernovi()}/>
+                                <FullObjavaComponent objava={objava} handler={() => handler()}/>
                             ))}
                             </div>
                         </div>

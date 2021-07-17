@@ -12,7 +12,7 @@ import {
 import ObjaviPostComponent from "./ObjaviPostComponent";
 import ObjaviKomentarComponent from "./ObjaviKomentarComponent";
 
-function FullObjavaComponent({objava,handlernovi}){
+function FullObjavaComponent({objava,handler}){
 
     const[prikazi,setPrikazi] = useState(false);
 
@@ -53,7 +53,7 @@ function FullObjavaComponent({objava,handlernovi}){
                       </Card>
                   ))}
 
-                  <ObjaviKomentarComponent objava={objava.post} handlernovi={() => handlernovi()}/>
+                  <ObjaviKomentarComponent objava={objava.post} handler={() => handler()}/>
               </div> :
               <div></div>}
       </div>

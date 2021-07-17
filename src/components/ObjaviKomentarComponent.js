@@ -3,7 +3,7 @@ import {Button, Form} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 
-function ObjaviKomentarComponent({objava,handlernovi}){
+function ObjaviKomentarComponent({objava,handler}){
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [duzina,setDuzina]=useState(250)
     const [prosli,setProsli]=useState(0)
@@ -17,7 +17,7 @@ function ObjaviKomentarComponent({objava,handlernovi}){
         })
             .then((response)=>{
                 console.log(response)
-                handlernovi();
+                handler();
             })
             .catch((error)=>{
                 console.log(error)

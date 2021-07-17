@@ -20,7 +20,7 @@ function ObjaviPostComponent({handler}){
                 handler()
             })
             .catch((error)=>{
-                switch (error.response.status) {
+                switch (error.response) {
                     case 403:
                         console.log("nez")
                     default:
