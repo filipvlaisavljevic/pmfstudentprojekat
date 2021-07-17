@@ -15,7 +15,7 @@ function SugestijaComponent({predlozen}){
                 <Card.Body>
                     <Card.Text className={"follow"}>
                         <Row>
-                            <span className={"ml-1"}>{predlozen.username}</span>
+                            <span className={"ml-1"}>{predlozen.first_name} {predlozen.last_name}</span>
                         </Row>
                         <Row className={"nick-recommended"}>
                             <span className={"ml-1"}>@{predlozen.username}</span>
