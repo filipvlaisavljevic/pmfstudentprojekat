@@ -75,7 +75,7 @@ function HomeComponent({unistiSesiju}){
         <div>
             <Container>
                 <Row className={"mb-4"}>
-                    <Col sm={8} style={{paddingLeft: 0}}>
+                    <Col md={8} style={{paddingLeft: 0}}>
                         <div className={"mt-5 banner pt-2 pb-2 mb-4"}>
                             <CaretDownFill/> Nedavne objave ostalih studenata
                         </div>
@@ -92,7 +92,7 @@ function HomeComponent({unistiSesiju}){
                             </div>
                         }
                     </Col>
-                    <Col sm={4} style={{paddingRight: 0}}>
+                    <Col md={4} style={{paddingRight: 0}}>
                         <div className={"mt-5 banner pt-2 pb-2 mb-4"}>
                             <CaretDownFill/> Dodajte i nove studente
                         </div>
@@ -102,7 +102,8 @@ function HomeComponent({unistiSesiju}){
                             <div className="scrollbar w-100" id="style-1">
                                 <div className="force-overflow">
                                     {predlozeni.map((predlozen)=>(
-                                        <SugestijaComponent predlozen={predlozen} handler={() => handler()}/>
+                                        <SugestijaComponent predlozen={predlozen} handler={() => handler()}
+                                        unistiSesiju={() => unistiSesiju()}/>
                                     ))}
                                 </div>
                             </div>

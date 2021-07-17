@@ -3,9 +3,37 @@ import {Col, Image, Row, Button, Container, Card} from "react-bootstrap";
 import {Grid, HandThumbsUpFill, PersonPlus} from "react-bootstrap-icons";
 import {PersonPlusFill} from "react-bootstrap-icons";
 import {Link} from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 
-function SugestijaComponent({predlozen,handler}){
+function SugestijaComponent({predlozen,handler,unistiSesiju}){
+
+    function zapratiKorisnika(data){
+        axios.post("https://dwsproject.herokuapp.com/follow",{
+            id: data
+        }).then(
+            (response) =>{
+                Swal.fire({
+                    title: 'Super!',
+                    text: 'Zapratili ste korisnika ' + predlozen.first_name + " " + predlozen.last_name,
+                    icon: 'success',
+                    confirmButtonText: 'Nastavi dalje'
+                })
+                handler();
+            },
+            (error) =>{
+                console.log(error)
+            }
+        ).catch((error) => {
+            switch (error.response.status) {
+                case 403:
+                    unistiSesiju();
+                default:
+                    console.log(error)
+            }
+        });
+    }
 
     return(
         <div>
@@ -16,8 +44,8 @@ function SugestijaComponent({predlozen,handler}){
                     <Card.Text className={"follow"}>
                         <Row>
                             <div className={"ml-1"}>
-                                <span className={"text1"}><PersonPlusFill/></span>
-                                <span className={"text2"}>   {predlozen.first_name} {predlozen.last_name}</span>
+                                <span className={"text1"} onClick={() => zapratiKorisnika(predlozen.me_id)}><PersonPlusFill/>  </span>
+                                <span className={"text2"}>  {predlozen.first_name} {predlozen.last_name}</span>
                             </div>
                         </Row>
                         <Row className={"nick-recommended"}>

@@ -103,7 +103,6 @@ p{
   margin-top:10px;
   text-align: center;
   font-size: 18px;
-  border: thin red solid;
   padding: 0px;
   color: #0EBD60 !important;
   line-height: 14px;
@@ -112,10 +111,10 @@ p{
 .text2{
   float:left;
   font-size: 18px !important;
-  border: thin red solid;
   margin-top: 10px;
   line-height: 19px;
   height: 18px;
+  margin-left: 3px !important;
 }
 
 .recommended-slika{
