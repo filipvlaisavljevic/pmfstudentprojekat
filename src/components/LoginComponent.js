@@ -1,5 +1,5 @@
-import React from "react"
-import {Form,Button} from "react-bootstrap";
+import React, {useState} from "react"
+import {Form, Button, Alert} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 
@@ -8,7 +8,14 @@ axios.defaults.withCredentials = true;
 function LoginComponent({postaviSesiju,unistiSesiju}){
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const [show, setShow] = useState(false);
+    const [poruka,setPoruka]=useState("");
     const onSubmit = data => logujKorisnika(data);
+
+    function zatvoriAlert(){
+        console.log("uso")
+        setShow(false)
+    }
 
     function logujKorisnika(data){
         axios.post("https://dwsproject.herokuapp.com/loginUser",{
@@ -16,6 +23,13 @@ function LoginComponent({postaviSesiju,unistiSesiju}){
             password: data.password
         }).then(
             (response) =>{
+                console.log(response)
+                if(!response.data.success){
+                    setPoruka(
+                        response.data.reason
+                    );
+                    setShow(true)
+                }
                 console.log(response.data.success)
                 if(response.data.success){
                     postaviSesiju();
@@ -36,9 +50,14 @@ function LoginComponent({postaviSesiju,unistiSesiju}){
 
     return(
         <Form className={"mt-4 mb-4"} onSubmit={handleSubmit(onSubmit)}>
+            <Alert variant="danger" show={show} onClose={zatvoriAlert.bind(this)} dismissible>
+                <p className="bez-margine">
+                    {poruka}
+                </p>
+            </Alert>
             <Form.Group className="mb-3">
                 <Form.Label>Korisničko ime</Form.Label>
-                <Form.Control type="text" placeholder="Unesite korisničko ime" {...register("username")}/>
+                <Form.Control type="text" placeholder="Unesite korisničko ime" {...register("username")} required/>
                 <Form.Text className="text-muted">
                     Vaše privatne podatke nećemo dijeliti sa drugima.
                 </Form.Text>
@@ -46,7 +65,7 @@ function LoginComponent({postaviSesiju,unistiSesiju}){
 
             <Form.Group className="mb-3">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Unesite password" {...register("password")}/>
+                <Form.Control type="password" placeholder="Unesite password" {...register("password")} required/>
                 <Form.Text className="text-muted">
                     Vaš password nećemo dijeliti sa drugima.
                 </Form.Text>
