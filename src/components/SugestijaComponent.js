@@ -26,6 +26,7 @@ function SugestijaComponent({predlozen,handler,unistiSesiju}){
                 console.log(error)
             }
         ).catch((error) => {
+            console.log(error)
             switch (error.response.status) {
                 case 403:
                     unistiSesiju();
