@@ -1,13 +1,27 @@
 import React, {useState} from "react"
 import {Button, Form} from "react-bootstrap";
+import {useForm} from "react-hook-form";
+import axios from "axios";
 
 function ObjaviKomentarComponent({objava}){
-
-    console.info(objava.id);
-
-
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [duzina,setDuzina]=useState(250)
     const [prosli,setProsli]=useState(0)
+
+    const onSubmit=data=>{
+        console.log(data)
+        console.log(objava.id)
+        axios.post('https://dwsproject.herokuapp.com/addComment',{
+            text: data.text,
+            post_id: objava.id
+        })
+            .then((response)=>{
+                console.log(response)
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
+    }
 
     function promjena(event){
         let input=event.target.value;
@@ -42,9 +56,13 @@ function ObjaviKomentarComponent({objava}){
     }
 
     return(
-        <Form className={"mb-3 mt-3"}>
+        <Form className={"mb-3 mt-3"} onSubmit={handleSubmit(onSubmit)}>
             <Form.Group className="mb-3">
-                <Form.Control as="textarea" maxLength="250" rows={3} onChange={promjena.bind(this)} placeholder={"Unesite sadržaj komentara..."}/>
+                <Form.Control as="textarea" maxLength="250" placeholder={"Unesite sadržaj komentara..."} rows={3}
+                              {...register('text',{
+                                  required: "Morate unijeti text"
+                              })}
+                              onChange={promjena.bind(this)}/>
                 <Form.Text className="text-muted">
                     Preostaje Vam još <b className="preostalo-poruka" id="preostalo">{duzina}</b> karaktera.
                 </Form.Text>
