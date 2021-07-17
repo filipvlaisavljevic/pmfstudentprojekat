@@ -56,6 +56,10 @@ function ProfilComponent({korisnik,unistiSesiju,handler}){
         });
     }
 
+    function handler(){
+        setPromjena(!promjena);
+    }
+
     useEffect(() =>{
         getPredlozeni()
     },[])
