@@ -34,7 +34,8 @@ function FullObjavaComponent({objava}){
                           {objava.post.first_name} {objava.post.last_name}
                       </footer>
                       <Card.Text>
-                          <ChatSquareText onClick={() => postaviPrikaz()}/>  <HandThumbsUpFill className={"palac"}/> <small>{objava.post.likes} oznaka sviđa mi se</small>
+                          <ChatSquareText onClick={() => postaviPrikaz()}
+                          className={"pokazivac"}/>  <HandThumbsUpFill className={"palac pokazivac"}/> <small>{objava.post.likes} oznaka sviđa mi se</small>
                       </Card.Text>
                   </blockquote>
               </Card.Body>
