@@ -1,6 +1,6 @@
 import React, {useState} from "react"
-import {Container, Row, Col, Image, Form, Button} from "react-bootstrap";
-import {CaretDownFill} from "react-bootstrap-icons";
+import {Container, Row, Col, Image, Form, Button, Alert} from "react-bootstrap";
+import {CaretDownFill, XCircle} from "react-bootstrap-icons";
 import {useForm} from "react-hook-form";
 import Swal from 'sweetalert2'
 import axios from "axios";
@@ -8,12 +8,23 @@ import axios from "axios";
 
 function EditProfilaComponent({korisnik,unistiSesiju}){
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const {register: register1, handleSubmit: handleSubmit1, formState: {errors: errors1}}=useForm()
+    const {register: register1, handleSubmit: handleSubmit1, formState: {errors: errors1}}=useForm();
+    const {register: register2, handleSubmit: handleSubmit2, formState: {errors: errors2}}=useForm()
     const onSubmit = data => console.log(data);
-
+    const [podaci,setPodaci]=useState({
+        ime: korisnik.first_name,
+        prezime: korisnik.last_name,
+        email: korisnik.email,
+        user: korisnik.username
+    })
     const [image, setImage ] = useState("");
     const [ url, setUrl ] = useState("");
     const [upload,setUpload] = useState(false);
+    const [show, setShow] = useState(false);
+    const [show1,setShow1]=useState(false)
+    const [poruka,setPoruka]=useState("");
+    const [pass,setPass]=useState("");
+
 
     const uploadImage = () => {
         if(image) {
@@ -65,15 +76,61 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
     }
 
     const onSubmit1 = async data=>{
-
-       axios.post('https://dwsproject.herokuapp.com/editProfile',{
+        console.log(data)
+        axios.post('https://dwsproject.herokuapp.com/editProfile',{
                 first_name: data.ime,
                 last_name: data.prezime,
                 username: data.username,
                 email: data.email
         })
             .then((response)=>{
-                console.log(response)
+                if(!response.data.success){
+                    setPoruka(
+                        response.data.reason
+                    );
+                    setShow(true)
+                }
+
+
+            })
+            .catch((error)=>{
+                switch (error.response.status) {
+                    case 403:
+                        unistiSesiju();
+                    default:
+                        console.log(error)
+                }
+            })
+    }
+
+    function zatvoriAlert(){
+        console.log("uso")
+        setShow(false)
+    }
+
+    function zatvoriAlert1(){
+        setShow1(false)
+    }
+
+    const onSubmit2=async data=>{
+        console.log(data)
+        axios.post('https://dwsproject.herokuapp.com/changePassword',{
+            oldPassword: data.trenutna,
+            newPassword: data.password
+        })
+            .then((response)=>{
+                if(!response.data.success){
+                    setPoruka(
+                        response.data.reason
+                    );
+                    setShow1(true)
+                }else{
+                    document.getElementById('t').value=""
+                    document.getElementById('p').value=""
+                    document.getElementById('p1').value=""
+                }
+
+
 
             })
             .catch((error)=>{
@@ -101,41 +158,62 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
             </Form>
 
             <Form className={"mt-3"} onSubmit={handleSubmit1(onSubmit1)}>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Alert variant="danger" show={show} onClose={zatvoriAlert.bind(this)} dismissible>
+                    <p className="bez-margine">
+                        <XCircle/> {poruka}
+                    </p>
+                </Alert>
+                <Form.Group className="mb-3">
                     <Form.Label>Nova email adresa:</Form.Label>
-                    <Form.Control type="email" placeholder={korisnik.email} value={korisnik.email}
+                    <Form.Control type="email" aria-invalid={errors1.email ? 'true' : 'false'} placeholder={korisnik.email} value={podaci.email}
                                   {...register1('email',{
                                       required: "Morate unijeti mail"
                                   })}
+                                 onChange={(e)=>{
+                                     setPodaci({email: e.target.value})
+                                 }}
                     />
+                    {errors1.email && <p className='greska'><XCircle/> {errors1.email.message}</p> }
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Group className="mb-3">
                     <Form.Label>Novo korisničko ime:</Form.Label>
-                    <Form.Control type="text" placeholder={korisnik.username} value={korisnik.username}
+                    <Form.Control type="text" aria-invalid={errors1.username ? 'true' : 'false'} placeholder={korisnik.username} value={podaci.user}
 
                                   {...register1('username',{
                                       required: "Morate unijet korisničko ime"
                                   })}
+                                  onChange={(e)=>{
+                                      setPodaci({user: e.target.value})
+                                  }}
                     />
+                    {errors1.username && <p className='greska'><XCircle/> {errors1.username.message}</p> }
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Group className="mb-3">
                     <Form.Label>Novo ime:</Form.Label>
-                    <Form.Control type="text" placeholder={korisnik.first_name} value={korisnik.first_name}
+                    <Form.Control type="text" aria-invalid={errors1.ime ? 'true' : 'false'} placeholder={korisnik.first_name} value={podaci.ime}
                                   {...register1('ime',{
                                       required: "Morate unijeti ime"
                                   })}
+                                  onChange={(e)=>{
+                                      setPodaci({ime: e.target.value})
+                                  }}
                     />
+                    {errors1.ime && <p className='greska'><XCircle/> {errors1.ime.message}</p> }
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Group className="mb-3" >
                     <Form.Label>Novo prezime:</Form.Label>
-                    <Form.Control type="text" placeholder={korisnik.last_name} value={korisnik.last_name}
+                    <Form.Control type="text" aria-invalid={errors1.prezime ? 'true' : 'false'} placeholder={korisnik.last_name} value={podaci.prezime}
                                   {...register1('prezime',{
                                       required: "Morate unijeti prezime"
                                   })}
+                                  onChange={(e)=>{
+                                      setPodaci({prezime: e.target.value})
+                                  }}
                     />
+                    {errors1.prezime && <p className='greska'><XCircle/> {errors1.prezime.message}</p> }
                 </Form.Group>
 
                 <Button variant="primary" type="submit" className={"w-100"}>
@@ -143,17 +221,49 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
                 </Button>
             </Form>
 
-            <Form className={"mt-3"}>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Nova lozinka:</Form.Label>
-                    <Form.Control type="password" placeholder={"Unesite novu lozinku"}/>
-                    <Form.Label></Form.Label>
-                    <Form.Control type="password" placeholder={"Unesite novu lozinku"}/>
+            <Form className={"mt-3"} onSubmit={handleSubmit2(onSubmit2)}>
+                <Alert variant="danger" show={show1} onClose={zatvoriAlert1.bind(this)} dismissible>
+                    <p className="bez-margine">
+                        <XCircle/> {poruka}
+                    </p>
+                </Alert>
+                <Form.Group className="mb-3">
+                    <Form.Label>Trenutna lozinka:</Form.Label>
+                    <Form.Control type="password" id="t" aria-invalid={errors2.trenutna ? 'true' : 'false'} placeholder="Unesite trenutnu lozinku"
+                                  {...register2('trenutna',{
+                                      required: "Morate unijeti trenutnu lozinku"
+                                  })}
+                    />
+                    {errors2.trenutna && <p className="greska"><XCircle/> {errors2.trenutna.message}</p> }
                 </Form.Group>
-
-                <Button variant="primary" type="submit" className={"w-100"}>
-                    Potvrdi
-                </Button>
+                <Form.Group className="mb-3">
+                    <Form.Label>Nova lozinka:</Form.Label>
+                    <Form.Control type="password" id="p" aria-invalid={errors2.password ? 'true' : 'false'} placeholder={"Unesite novu lozinku"}
+                                  {...register2("password",{
+                                      required: "Morate unijeti lozinku",
+                                      minLength: {
+                                          value: 8,
+                                          message: "Lozinka mora minimalno 8 karaktera imati"
+                                      }
+                                  })}
+                                onChange={(e)=>{setPass(e.target.value)}}
+                    />
+                    {errors2.password && <p className="greska"><XCircle/> {errors2.password.message}</p> }
+                </Form.Group>
+                <Form.Group className="mb-3">
+                    <Form.Label>Potvrdite novu lozinku</Form.Label>
+                    <Form.Control type="password" id="p1" aria-invalid={errors2.password1 ? 'true' : 'false'} placeholder={"Potvrdite novu lozinku"}
+                                  {...register2("password1",{
+                                      validate: value =>
+                                          value === pass || "Lozinke se ne poklapaju"
+                                  })}/>
+                    {errors2.password1 && <p className="greska"><XCircle/> {errors2.password1.message}</p> }
+                </Form.Group>
+                <Form.Group>
+                    <Button variant="primary" type="submit" className={"w-100"}>
+                        Potvrdi
+                    </Button>
+                </Form.Group>
             </Form>
 
 
