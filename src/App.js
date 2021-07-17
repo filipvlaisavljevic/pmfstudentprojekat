@@ -86,7 +86,9 @@ function App() {
                         /> :<Redirect to={'/'}/>}
                     </Route>
                     <Route path="/profil/edit">
-                        {sesija ? <EditProfilaComponent/> : <Redirect to={'/login'}/>}
+                        {sesija ? <EditProfilaComponent korisnik={korisnik}
+                            unistiSesiju={() => unistiSesiju()}
+                        /> : <Redirect to={'/login'}/>}
                     </Route>
                     <Route path="/profil">
                         {sesija ? <ProfilComponent korisnik={korisnik}

@@ -8,9 +8,9 @@ function PretragaComponent(){
             <div className={"banner pt-2 pb-2 mb-4"}>
                 <CaretDownFill/> Pronađeni rezultati
             </div>
+            {/*<SugestijaComponent/>
             <SugestijaComponent/>
-            <SugestijaComponent/>
-            <SugestijaComponent/>
+            <SugestijaComponent/>*/}
         </div>
     );
 }
