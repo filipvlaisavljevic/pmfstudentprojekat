@@ -65,6 +65,10 @@ function ProfilComponent({korisnik,unistiSesiju,handler}){
     },[])
 
     useEffect(() =>{
+        getPredlozeni()
+    },[promjena])
+
+    useEffect(() =>{
         getObjave()
     },[]);
 
