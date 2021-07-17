@@ -238,3 +238,14 @@ textarea {
 .preostalo-nista{
   color: red;
 }
+input[aria-invalid=true]{
+  border-width: 1px 1px 1px 10px;
+  border-style: solid;
+  border-color: #D83A56;
+  border-image: initial;
+}
+
+.greska{
+  color: #D83A56;
+  margin: 0!important;
+}

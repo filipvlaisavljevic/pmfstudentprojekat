@@ -2,6 +2,7 @@ import React, {useState} from "react"
 import {Form, Button, Alert} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import axios from "axios";
+import {XCircle} from "react-bootstrap-icons";
 
 axios.defaults.withCredentials = true;
 
@@ -52,7 +53,7 @@ function LoginComponent({postaviSesiju,unistiSesiju}){
         <Form className={"mt-4 mb-4"} onSubmit={handleSubmit(onSubmit)}>
             <Alert variant="danger" show={show} onClose={zatvoriAlert.bind(this)} dismissible>
                 <p className="bez-margine">
-                    {poruka}
+                    <XCircle/> {poruka}
                 </p>
             </Alert>
             <Form.Group className="mb-3">
