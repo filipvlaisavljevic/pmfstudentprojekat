@@ -56,7 +56,7 @@ function ProfilComponent({korisnik,unistiSesiju,handler}){
         });
     }
 
-    function handler(){
+    function handlernovi(){
         setPromjena(!promjena);
     }
 
@@ -138,7 +138,7 @@ function ProfilComponent({korisnik,unistiSesiju,handler}){
                         <div className={"scrollbar2 w-100 containerm"} id={"style-2"}>
                             <div className="force-overflow">
                             {objave.map((objava) =>(
-                                <FullObjavaComponent objava={objava} handler={() => handler()}/>
+                                <FullObjavaComponent objava={objava} handler={() => handlernovi()}/>
                             ))}
                             </div>
                         </div>
@@ -154,7 +154,7 @@ function ProfilComponent({korisnik,unistiSesiju,handler}){
                             <div className="scrollbar w-100" id="style-1">
                                 <div className="force-overflow">
                                     {predlozeni.map((predlozen)=>(
-                                        <SugestijaComponent predlozen={predlozen}/>
+                                        <SugestijaComponent predlozen={predlozen} handler={() => handler()} unistiSesiju={() => unistiSesiju()}/>
                                     ))}
                                 </div>
                             </div>
