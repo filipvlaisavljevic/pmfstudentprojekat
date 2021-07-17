@@ -13,7 +13,7 @@ function ObjavaComponent({objava}){
                             {objava.post.text}
                         </p>
                         <footer className="blockquote-footer mt-2">
-                            @{objava.post.username}
+                            {objava.post.first_name} {objava.post.last_name}
                         </footer>
 
                         <Card.Text>

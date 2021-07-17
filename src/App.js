@@ -33,10 +33,12 @@ function App() {
 
     function postaviSesiju(){
         setSesija(true);
+        setLoading(false);
     }
 
     function unistiSesiju(){
         setSesija(false);
+        setLoading(false);
     }
 
     function handler(){
@@ -48,13 +50,11 @@ function App() {
             (response) =>{
                 postaviSesiju();
                 setKorisnik(response.data);
-                setLoading(false);
             }
         ).catch((error) => {
             switch (error.response.status) {
                 case 403:
                     unistiSesiju();
-                    setLoading(false);
                 default:
                     console.log(error)
             }

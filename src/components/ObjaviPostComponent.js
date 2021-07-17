@@ -4,7 +4,7 @@ import {useForm} from "react-hook-form";
 import axios from "axios";
 import {XCircle} from "react-bootstrap-icons";
 
-function ObjaviPostComponent(){
+function ObjaviPostComponent({handler}){
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [duzina,setDuzina]=useState(250)
     const [prosli,setProsli]=useState(0)
@@ -17,6 +17,7 @@ function ObjaviPostComponent(){
             .then((response)=>{
                 console.log(response)
                 document.getElementById('text').value=""
+                handler()
             })
             .catch((error)=>{
                 switch (error.response.status) {
