@@ -65,6 +65,10 @@ function HomeComponent({unistiSesiju}){
 
     useEffect(() =>{
         getPredlozeni()
+    },[promjena])
+
+    useEffect(() =>{
+        getPredlozeni()
     },[])
 
     return(
@@ -98,7 +102,7 @@ function HomeComponent({unistiSesiju}){
                             <div className="scrollbar w-100" id="style-1">
                                 <div className="force-overflow">
                                     {predlozeni.map((predlozen)=>(
-                                        <SugestijaComponent predlozen={predlozen}/>
+                                        <SugestijaComponent predlozen={predlozen} handler={() => handler()}/>
                                     ))}
                                 </div>
                             </div>
