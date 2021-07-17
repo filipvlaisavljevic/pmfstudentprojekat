@@ -2,6 +2,7 @@ import React, {useState} from "react"
 import {Container, Row, Col, Image, Form, Button} from "react-bootstrap";
 import {CaretDownFill} from "react-bootstrap-icons";
 import {useForm} from "react-hook-form";
+import Swal from 'sweetalert2'
 import axios from "axios";
 
 
@@ -11,12 +12,14 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
 
     const [image, setImage ] = useState("");
     const [ url, setUrl ] = useState("");
+    const [upload,setUpload] = useState(false);
 
     const uploadImage = () => {
         const data = new FormData()
         data.append("file", image)
         data.append("upload_preset", "tutorial")
         data.append("cloud_name","breellz")
+        Swal.showLoading();
         fetch("  https://api.cloudinary.com/v1_1/breellz/image/upload",{
             method:"post",
             body: data
@@ -35,7 +38,15 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
             image: data
         }).then(
             (response) =>{
-                alert("USPJESNO")
+                Swal.hideLoading();
+                return(
+                    Swal.fire({
+                        title: 'Super!',
+                        text: 'Vaša slika je uploadovana.',
+                        icon: 'success',
+                        confirmButtonText: 'Nastavi dalje'
+                    })
+                )
             },
             (error) =>{
                 console.log(error)
