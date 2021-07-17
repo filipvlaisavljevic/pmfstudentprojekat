@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import {Container, Row, Col, Image, Form, Button, Alert} from "react-bootstrap";
 import {CaretDownFill, XCircle} from "react-bootstrap-icons";
 import {useForm} from "react-hook-form";
@@ -11,11 +11,12 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
     const {register: register1, handleSubmit: handleSubmit1, formState: {errors: errors1}}=useForm();
     const {register: register2, handleSubmit: handleSubmit2, formState: {errors: errors2}}=useForm()
     const onSubmit = data => console.log(data);
+    console.log(korisnik)
     const [podaci,setPodaci]=useState({
         ime: korisnik.first_name,
-        prezime: korisnik.last_name,
-        email: korisnik.email,
-        user: korisnik.username
+        prezime: "",
+        email: "",
+        user: ""
     })
     const [image, setImage ] = useState("");
     const [ url, setUrl ] = useState("");
@@ -74,6 +75,7 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
         });
     }
 
+
     const onSubmit1 = async data=>{
         console.log(data)
         axios.post('https://dwsproject.herokuapp.com/editProfile',{
@@ -114,8 +116,8 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
     const onSubmit2=async data=>{
         console.log(data)
         axios.post('https://dwsproject.herokuapp.com/changePassword',{
-            oldPassword: data.trenutna,
-            newPassword: data.password
+            old_password: data.trenutna,
+            new_password: data.password
         })
             .then((response)=>{
                 if(!response.data.success){
@@ -137,6 +139,22 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
                 }
             })
     }
+
+    useEffect(()=>{
+       axios.get('https://dwsproject.herokuapp.com/getMyProfileInformation')
+           .then((response)=>{
+                console.log(response)
+                setPodaci({
+                    ime: response.data.first_name,
+                    prezime: response.data.last_name,
+                    user: response.data.username,
+                    email: response.data.email
+                })
+           })
+           .catch((error)=>{
+
+           })
+    },[])
 
 
     return(
@@ -173,7 +191,7 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
 
                 <Form.Group className="mb-3">
                     <Form.Label>Novo korisničko ime:</Form.Label>
-                    <Form.Control type="text" aria-invalid={errors1.username ? 'true' : 'false'} placeholder={korisnik.username} value={korisnik.username}
+                    <Form.Control type="text" aria-invalid={errors1.username ? 'true' : 'false'} placeholder={korisnik.username} value={podaci.user}
 
                                   {...register1('username',{
                                       required: "Morate unijet korisničko ime"
@@ -187,7 +205,7 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
 
                 <Form.Group className="mb-3">
                     <Form.Label>Novo ime:</Form.Label>
-                    <Form.Control type="text" aria-invalid={errors1.ime ? 'true' : 'false'} placeholder={korisnik.first_name} value={korisnik.first_name}
+                    <Form.Control type="text" aria-invalid={errors1.ime ? 'true' : 'false'} placeholder={korisnik.first_name} value={podaci.ime}
                                   {...register1('ime',{
                                       required: "Morate unijeti ime"
                                   })}
@@ -200,7 +218,7 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
 
                 <Form.Group className="mb-3" >
                     <Form.Label>Novo prezime:</Form.Label>
-                    <Form.Control type="text" aria-invalid={errors1.prezime ? 'true' : 'false'} placeholder={korisnik.last_name} value={korisnik.last_name}
+                    <Form.Control type="text" aria-invalid={errors1.prezime ? 'true' : 'false'} placeholder={korisnik.last_name} value={podaci.prezime}
                                   {...register1('prezime',{
                                       required: "Morate unijeti prezime"
                                   })}
