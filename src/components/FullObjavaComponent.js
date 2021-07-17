@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 import {Card,ListGroup} from "react-bootstrap";
 import {
     ChatDots,
@@ -13,6 +13,13 @@ import ObjaviPostComponent from "./ObjaviPostComponent";
 import ObjaviKomentarComponent from "./ObjaviKomentarComponent";
 
 function FullObjavaComponent({objava}){
+
+    const[prikazi,setPrikazi] = useState(false);
+
+    function postaviPrikaz(){
+        setPrikazi(!prikazi);
+    }
+
     return(
       <div>
           <Card className={"mb-3"}>
@@ -27,22 +34,26 @@ function FullObjavaComponent({objava}){
                           {objava.post.first_name} {objava.post.last_name}
                       </footer>
                       <Card.Text>
-                          <ChatSquareText/>  <HandThumbsUpFill className={"palac"}/> <small>{objava.post.likes} oznaka sviđa mi se</small>
+                          <ChatSquareText onClick={() => postaviPrikaz()}/>  <HandThumbsUpFill className={"palac"}/> <small>{objava.post.likes} oznaka sviđa mi se</small>
                       </Card.Text>
                   </blockquote>
               </Card.Body>
           </Card>
 
-          {objava.comments.map((komentar) => (
-              <Card className={"mt-1"}>
-                  <Card.Header className={"w-30"}>{komentar.first_name} {komentar.last_name}</Card.Header>
-                  <ListGroup variant="flush" className={"w-70"}>
-                      <ListGroup.Item><ChatQuoteFill/> {komentar.text}</ListGroup.Item>
-                  </ListGroup>
-              </Card>
-          ))}
+          {prikazi ?
+              <div id={objava.id}>
+                  {objava.comments.map((komentar) => (
+                      <Card className={"mt-1"}>
+                          <Card.Header className={"w-30"}>{komentar.first_name} {komentar.last_name}</Card.Header>
+                          <ListGroup variant="flush" className={"w-70"}>
+                              <ListGroup.Item><ChatQuoteFill/> {komentar.text}</ListGroup.Item>
+                          </ListGroup>
+                      </Card>
+                  ))}
 
-          <ObjaviKomentarComponent/>
+                  <ObjaviKomentarComponent/>
+              </div> :
+              <div></div>}
       </div>
     );
 }
