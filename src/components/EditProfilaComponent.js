@@ -15,22 +15,24 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
     const [upload,setUpload] = useState(false);
 
     const uploadImage = () => {
-        const data = new FormData()
-        data.append("file", image)
-        data.append("upload_preset", "tutorial")
-        data.append("cloud_name","breellz")
-        Swal.showLoading();
-        fetch("  https://api.cloudinary.com/v1_1/breellz/image/upload",{
-            method:"post",
-            body: data
-        })
-            .then(resp => resp.json())
-            .then(data => {
-                setUrl(data.url)
-                console.info(data.url)
-                postaviSliku(data.url);
+        if(image) {
+            const data = new FormData()
+            data.append("file", image)
+            data.append("upload_preset", "tutorial")
+            data.append("cloud_name", "breellz")
+            Swal.showLoading();
+            fetch("  https://api.cloudinary.com/v1_1/breellz/image/upload", {
+                method: "post",
+                body: data
             })
-            .catch(err => console.log(err))
+                .then(resp => resp.json())
+                .then(data => {
+                    setUrl(data.url)
+                    console.info(data.url)
+                    postaviSliku(data.url);
+                })
+                .catch(err => console.log(err))
+        }
     }
 
     function postaviSliku(data){
@@ -68,10 +70,10 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
             </div>
 
             <Form className={"mt-3"}>
-                <Form.Group className={"mb-3"}>
-                    <Form.Control type="file" onChange= {(e)=> setImage(e.target.files[0])}></Form.Control>
+                <Form.Group className={"mb-3"} controlId="formFile">
+                    <Form.Control type="file" className="form-control" onChange={(e)=>{setImage(e.target.files[0])}}/>
                 </Form.Group>
-                <Button type='button' className={"w-100"} onClick={uploadImage}>Promijeni sliku</Button>
+                <Button type='button' id="dugme_za_slanje" className={"w-100"} onClick={uploadImage}>Promijeni sliku</Button>
             </Form>
 
             <Form className={"mt-3"}>
