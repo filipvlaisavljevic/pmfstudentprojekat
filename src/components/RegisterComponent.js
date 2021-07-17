@@ -1,5 +1,5 @@
-import React from "react"
-import {Button, Form} from "react-bootstrap";
+import React, {useState} from "react"
+import {Alert, Button, Form} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 import Feedback from "react-bootstrap/Feedback";
@@ -10,7 +10,14 @@ axios.defaults.withCredentials = true;
 function RegisterComponent({postaviSesiju,unistiSesiju}){
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const [show, setShow] = useState(false);
+    const [poruka,setPoruka]=useState("");
     const onSubmit = data => registrujKorisnika(data);
+
+    function zatvoriAlert(){
+        console.log("uso")
+        setShow(false)
+    }
 
     function registrujKorisnika(data){
         axios.post("https://dwsproject.herokuapp.com/register",{
@@ -21,7 +28,14 @@ function RegisterComponent({postaviSesiju,unistiSesiju}){
             last_name: data.prezime
         }).then(
             (response) =>{
-                window.location.href = "/login";
+                if(!response.data.success){
+                    setPoruka(
+                        response.data.reason
+                    );
+                    setShow(true)
+                }
+
+        //        window.location.href = "/login";
             },
             (error) =>{
                 console.log(error)
@@ -30,7 +44,7 @@ function RegisterComponent({postaviSesiju,unistiSesiju}){
             switch (error.response.status) {
                 case 403:
                     unistiSesiju();
-                    window.location.href = "/login";
+         //           window.location.href = "/login";
                 default:
                     console.log(error)
             }
@@ -39,7 +53,11 @@ function RegisterComponent({postaviSesiju,unistiSesiju}){
 
     return(
         <Form className={"mt-4 mb-4"} onSubmit={handleSubmit(onSubmit)} noValidate>
-
+            <Alert variant="danger" show={show} onClose={zatvoriAlert.bind(this)} dismissible>
+                <p className="bez-margine">
+                    <XCircle/> {poruka}
+                </p>
+            </Alert>
             <Form.Group className="mb-3">
                 <Form.Label>Ime</Form.Label>
                 <Form.Control type="text" placeholder="Unesite ime"
