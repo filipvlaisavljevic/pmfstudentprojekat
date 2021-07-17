@@ -11,7 +11,6 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
     const {register: register1, handleSubmit: handleSubmit1, formState: {errors: errors1}}=useForm();
     const {register: register2, handleSubmit: handleSubmit2, formState: {errors: errors2}}=useForm()
     const onSubmit = data => console.log(data);
-    console.log(korisnik)
     const [podaci,setPodaci]=useState({
         ime: korisnik.first_name,
         prezime: "",
@@ -76,7 +75,7 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
     }
 
 
-    const onSubmit1 = async data=>{
+    const onSubmit1 = data=>{
         console.log(data)
         axios.post('https://dwsproject.herokuapp.com/editProfile',{
                 first_name: data.ime,
@@ -113,22 +112,20 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
         setShow1(false)
     }
 
-    const onSubmit2=async data=>{
-        console.log(data)
+    const onSubmit2=data=>{
         axios.post('https://dwsproject.herokuapp.com/changePassword',{
             old_password: data.trenutna,
             new_password: data.password
         })
             .then((response)=>{
-                if(!response.data.success){
+                if(!response.data.success) {
                     setPoruka(
                         response.data.reason
                     );
                     setShow1(true)
+                }else{
+                    unistiSesiju();
                 }
-
-
-
             })
             .catch((error)=>{
                 switch (error.response.status) {
@@ -143,7 +140,6 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
     useEffect(()=>{
        axios.get('https://dwsproject.herokuapp.com/getMyProfileInformation')
            .then((response)=>{
-                console.log(response)
                 setPodaci({
                     ime: response.data.first_name,
                     prezime: response.data.last_name,
@@ -251,7 +247,7 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Nova lozinka:</Form.Label>
-                    <Form.Control type="password"  aria-invalid={errors2.password ? 'true' : 'false'} placeholder={"Unesite novu lozinku"}
+                    <Form.Control type="password" id="pass1"  aria-invalid={errors2.password ? 'true' : 'false'} placeholder={"Unesite novu lozinku"}
                                   {...register2("password",{
                                       required: "Morate unijeti lozinku",
                                       minLength: {
@@ -268,7 +264,7 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
                     <Form.Control type="password" aria-invalid={errors2.password1 ? 'true' : 'false'} placeholder={"Potvrdite novu lozinku"}
                                   {...register2("password1",{
                                       validate: value =>
-                                          value === pass || "Lozinke se ne poklapaju"
+                                          value === document.getElementById('pass1').value || "Lozinke se ne poklapaju"
                                   })}/>
                     {errors2.password1 && <p className="greska"><XCircle/> {errors2.password1.message}</p> }
                 </Form.Group>
