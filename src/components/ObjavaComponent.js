@@ -9,8 +9,7 @@ function ObjavaComponent({objava}){
                 <Card.Img variant="top" src={objava.post.picture} className={"d-none d-lg-block"}/>
                 <Card.Body>
                     <div className="blockquote mb-0">
-                        <p style={{wordBreak: 'break-all!important'}}>
-
+                        <p>
                             {objava.post.text}
                         </p>
                         <footer className="blockquote-footer mt-2">

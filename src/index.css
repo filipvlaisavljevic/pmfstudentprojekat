@@ -267,3 +267,7 @@ input[aria-invalid=true]{
   color: #D83A56;
   margin: 0!important;
 }
+
+p{
+  word-break: break-all!important;
+}
