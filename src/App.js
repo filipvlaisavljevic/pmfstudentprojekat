@@ -28,7 +28,7 @@ function App() {
 
     const [sesija,setSesija] = useState(true);
     const [loading,setLoading] = useState(true);
-    const [korisnik,setKorisnik] = useState(false);
+    const [korisnik,setKorisnik] = useState([]);
     const [promjena,setPromjena] = useState(false);
 
     function postaviSesiju(){
@@ -44,10 +44,10 @@ function App() {
     }
 
     function provjeriSesiju(){
-        axios.get("https://dwsproject.herokuapp.com/getProfileInformation").then(
+        axios.get("https://dwsproject.herokuapp.com/getMyProfileInformation").then(
             (response) =>{
-                console.log(response)
                 postaviSesiju();
+                setKorisnik(response.data);
                 setLoading(false);
             }
         ).catch((error) => {
@@ -89,7 +89,9 @@ function App() {
                         {sesija ? <EditProfilaComponent/> : <Redirect to={'/login'}/>}
                     </Route>
                     <Route path="/profil">
-                        {sesija ? <ProfilComponent/> : <Redirect to={'/login'}/>}
+                        {sesija ? <ProfilComponent korisnik={korisnik}
+                            unistiSesiju={() => unistiSesiju()}
+                        /> : <Redirect to={'/login'}/>}
                     </Route>
                     <Route path="/objava">
                         {sesija ? <FullObjavaComponent/> : <Redirect to={'/login'}/>}
@@ -104,7 +106,7 @@ function App() {
                         {sesija ?  <NovaPorukaComponent/> : <Redirect to={'/login'}/>}
                     </Route>
                     <Route path="/">
-                        {sesija ? <HomeComponent/> : <Redirect to={'/login'}/>}
+                        {sesija ? <HomeComponent unistiSesiju={() => unistiSesiju()}/> : <Redirect to={'/login'}/>}
                     </Route>
                 </Switch>
               <FooterComponent/>

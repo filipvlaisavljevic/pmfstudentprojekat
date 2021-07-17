@@ -1,11 +1,40 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 import {Row,Col,Container} from "react-bootstrap";
 import { CaretDownFill } from 'react-bootstrap-icons';
 import ObjavaComponent from "./ObjavaComponent";
 import SugestijaComponent from "./SugestijaComponent";
 import ObjaviPostComponent from "./ObjaviPostComponent";
+import axios from "axios";
+import MiniLoadingComponent from "./MiniLoadingComponent";
 
-function HomeComponent(){
+function HomeComponent({unistiSesiju}){
+
+    const[predlozeni,setPredlozeni] = useState([]);
+    const[loading,setLoading] = useState(true);
+
+    function getPredlozeni(){
+        axios.get("https://dwsproject.herokuapp.com/recommendations").then(
+            (response) =>{
+                setPredlozeni(response.data);
+                setLoading(false);
+            },
+            (error) =>{
+                console.log(error)
+            }
+        ).catch((error) => {
+            switch (error.response.status) {
+                case 403:
+                    unistiSesiju();
+                default:
+                    console.log(error)
+            }
+        });
+    }
+
+    useEffect(() =>{
+        getPredlozeni()
+    },[])
+
     return(
         <div>
             <Container>
@@ -21,16 +50,17 @@ function HomeComponent(){
                         <div className={"mt-5 banner pt-2 pb-2 mb-4"}>
                             <CaretDownFill/> Dodajte i nove studente
                         </div>
-                        <div className="scrollbar w-100" id="style-1">
-                            <div className="force-overflow">
-                                <SugestijaComponent/>
-                                <SugestijaComponent/>
-                                <SugestijaComponent/>
-                                <SugestijaComponent/>
-                                <SugestijaComponent/>
-                                <SugestijaComponent/>
+                        {loading ? <div className={"text-center"}>
+                                <MiniLoadingComponent/>
+                            </div> :
+                            <div className="scrollbar w-100" id="style-1">
+                                <div className="force-overflow">
+                                    {predlozeni.map((predlozen)=>(
+                                        <SugestijaComponent predlozen={predlozen}/>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+                        }
                     </Col>
                 </Row>
             </Container>

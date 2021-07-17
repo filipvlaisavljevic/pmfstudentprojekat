@@ -3,6 +3,8 @@ import {Button, Form} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 
+axios.defaults.withCredentials = true;
+
 function RegisterComponent({postaviSesiju,unistiSesiju}){
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -17,8 +19,7 @@ function RegisterComponent({postaviSesiju,unistiSesiju}){
             last_name: data.prezime
         }).then(
             (response) =>{
-                console.log(response)
-                postaviSesiju();
+                window.location.href = "/login";
             },
             (error) =>{
                 console.log(error)
@@ -27,6 +28,7 @@ function RegisterComponent({postaviSesiju,unistiSesiju}){
             switch (error.response.status) {
                 case 403:
                     unistiSesiju();
+                    window.location.href = "/login";
                 default:
                     console.log(error)
             }

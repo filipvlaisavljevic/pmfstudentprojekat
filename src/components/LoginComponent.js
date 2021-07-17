@@ -11,7 +11,7 @@ function LoginComponent({postaviSesiju,unistiSesiju}){
     const onSubmit = data => logujKorisnika(data);
 
     function logujKorisnika(data){
-        axios.post("https://dwsproject.herokuapp.com/logIn",{
+        axios.post("https://dwsproject.herokuapp.com/loginUser",{
             username: data.username,
             password: data.password
         }).then(

@@ -82,6 +82,14 @@ p{
   color: #212529 !important;
 }
 
+.aktivan{
+  color: #0EBD60 !important
+}
+
+.neaktivan{
+  color: #D83A56 !important;
+}
+
 .spiner{
   position: absolute;
   left: 50%;

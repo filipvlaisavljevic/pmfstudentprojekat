@@ -1,14 +1,56 @@
 import React, {useEffect, useState} from "react"
-import {Container, Row, Col, Image, Button, Card,ListGroup} from "react-bootstrap";
+import {Container, Row, Col, Image, Button, Card,ListGroup,OverlayTrigger,Tooltip} from "react-bootstrap";
 import SugestijaComponent from "./SugestijaComponent";
 import ObjavaComponent from "./ObjavaComponent";
 import {Link} from "react-router-dom";
-import {CaretDownFill, HandThumbsUpFill} from "react-bootstrap-icons";
+import {CaretDownFill, CircleFill, HandThumbsUpFill} from "react-bootstrap-icons";
 import {PencilSquare} from "react-bootstrap-icons";
 import FullObjavaComponent from "./FullObjavaComponent";
+import axios from "axios";
+import MiniLoadingComponent from "./MiniLoadingComponent";
 
+axios.defaults.withCredentials = true;
 
-function ProfilComponent(){
+function ProfilComponent({korisnik,unistiSesiju}){
+
+    const[predlozeni,setPredlozeni] = useState([]);
+    const[loading,setLoading] = useState(true);
+
+    function getPredlozeni(){
+        axios.get("https://dwsproject.herokuapp.com/recommendations").then(
+            (response) =>{
+                setPredlozeni(response.data);
+                setLoading(false);
+            },
+            (error) =>{
+                console.log(error)
+            }
+        ).catch((error) => {
+            switch (error.response.status) {
+                case 403:
+                    unistiSesiju();
+                default:
+                    console.log(error)
+            }
+        });
+    }
+
+    useEffect(() =>{
+        getPredlozeni()
+    },[])
+
+    const renderAktivan = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+            Aktivan
+        </Tooltip>
+    );
+
+    const renderNeaktivan = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+            Neaktivan
+        </Tooltip>
+    );
+
     return(
         <div>
             <Container>
@@ -18,26 +60,43 @@ function ProfilComponent(){
                         <div className="mt-5 banner mb-4">
                             <Row>
                                 <Col md="auto">
-                                    <Image src="https://i.imgur.com/FW4FhbQ.png"
+                                    <Image src={korisnik.picture}
                                            className='profilna-slika d-none d-lg-block' fluid/>
                                 </Col>
                                 <Col md="auto" className={"mt-1"}>
                                     <Row>
                                         <Col>
-                                            <span className='font-podaci'><b>Filip Vlaisavljević</b></span>
+                                            <span className='font-podaci'>
+                                                {korisnik.active ?
+                                                    <OverlayTrigger
+                                                        placement="top"
+                                                        delay={{ show: 250, hide: 400 }}
+                                                        overlay={renderAktivan()}
+                                                    >
+                                                        <CircleFill className={"aktivan"} size={12}/>
+                                                    </OverlayTrigger>
+                                                    :
+                                                    <OverlayTrigger
+                                                        placement="top"
+                                                        delay={{ show: 250, hide: 400 }}
+                                                        overlay={renderNeaktivan()}
+                                                    >
+                                                        <CircleFill className={"neaktivan"} size={12}/>
+                                                    </OverlayTrigger>}
+                                                <b> {korisnik.first_name} {korisnik.last_name}</b></span>
                                         </Col>
                                     </Row>
                                     <Row>
                                         <Col>
-                                            <span className='font-nick'>@Exzone</span>
+                                            <span className='font-nick'>@{korisnik.username}</span>
                                         </Col>
                                     </Row>
                                     <Row className="mb-1 mt-1">
                                         <Col md="auto">
-                                            <span>Prati: <b><a href={"#"} className={"followeri"}>320</a></b></span>
+                                            <span>Prati: <b><a href={"#"} className={"followeri"}>{korisnik.number_of_followers}</a></b></span>
                                         </Col>
                                         <Col md="auto">
-                                            <span>Pratitelji: <b><a href={"#"} className={"followeri"}>420</a></b></span>
+                                            <span>Pratitelji: <b><a href={"#"} className={"followeri"}>{korisnik.number_of_people_i_follow}</a></b></span>
                                         </Col>
                                     </Row>
                                 </Col>
@@ -53,16 +112,17 @@ function ProfilComponent(){
                         <div className={"mt-5 banner pt-2 pb-2 mb-4"}>
                             <CaretDownFill/> Dodajte i nove studente
                         </div>
+                        {loading ? <div className={"text-center"}>
+                                        <MiniLoadingComponent/>
+                                    </div> :
                             <div className="scrollbar w-100" id="style-1">
                                 <div className="force-overflow">
-                                    <SugestijaComponent/>
-                                    <SugestijaComponent/>
-                                    <SugestijaComponent/>
-                                    <SugestijaComponent/>
-                                    <SugestijaComponent/>
-                                    <SugestijaComponent/>
+                                    {predlozeni.map((predlozen)=>(
+                                        <SugestijaComponent predlozen={predlozen}/>
+                                    ))}
                                 </div>
                             </div>
+                        }
                     </Col>
 
                 </Row>
