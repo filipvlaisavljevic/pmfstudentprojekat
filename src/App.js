@@ -56,7 +56,8 @@ function App() {
                 case 403:
                     unistiSesiju();
                 default:
-                    console.log(error)
+                    unistiSesiju()
+                    setLoading(false)
             }
         });
     }
