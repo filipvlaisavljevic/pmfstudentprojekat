@@ -121,10 +121,10 @@ function ProfilComponent({korisnik,unistiSesiju,handler}){
                                     </Row>
                                     <Row className="mb-1 mt-1">
                                         <Col md="auto">
-                                            <span>Prati: <b><a href={"#"} className={"followeri"}>{korisnik.number_of_followers}</a></b></span>
+                                            <span>Pratitelji: <b><a href={"#"} className={"followeri"}>{korisnik.number_of_followers}</a></b></span>
                                         </Col>
                                         <Col md="auto">
-                                            <span>Pratitelji: <b><a href={"#"} className={"followeri"}>{korisnik.number_of_people_i_follow}</a></b></span>
+                                            <span>Pratim: <b><a href={"#"} className={"followeri"}>{korisnik.number_of_people_i_follow}</a></b></span>
                                         </Col>
                                     </Row>
                                 </Col>
