@@ -33,7 +33,6 @@ function NavigationComponent({sesija,unistiSesiju}){
                         { sesija ? <Nav.Link href="/chat">Chat</Nav.Link> : <div></div> }
                         { sesija ? <Nav.Link onClick={() => odlogujKorisnika()}>Logout</Nav.Link> : <div></div>}
                     </Nav>
-
                     {/*Pretraživanje*/}
                     <Form className="d-flex">
                         <FormControl
