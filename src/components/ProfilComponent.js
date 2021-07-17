@@ -142,7 +142,7 @@ function ProfilComponent({korisnik,unistiSesiju,handler}){
                         <div className={"scrollbar2 w-100 containerm"} id={"style-2"}>
                             <div className="force-overflow">
                             {objave.map((objava) =>(
-                                <FullObjavaComponent objava={objava} handler={() => handlernovi()}/>
+                                <FullObjavaComponent objava={objava} handlernovi={() => handlernovi()}/>
                             ))}
                             </div>
                         </div>
