@@ -19,6 +19,7 @@ function FullObjavaComponent({objava}){
     function postaviPrikaz(){
         setPrikazi(!prikazi);
     }
+    console.log()
 
     return(
       <div>
