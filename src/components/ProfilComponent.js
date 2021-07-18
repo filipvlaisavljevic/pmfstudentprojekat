@@ -167,7 +167,8 @@ function ProfilComponent({korisnik,unistiSesiju}){
                         <div className={"scrollbar2 w-100 containerm"} id={"style-2"}>
                             <div className="force-overflow">
                             {objave.length > 0 ? objave.map((objava) =>(
-                                <FullObjavaComponent objava={objava} handler={() => handler()} unistiSesiju={() => unistiSesiju()}/>
+                                <FullObjavaComponent objava={objava} handler={() => handler()} unistiSesiju={() => unistiSesiju()}
+                                sesija={korisnik}/>
                             ))
                             :
                                 <div className={"banner pt-2 pb-2 mb-4"}>

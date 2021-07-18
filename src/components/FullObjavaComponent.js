@@ -14,7 +14,7 @@ import ObjaviKomentarComponent from "./ObjaviKomentarComponent";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-function FullObjavaComponent({objava,handler,unistiSesiju}){
+function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
 
     const [show, setShow] = useState(false);
     const [id,setId]=useState(0)
