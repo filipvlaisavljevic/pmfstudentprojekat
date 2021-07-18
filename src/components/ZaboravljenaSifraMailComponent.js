@@ -4,6 +4,7 @@ import {useForm} from "react-hook-form";
 import axios from "axios";
 import {Redirect} from "react-router-dom";
 import {CheckCircle, XCircle} from "react-bootstrap-icons";
+import Swal from 'sweetalert2'
 
 
 function ZaboravljenaSifraMailComponent({postaviSesiju,unistiSesiju}){
@@ -20,15 +21,18 @@ function ZaboravljenaSifraMailComponent({postaviSesiju,unistiSesiju}){
         setShow1(false)
     }
     function zaboravljenaSifra(data){
+        Swal.showLoading();
         console.log(data)
         axios.post('https://dwsproject.herokuapp.com/sendResetToken',{
             email: data.email
         })
             .then((response)=>{
                 if(!response.data.success){
+                    Swal.hideLoading()
                     setPoruka("Ne postoji korisnik sa datim emailom!")
                     setShow(true)
                 }else{
+                    Swal.hideLoading()
                     setPoruka("Poslali smo restartovanje šifre na vaš mail!")
                     setShow1(true)
 
