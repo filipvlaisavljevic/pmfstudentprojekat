@@ -4,7 +4,7 @@ import {
     ChatDots,
     ChatQuoteFill,
     ChatRightText,
-    ChatSquareText,
+    ChatSquareText, HandThumbsDownFill,
     HandThumbsUpFill,
     Hash,
     Messenger
@@ -19,7 +19,15 @@ function FullObjavaComponent({objava,handler}){
     function postaviPrikaz(){
         setPrikazi(!prikazi);
     }
-    console.log()
+
+    function lajkaj(){
+
+    }
+
+
+
+    console.log("OBJAVA")
+    console.log(objava)
 
     return(
       <div>
@@ -36,7 +44,9 @@ function FullObjavaComponent({objava,handler}){
                       </footer>
                       <Card.Text>
                           <ChatSquareText onClick={() => postaviPrikaz()}
-                                          className={"pokazivac"}/> <small>{objava.comments.length}</small> <HandThumbsUpFill className={"palac pokazivac"}/> <small>{objava.post.likes} oznaka sviđa mi se</small>
+                                          className={"pokazivac"}/> <small>{objava.comments.length} </small>
+                          {!objava.i_have_liked? <HandThumbsUpFill className={"palac pokazivac"}/> :
+                              <HandThumbsDownFill className={"palac pokazivac"}/>} <small> {objava.post.likes} oznaka sviđa mi se</small>
                       </Card.Text>
                   </blockquote>
               </Card.Body>

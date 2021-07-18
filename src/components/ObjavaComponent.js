@@ -6,7 +6,7 @@ import {
     HandThumbsDown,
     Facebook,
     HandThumbsUpFill,
-    ChatSquareText, ChatQuoteFill
+    ChatSquareText, ChatQuoteFill, HandThumbsDownFill
 } from 'react-bootstrap-icons';
 import ObjaviKomentarComponent from "./ObjaviKomentarComponent";
 
@@ -30,7 +30,9 @@ function ObjavaComponent({objava,handler}){
                         </footer>
 
                         <Card.Text> <ChatSquareText onClick={() => postaviPrikaz()}
-                                                    className={"pokazivac"}/> <small>{objava.comments.length}</small> <HandThumbsUpFill className={"palac"}/> <small>{objava.post.likes} oznaka sviđa mi se</small>
+                                                    className={"pokazivac"}/> <small>{objava.comments.length}</small>
+                            {!objava.i_have_liked? <HandThumbsUpFill className={"palac pokazivac"}/> :
+                                <HandThumbsDownFill className={"palac pokazivac"}/>}  <small>{objava.post.likes} oznaka sviđa mi se</small>
                         </Card.Text>
                     </div>
                 </Card.Body>

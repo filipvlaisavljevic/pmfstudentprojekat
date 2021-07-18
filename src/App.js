@@ -129,9 +129,9 @@ function App() {
                     <Route path="/profil/:id">
                         {sesija ? <NjihovProfilComponent unistiSesiju={() => unistiSesiju()}/> : <Redirect to={'/login/'}/>}
                     </Route>
-                    <Route path="/objava">
+                    {/*<Route path="/objava">
                         {sesija ? <FullObjavaComponent/> : <Redirect to={'/login/'}/>}
-                    </Route>
+                    </Route>*/}
                     <Route path="/pretraga">
                         {sesija ? <PretragaComponent/> : <Redirect to={'/login/'}/>}
                     </Route>
