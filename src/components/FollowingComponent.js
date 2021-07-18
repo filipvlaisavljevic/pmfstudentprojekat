@@ -11,21 +11,39 @@ function FollowingComponent({unistiSesiju,korisnik}){
     const[following,setFollowing] = useState([]);
     const[promjena,setPromjena] = useState(false);
     const[isti,setIsti] = useState(false);
+    const[ide,setIde] = useState([]);
+    const[sad,setSad] = useState(false);
     let { id } = useParams();
 
-    console.info("KORISNIK ")
-    console.info(korisnik)
+    function provjeriSesiju(){
+        axios.get("https://dwsproject.herokuapp.com/getMyProfileInformation").then(
+            (response) =>{
+                console.info(response.data.id)
+                setIde(response.data.id);
+                setSad(true);
+            }
+        ).catch((error) => {
+            switch (error.response.status) {
+                case 403:
+                    unistiSesiju();
+                default:
+                    unistiSesiju()
+                    setLoading(false)
+            }
+        });
+    }
 
     function handler(){
         setPromjena(!promjena)
     }
 
+
     function provjera(){
         console.info("ID QUERYA")
         console.info(id)
         console.info("ID SESIJE")
-        console.info(korisnik.id)
-        if(id === korisnik.id)
+        console.info(ide)
+        if(id === ide)
         {
             setIsti(true);
             console.info("JESU")
@@ -40,7 +58,6 @@ function FollowingComponent({unistiSesiju,korisnik}){
         }).then(
             (response) =>{
                 setFollowing(response.data);
-                provjera()
                 setLoading(false);
             }
         ).catch((error) => {
@@ -80,6 +97,13 @@ function FollowingComponent({unistiSesiju,korisnik}){
             }
         });
     }
+    useEffect(() =>{
+        provjeriSesiju()
+    },[])
+
+    useEffect(() =>{
+        provjera()
+    },[sad])
 
     useEffect(() =>{
         getFollowing()
