@@ -10,8 +10,17 @@ function PretragaComponent({unistiSesiju}){
     const [loading,setLoading] = useState(true);
     const [rezultat,setRezultat] = useState([]);
     const [promjena,setPromjena] = useState(false);
+    const [kveri,setKveri] = useState([]);
     let { query } = useParams();
-    console.info(query)
+
+    function postaviKveri(){
+        setKveri(query)
+        setPromjena(!promjena)
+    }
+
+    useEffect(() =>{
+        postaviKveri()
+    },[])
 
     function handler(){
         setPromjena(!promjena)
@@ -47,7 +56,7 @@ function PretragaComponent({unistiSesiju}){
 
     useEffect(() =>{
         dohvatiSearch();
-    },[promjena])
+    },[query])
 
     return(
         <div className={"mt-5"}>
