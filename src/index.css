@@ -171,6 +171,38 @@ p{
   color: #6c757d;
 }
 
+.unfollow{
+  background-color: #f8f9fa !important;
+  color: rgba(0,0,0,.55)!important;
+  border-radius: 0px !important;
+  border-color: #f8f9fa !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.unfollow:focus{
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.btn-primary:focus{
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.btn-primary{
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.bez{
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .logo{
   max-width: 100% !important;
   height: auto !important;
@@ -180,6 +212,10 @@ p{
 .bez-dekoracije:hover{
   text-decoration: none;
   color: #6c757d;
+}
+
+.btn:focus{
+  outline: none !important;
 }
 
 .bez-dekoracije2{

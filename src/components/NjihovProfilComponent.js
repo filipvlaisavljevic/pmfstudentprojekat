@@ -3,11 +3,12 @@ import  {useParams
 } from "react-router-dom";
 import MiniLoadingComponent from "./MiniLoadingComponent";
 import axios from "axios";
-import {Col, Container, Image, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
-import {CaretDownFill, CaretRightFill, CircleFill, Info, InfoCircle} from "react-bootstrap-icons";
+import {Col, Container, Image, OverlayTrigger, Row, Tooltip,Button} from "react-bootstrap";
+import {CaretDownFill, CaretRightFill, CircleFill, Info, InfoCircle, PersonPlusFill} from "react-bootstrap-icons";
 import ObjaviPostComponent from "./ObjaviPostComponent";
 import FullObjavaComponent from "./FullObjavaComponent";
 import SugestijaComponent from "./SugestijaComponent";
+import Swal from "sweetalert2";
 
 axios.defaults.withCredentials = true;
 
@@ -32,6 +33,8 @@ function NjihovProfilComponent({unistiSesiju}){
             (response) =>{
                 setKorisnik(response.data)
                 setLoading(false);
+                console.info("NJIHOV PROFIL")
+                console.info(response.data)
             },
             (error) =>{
                 console.log(error)
@@ -76,6 +79,60 @@ function NjihovProfilComponent({unistiSesiju}){
             Neaktivan
         </Tooltip>
     );
+
+    function zapratiKorisnika(data){
+        axios.post("https://dwsproject.herokuapp.com/follow",{
+            id: data
+        }).then(
+            (response) =>{
+                Swal.fire({
+                    title: 'Super!',
+                    text: 'Zapratili ste korisnika ' + korisnik.first_name + " " + korisnik.last_name,
+                    icon: 'success',
+                    confirmButtonText: 'Nastavi dalje'
+                })
+                handler();
+            },
+            (error) =>{
+                console.log(error)
+            }
+        ).catch((error) => {
+            console.log(error)
+            switch (error.response.status) {
+                case 403:
+                    unistiSesiju();
+                default:
+                    console.log(error)
+            }
+        });
+    }
+
+    function otpratiKorisnika(data,predlozen){
+        axios.post("https://dwsproject.herokuapp.com/unfollow",{
+            id: data
+        }).then(
+            (response) =>{
+                Swal.fire({
+                    title: 'Huh!',
+                    text: 'Otpratili ste korisnika ' + predlozen.first_name + " " + predlozen.last_name,
+                    icon: 'success',
+                    confirmButtonText: 'Nastavi dalje'
+                })
+                handler();
+            },
+            (error) =>{
+                console.log(error)
+            }
+        ).catch((error) => {
+            console.log(error)
+            switch (error.response.status) {
+                case 403:
+                    unistiSesiju();
+                default:
+                    console.log(error)
+            }
+        });
+    }
 
     useEffect(() =>{
         fetchKorisnik()
@@ -126,7 +183,8 @@ function NjihovProfilComponent({unistiSesiju}){
                                                     >
                                                         <CircleFill className={"neaktivan"} size={12}/>
                                                     </OverlayTrigger>}
-                                                <b> {korisnik.first_name} {korisnik.last_name}</b></span>
+                                                <b> {korisnik.first_name} {korisnik.last_name}</b>
+                                            </span>
                                         </Col>
                                     </Row>
                                     <Row>
@@ -147,6 +205,13 @@ function NjihovProfilComponent({unistiSesiju}){
                         </div>
                         <div className={"scrollbar2 w-100 containerm"} id={"style-2"}>
                             <div className="force-overflow">
+                                {!korisnik.do_i_follow_him ? <Button size={"sm"} className={"bez w-100 mb-3 unfollow"} onClick={() => zapratiKorisnika(korisnik.id)}>
+                                        Zapratite korisnika
+                                                </Button> :
+                                    <Button size={"sm"} className={"bez w-100 mb-3 unfollow"} onClick={() => otpratiKorisnika(korisnik.id,korisnik)}>
+                                        Otpratite korisnika
+                                    </Button>
+                                }
                                 {korisnik.posts.length > 0 ?
                                     korisnik.posts.map((objava) =>(
                                         <FullObjavaComponent objava={objava} handler={() => handler()}/>
