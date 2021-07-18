@@ -293,7 +293,7 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
                 onHide={handleClose3}
             >
                 <Modal.Body>
-                    <EditKomentarComponent id={komentarId} close={handleClose3} />
+                    <EditKomentarComponent id={komentarId} close={handleClose3} handler={handler} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button className="dugme-warning" onClick={handleClose3}>
