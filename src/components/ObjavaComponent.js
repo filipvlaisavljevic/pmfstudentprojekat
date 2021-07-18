@@ -9,13 +9,57 @@ import {
     ChatSquareText, ChatQuoteFill, HandThumbsDownFill
 } from 'react-bootstrap-icons';
 import ObjaviKomentarComponent from "./ObjaviKomentarComponent";
+import axios from "axios";
 
-function ObjavaComponent({objava,handler}){
+function ObjavaComponent({objava,handler,unistiSesiju}){
     const[prikazi,setPrikazi] = useState(false);
 
     function postaviPrikaz(){
         setPrikazi(!prikazi);
     }
+
+    function lajkaj(){
+        axios.post("https://dwsproject.herokuapp.com/likePost",{
+            post_id: objava.post.id
+        }).then(
+            (response) =>{
+                handler();
+            },
+            (error) =>{
+                console.log(error)
+            }
+        ).catch((error) => {
+            console.log(error)
+            switch (error.response.status) {
+                case 403:
+                    unistiSesiju();
+                default:
+                    console.log(error)
+            }
+        });
+    }
+
+    function dislajk(){
+        axios.post("https://dwsproject.herokuapp.com/removeLikeFromPost",{
+            post_id: objava.post.id
+        }).then(
+            (response) =>{
+                handler();
+            },
+            (error) =>{
+                console.log(error)
+            }
+        ).catch((error) => {
+            console.log(error)
+            switch (error.response.status) {
+                case 403:
+                    unistiSesiju();
+                default:
+                    console.log(error)
+            }
+        });
+    }
+
     return(
         <div className="bezpaddinga">
             <Card className={"mb-3"}>

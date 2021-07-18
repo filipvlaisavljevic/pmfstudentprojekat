@@ -132,8 +132,8 @@ function App() {
                     {/*<Route path="/objava">
                         {sesija ? <FullObjavaComponent/> : <Redirect to={'/login/'}/>}
                     </Route>*/}
-                    <Route path="/pretraga">
-                        {sesija ? <PretragaComponent/> : <Redirect to={'/login/'}/>}
+                    <Route path="/pretraga/:query">
+                        {sesija ? <PretragaComponent  unistiSesiju={() => unistiSesiju()}/> : <Redirect to={'/login/'}/>}
                     </Route>
                     <Route path="/chat">
                         {sesija ? <ChatComponent/> : <Redirect to={'/login/'}/>}
