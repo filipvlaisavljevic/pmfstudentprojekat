@@ -16,6 +16,9 @@ function ObjaviPostComponent({handler}){
         })
             .then((response)=>{
                 console.log(response)
+                document.getElementById('preostalo').classList.remove('preostalo-manje')
+                document.getElementById('preostalo').classList.remove('preostalo-nista')
+                document.getElementById('preostalo').classList.add('preostalo-poruka')
                 document.getElementById('text').value=""
                 handler()
             })
