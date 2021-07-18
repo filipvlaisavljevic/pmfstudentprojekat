@@ -108,7 +108,7 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
                         <Col xs={11}>
                             <div className="blockquote mb-0">
                                 <p>
-                                    {objava.post.text}
+                                    <a href={"/objava/"+objava.post.id} className={"objavaa"}>{objava.post.text}</a>
                                 </p>
                                 <footer className="blockquote-footer mt-2">
                                     <a href={"/profil/"+objava.post.author_id} className={"bez-dekoracije"}>{objava.post.first_name} {objava.post.last_name}</a>
