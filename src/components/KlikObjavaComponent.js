@@ -16,6 +16,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import {useParams} from "react-router-dom";
 import MiniLoadingComponent from "./MiniLoadingComponent";
+import {checkText} from "smile2emoji";
+import {decode} from "html-entities";
 
 function KlikObjavaComponent({unistiSesiju,sesija}){
 
@@ -157,7 +159,7 @@ function KlikObjavaComponent({unistiSesiju,sesija}){
                             <blockquote className="blockquote mb-0">
                                 <p>
                                     {' '}
-                                    {objava.post.text}{' '}
+                                    {checkText(decode(objava.post.text))}{' '}
                                 </p>
                                 <footer className="blockquote-footer mt-2">
                                     <a href={"/profil/"+objava.post.author_id} className={"bez-dekoracije"}>{objava.post.first_name} {objava.post.last_name}</a>
@@ -196,7 +198,7 @@ function KlikObjavaComponent({unistiSesiju,sesija}){
                         <Card className={"mt-1"}>
                             <Card.Header className={"w-30"}>{komentar.first_name} {komentar.last_name}</Card.Header>
                             <ListGroup variant="flush" className={"w-70"}>
-                                <ListGroup.Item><ChatQuoteFill/> {komentar.text}</ListGroup.Item>
+                                <ListGroup.Item><ChatQuoteFill/> {checkText(decode(komentar.text))}</ListGroup.Item>
                             </ListGroup>
                         </Card>
                     ))}

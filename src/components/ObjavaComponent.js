@@ -13,6 +13,8 @@ import axios from "axios";
 import EditObjaveComponent from "./EditObjaveComponent";
 import Swal from "sweetalert2";
 import EditKomentarComponent from "./EditKomentarComponent";
+import {checkText} from "smile2emoji";
+import {decode} from "html-entities";
 
 function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
     const[prikazi,setPrikazi] = useState(false);
@@ -147,7 +149,7 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
                         <Col xs={11}>
                             <div className="blockquote mb-0">
                                 <p>
-                                    <a href={"/objava/"+objava.post.id} className={"objavaa"}>{objava.post.text}</a>
+                                    <a href={"/objava/"+objava.post.id} className={"objavaa"}>{checkText(decode(objava.post.text))}</a>
                                 </p>
                                 <footer className="blockquote-footer mt-2">
                                     <a href={"/profil/"+objava.post.author_id} className={"bez-dekoracije"}>{objava.post.first_name} {objava.post.last_name}</a>
@@ -192,7 +194,7 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
                                 <ListGroup.Item>
                                     <Row>
                                         <Col xs={11}>
-                                            <ChatQuoteFill/> {komentar.text}
+                                            <ChatQuoteFill/> {checkText(decode(komentar.text))}
                                         </Col>
                                         <Col xs={1}>
                                             {
