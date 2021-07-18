@@ -25,7 +25,7 @@ function NjihovProfilComponent({unistiSesiju}){
     let { id } = useParams();
 
     function fetchKorisnik(){
-        axios.post("https://dwsproject.herokuapp.com/getProfileById",
+        axios.post("https://dwsproject.herokuapp.com/getProfileById/",
             {
                 id:id
             }).then(
@@ -48,7 +48,7 @@ function NjihovProfilComponent({unistiSesiju}){
     }
 
     function getPredlozeni(){
-        axios.get("https://dwsproject.herokuapp.com/recommendations").then(
+        axios.get("https://dwsproject.herokuapp.com/recommendations/").then(
             (response) =>{
                 setPredlozeni(response.data);
             },

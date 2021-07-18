@@ -11,7 +11,7 @@ function ObjaviPostComponent({handler}){
 
     const onSubmit = async data=>{
         console.log(data)
-        axios.post("https://dwsproject.herokuapp.com/addPost",{
+        axios.post("https://dwsproject.herokuapp.com/addPost/",{
             text: data.text
         })
             .then((response)=>{

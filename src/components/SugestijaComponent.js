@@ -11,7 +11,7 @@ axios.defaults.withCredentials = true;
 function SugestijaComponent({predlozen,handler,unistiSesiju}){
 
     function zapratiKorisnika(data){
-        axios.post("https://dwsproject.herokuapp.com/follow",{
+        axios.post("https://dwsproject.herokuapp.com/follow/",{
             id: data
         }).then(
             (response) =>{

@@ -20,7 +20,7 @@ function LoginComponent({postaviSesiju,unistiSesiju}){
     }
 
     function logujKorisnika(data){
-        axios.post("https://dwsproject.herokuapp.com/loginUser",{
+        axios.post("https://dwsproject.herokuapp.com/loginUser/",{
             username: data.username,
             password: data.password
         }).then(

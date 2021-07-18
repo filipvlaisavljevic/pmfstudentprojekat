@@ -21,7 +21,7 @@ function HomeComponent({unistiSesiju}){
     }
 
     function getPredlozeni(){
-        axios.get("https://dwsproject.herokuapp.com/recommendations").then(
+        axios.get("https://dwsproject.herokuapp.com/recommendations/").then(
             (response) =>{
                 setPredlozeni(response.data);
                 setLoading(false);
@@ -40,7 +40,7 @@ function HomeComponent({unistiSesiju}){
     }
 
     function getFeed(){
-        axios.get("https://dwsproject.herokuapp.com/getFeed").then(
+        axios.get("https://dwsproject.herokuapp.com/getFeed/").then(
             (response) =>{
                 setFeed(response.data);
             },
