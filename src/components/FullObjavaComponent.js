@@ -7,20 +7,24 @@ import {
     ChatSquareText, HandThumbsDownFill,
     HandThumbsUpFill,
     Hash,
-    Messenger, ThreeDots, Trash
+    Messenger, Pencil, ThreeDots, Trash
 } from "react-bootstrap-icons";
 import ObjaviPostComponent from "./ObjaviPostComponent";
 import ObjaviKomentarComponent from "./ObjaviKomentarComponent";
 import axios from "axios";
 import Swal from "sweetalert2";
+import EditObjaveComponent from "./EditObjaveComponent";
 
 function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
 
     const [show, setShow] = useState(false);
+    const [show1,setShow1]=useState(false);
     const [id,setId]=useState(0)
 
     const handleClose = () => setShow(false);
+    const handleClose1 = () => setShow1(false);
     const handleShow = (id) =>{setId(id); setShow(true);}
+    const handleShow1 = () => {setShow1(true);}
     const[prikazi,setPrikazi] = useState(false);
     function obrisiObjavu(){
         console.log(id)
@@ -99,9 +103,9 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
     }
 
 
-    console.log("OBJAVA")
+   /* console.log("OBJAVA")
     console.log(objava)
-    console.log(sesija)
+    console.log(sesija) */
 
     return(
       <div>
@@ -130,13 +134,15 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
                       <Col xs={1} className="bezpaddinga" style={{textAlign: "center"}}>
                           {sesija.id===objava.post.author_id ?
                               <Dropdown>
-                                  <Dropdown.Toggle className="dugme-dropdown" noCaret>
+                                  <Dropdown.Toggle className="dugme-dropdown">
                                       <ThreeDots/>
                                   </Dropdown.Toggle>
 
                                   <Dropdown.Menu>
                                       <Dropdown.Item style={{color: "#D83A56"}} onClick={handleShow.bind(this, objava.post.id)}><Trash/> Izbrišite
                                           objavu</Dropdown.Item>
+                                      <Dropdown.Item onClick={handleShow1.bind(this)}><Pencil/> Editujte objavu
+                                      </Dropdown.Item>
                                   </Dropdown.Menu>
                               </Dropdown>
                               : <></>
@@ -180,6 +186,22 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
                   </Button>
                   <Button className="dugme-warning" onClick={obrisiObjavu.bind(this)}>
                       Izbriši
+                  </Button>
+              </Modal.Footer>
+          </Modal>
+          <Modal
+              show={show1}
+              size="lg"
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+              onHide={handleClose1}
+              >
+              <Modal.Body>
+                  <EditObjaveComponent handler={handler} objava={objava.post} close={handleClose1}/>
+              </Modal.Body>
+              <Modal.Footer>
+                  <Button className="dugme-warning" onClick={handleClose1}>
+                      Zatvori
                   </Button>
               </Modal.Footer>
           </Modal>
