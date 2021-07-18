@@ -20,6 +20,7 @@ function ObjaviPostComponent({handler}){
                 document.getElementById('preostalo').classList.remove('preostalo-nista')
                 document.getElementById('preostalo').classList.add('preostalo-poruka')
                 document.getElementById('text').value=""
+                setDuzina(250)
                 handler()
             })
             .catch((error)=>{
