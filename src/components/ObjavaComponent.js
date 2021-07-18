@@ -12,6 +12,7 @@ import ObjaviKomentarComponent from "./ObjaviKomentarComponent";
 import axios from "axios";
 import EditObjaveComponent from "./EditObjaveComponent";
 import Swal from "sweetalert2";
+import EditKomentarComponent from "./EditKomentarComponent";
 
 function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
     const[prikazi,setPrikazi] = useState(false);
@@ -28,6 +29,8 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
     const handleShow1 = () => {setShow1(true);}
     const handleClose2 = () =>{setShow2(false)}
     const handleShow2 = (idK) =>{console.log(idK);setKomentarId(idK); setShow2(true)}
+    const handleClose3 = () =>{setShow3(false);}
+    const handleShow3 = (idK) =>{console.log(idK); setKomentarId(idK); setShow3(true);}
     function postaviPrikaz(){
         setPrikazi(!prikazi);
     }
@@ -202,12 +205,11 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
                                                         <Dropdown.Menu>
                                                             <Dropdown.Item style={{color: "#D83A56"}} onClick={handleShow2.bind(this, komentar.id)}><Trash/> Izbrišite
                                                                 komentar</Dropdown.Item>
-                                                            <Dropdown.Item onClick={handleShow1.bind(this)}><Pencil/> Editujte komentar
+                                                            <Dropdown.Item onClick={handleShow3.bind(this,komentar.id)}><Pencil/> Editujte komentar
                                                             </Dropdown.Item>
                                                         </Dropdown.Menu>
                                                     </Dropdown>
                                                     : <></>
-
                                             }
 
                                         </Col>
@@ -278,6 +280,22 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
                     </Button>
                     <Button className="dugme-warning" onClick={obrisiKomentar.bind(this)}>
                         Izbriši
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal
+                show={show3}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                onHide={handleClose3}
+            >
+                <Modal.Body>
+                    <EditKomentarComponent id={komentarId} close={handleClose3} />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className="dugme-warning" onClick={handleClose3}>
+                        Zatvori
                     </Button>
                 </Modal.Footer>
             </Modal>
