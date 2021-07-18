@@ -3,6 +3,7 @@ import {Form, Button, Alert} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 import {XCircle} from "react-bootstrap-icons";
+import {Redirect} from "react-router-dom";
 
 axios.defaults.withCredentials = true;
 
@@ -43,6 +44,7 @@ function LoginComponent({postaviSesiju,unistiSesiju}){
             switch (error.response.status) {
                 case 403:
                     unistiSesiju();
+                    return <Redirect to={'/login'}/>;
                 default:
                     console.log(error)
             }

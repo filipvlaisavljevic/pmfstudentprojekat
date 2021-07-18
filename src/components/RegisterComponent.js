@@ -4,6 +4,7 @@ import {useForm} from "react-hook-form";
 import axios from "axios";
 import Feedback from "react-bootstrap/Feedback";
 import {XCircle} from "react-bootstrap-icons";
+import {Redirect} from "react-router-dom";
 
 axios.defaults.withCredentials = true;
 
@@ -44,6 +45,7 @@ function RegisterComponent({postaviSesiju,unistiSesiju}){
             switch (error.response.status) {
                 case 403:
                     unistiSesiju();
+                    return <Redirect to={'/login'}/>;
          //           window.location.href = "/login";
                 default:
                     console.log(error)

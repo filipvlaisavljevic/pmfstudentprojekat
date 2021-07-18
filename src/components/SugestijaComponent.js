@@ -7,7 +7,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 
-function SugestijaComponent({predlozen,handler,unistiSesiju}){
+function SugestijaComponent({predlozen,handler,unistiSesiju,handlerhome}){
 
     function zapratiKorisnika(data){
         axios.post("https://dwsproject.herokuapp.com/follow",{
@@ -21,6 +21,7 @@ function SugestijaComponent({predlozen,handler,unistiSesiju}){
                     confirmButtonText: 'Nastavi dalje'
                 })
                 handler();
+                handlerhome();
             },
             (error) =>{
                 console.log(error)

@@ -12,7 +12,7 @@ import ObjaviPostComponent from "./ObjaviPostComponent";
 
 axios.defaults.withCredentials = true;
 
-function ProfilComponent({korisnik,unistiSesiju,handler}){
+function ProfilComponent({korisnik,unistiSesiju,handlerhome}){
 
     const[predlozeni,setPredlozeni] = useState([]);
     const[promjena,setPromjena] = useState(false);
@@ -59,6 +59,8 @@ function ProfilComponent({korisnik,unistiSesiju,handler}){
             }
         });
     }
+
+
 
     useEffect(() =>{
         getPredlozeni()
@@ -158,7 +160,9 @@ function ProfilComponent({korisnik,unistiSesiju,handler}){
                             <div className="scrollbar w-100" id="style-1">
                                 <div className="force-overflow">
                                     {predlozeni.map((predlozen)=>(
-                                        <SugestijaComponent predlozen={predlozen} handler={() => handler()} unistiSesiju={() => unistiSesiju()}/>
+                                        <SugestijaComponent predlozen={predlozen} handler={() => handler()} unistiSesiju={() => unistiSesiju()}
+                                            handlerhome={() => handlerhome()}
+                                        />
                                     ))}
                                 </div>
                             </div>

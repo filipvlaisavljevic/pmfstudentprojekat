@@ -20,7 +20,7 @@ import FullObjavaComponent from "./components/FullObjavaComponent";
 import PretragaComponent from "./components/PretragaComponent";
 import ChatComponent from "./components/ChatComponent";
 import NovaPorukaComponent from "./components/NovaPorukaComponent";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import LoadingComponent from "./components/LoadingComponent";
 
@@ -39,6 +39,7 @@ function App() {
     function unistiSesiju(){
         setSesija(false);
         setLoading(false);
+        return <Redirect to={'/login'}/>;
     }
 
     function handler(){
@@ -67,6 +68,10 @@ function App() {
         provjeriSesiju();
     },[]);
 
+    useEffect(() => {
+        provjeriSesiju()
+    },[promjena])
+
     if(loading){
         return (<LoadingComponent/>);
     }
@@ -94,7 +99,7 @@ function App() {
                     <Route path="/profil">
                         {sesija ? <ProfilComponent korisnik={korisnik}
                             unistiSesiju={() => unistiSesiju()}
-                            handler={() => handler()}
+                            handlerhome={() => handler()}
                         /> : <Redirect to={'/login'}/>}
                     </Route>
                     <Route path="/objava">
