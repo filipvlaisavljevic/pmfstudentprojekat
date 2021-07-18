@@ -40,6 +40,9 @@ function EditObjaviPostComponent({handler,objava,close}){
                         icon: 'success',
                         confirmButtonText: 'Nastavi dalje'
                     })
+                    document.getElementById('preostalo').classList.remove('preostalo-manje')
+                    document.getElementById('preostalo').classList.remove('preostalo-nista')
+                    document.getElementById('preostalo').classList.add('preostalo-poruka')
                     handler()
                     close()
                 }

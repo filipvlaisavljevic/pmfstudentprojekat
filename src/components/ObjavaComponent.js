@@ -135,9 +135,6 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
             })
     }
 
-    console.log(sesija)
-    console.log(objava)
-
     return(
         <div className="bezpaddinga">
             <Card className={"mb-3"}>
