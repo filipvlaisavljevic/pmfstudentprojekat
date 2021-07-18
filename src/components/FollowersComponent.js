@@ -6,7 +6,7 @@ import {CaretDownFill, PersonPlusFill} from "react-bootstrap-icons";
 import SugestijaComponent from "./SugestijaComponent";
 import {Card, Row} from "react-bootstrap";
 
-function FollowersComponent({unistiSesiju}){
+function FollowersComponent({unistiSesiju,korisnik}){
     const[loading,setLoading] = useState(true);
     const[followers,setFollowers] = useState([]);
     const[promjena,setPromjena] = useState(false);
@@ -18,7 +18,9 @@ function FollowersComponent({unistiSesiju}){
 
     function getFollowers(){
         setLoading(true);
-        axios.get("https://dwsproject.herokuapp.com/getFollowers").then(
+        axios.post("https://dwsproject.herokuapp.com/getFollowers",{
+            id:id
+        }).then(
             (response) =>{
                 setFollowers(response.data);
                 setLoading(false);
@@ -34,9 +36,11 @@ function FollowersComponent({unistiSesiju}){
         });
     }
 
+
     useEffect(() =>{
        getFollowers()
     },[])
+
 
     useEffect(() =>{
         getFollowers()

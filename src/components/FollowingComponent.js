@@ -6,22 +6,41 @@ import {CaretDownFill, PersonDashFill, PersonPlusFill} from "react-bootstrap-ico
 import {Card, Row} from "react-bootstrap";
 import Swal from "sweetalert2";
 
-function FollowingComponent({unistiSesiju}){
+function FollowingComponent({unistiSesiju,korisnik}){
     const[loading,setLoading] = useState(true);
     const[following,setFollowing] = useState([]);
     const[promjena,setPromjena] = useState(false);
+    const[isti,setIsti] = useState(false);
     let { id } = useParams();
+
+    console.info("KORISNIK ")
+    console.info(korisnik)
 
     function handler(){
         setPromjena(!promjena)
     }
 
+    function provjera(){
+        console.info("ID QUERYA")
+        console.info(id)
+        console.info("ID SESIJE")
+        console.info(korisnik.id)
+        if(id === korisnik.id)
+        {
+            setIsti(true);
+            console.info("JESU")
+        }
+    }
+
 
     function getFollowing(){
         setLoading(true);
-        axios.get("https://dwsproject.herokuapp.com/getPeopleIFollow").then(
+        axios.post("https://dwsproject.herokuapp.com/getPeopleIFollow",{
+            id:id
+        }).then(
             (response) =>{
                 setFollowing(response.data);
+                provjera()
                 setLoading(false);
             }
         ).catch((error) => {
@@ -70,6 +89,7 @@ function FollowingComponent({unistiSesiju}){
         getFollowing()
     },[promjena])
 
+
     if(loading)
         return <MiniLoadingComponent/>
     return(
@@ -86,7 +106,7 @@ function FollowingComponent({unistiSesiju}){
                             <Card.Text className={"follow"}>
                                 <Row>
                                     <div className={"ml-1"}>
-                                        <span className={"text1"} onClick={() => odpratiKorisnika(follower.id,follower)}><PersonDashFill/>  </span>
+                                        {isti ? <span className={"text1"} onClick={() => odpratiKorisnika(follower.id,follower)}><PersonDashFill/>  </span> : <div></div>}
                                         <span className={"text2"}>  {follower.first_name} {follower.last_name}</span>
                                     </div>
                                 </Row>

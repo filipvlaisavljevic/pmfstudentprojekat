@@ -121,10 +121,10 @@ function App() {
                         /> : <Redirect to={'/login/'}/>}
                     </Route>
                     <Route path="/followers/:id">
-                        {sesija ? <FollowersComponent unistiSesiju={() => unistiSesiju()}/> : <Redirect to={"/login"}/>}
+                        {sesija ? <FollowersComponent unistiSesiju={() => unistiSesiju()} korisnik={korisnik}/> : <Redirect to={"/login"}/>}
                     </Route>
                     <Route path="/following/:id">
-                        {sesija ? <FollowingComponent unistiSesiju={() => unistiSesiju()}/> : <Redirect to={"/login"}/>}
+                        {sesija ? <FollowingComponent unistiSesiju={() => unistiSesiju()} korisnik={korisnik}/> : <Redirect to={"/login"}/>}
                     </Route>
                     <Route path="/profil/:id">
                         {sesija ? <NjihovProfilComponent unistiSesiju={() => unistiSesiju()} sesija={korisnik}/> : <Redirect to={'/login/'}/>}
