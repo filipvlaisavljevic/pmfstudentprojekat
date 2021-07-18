@@ -5,15 +5,15 @@ import axios from "axios";
 import {XCircle} from "react-bootstrap-icons";
 import Swal from "sweetalert2";
 
-function EditKomentarComponent({handler,objava,close}){
+function EditKomentarComponent({handler,id,close}){
     const [text,setText]=useState("")
     const { register, handleSubmit, watch, formState: { errors },reset } = useForm({
         defaultValues: {
             text: ""
         }
     });
-    const [duzina,setDuzina]=useState(250-objava.text.length)
-    const [prosli,setProsli]=useState(objava.text.length)
+    const [duzina,setDuzina]=useState(250)
+    const [prosli,setProsli]=useState(0)
 
 
 
