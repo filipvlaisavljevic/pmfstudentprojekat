@@ -6,6 +6,7 @@ import SugestijaComponent from "./SugestijaComponent";
 import ObjaviPostComponent from "./ObjaviPostComponent";
 import axios from "axios";
 import MiniLoadingComponent from "./MiniLoadingComponent";
+import { checkText } from 'smile2emoji'
 
 axios.defaults.withCredentials = true;
 

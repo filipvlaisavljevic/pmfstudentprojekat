@@ -14,6 +14,8 @@ import ObjaviKomentarComponent from "./ObjaviKomentarComponent";
 import axios from "axios";
 import Swal from "sweetalert2";
 import EditObjaveComponent from "./EditObjaveComponent";
+import {checkText} from "smile2emoji";
+import {decode} from "html-entities";
 
 function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
 
@@ -118,7 +120,7 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
                   <blockquote className="blockquote mb-0">
                       <p>
                           {' '}
-                          <a href={"/objava/"+objava.post.id} className={"objavaa"}>{objava.post.text}{' '}</a>
+                          <a href={"/objava/"+objava.post.id} className={"objavaa"}>{checkText(decode(objava.post.text))}{' '}</a>
                       </p>
                       <footer className="blockquote-footer mt-2">
                           {objava.post.first_name} {objava.post.last_name}
@@ -159,7 +161,7 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
                       <Card className={"mt-1"}>
                           <Card.Header className={"w-30"}>{komentar.first_name} {komentar.last_name}</Card.Header>
                           <ListGroup variant="flush" className={"w-70"}>
-                              <ListGroup.Item><ChatQuoteFill/> {komentar.text}</ListGroup.Item>
+                              <ListGroup.Item><ChatQuoteFill/> {checkText(decode(komentar.text))}</ListGroup.Item>
                           </ListGroup>
                       </Card>
                   ))}
