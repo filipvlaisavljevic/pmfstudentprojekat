@@ -160,7 +160,7 @@ function KlikObjavaComponent({unistiSesiju,sesija}){
                                     {objava.post.text}{' '}
                                 </p>
                                 <footer className="blockquote-footer mt-2">
-                                    {objava.post.first_name} {objava.post.last_name}
+                                    <a href={"/profil/"+objava.post.author_id} className={"bez-dekoracije"}>{objava.post.first_name} {objava.post.last_name}</a>
                                 </footer>
                                 <Card.Text>
                                     <ChatSquareText onClick={() => postaviPrikaz()}
