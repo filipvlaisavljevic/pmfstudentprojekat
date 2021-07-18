@@ -12,6 +12,7 @@ import ObjaviKomentarComponent from "./ObjaviKomentarComponent";
 import axios from "axios";
 import EditObjaveComponent from "./EditObjaveComponent";
 import Swal from "sweetalert2";
+import EditKomentarComponent from "./EditKomentarComponent";
 
 function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
     const[prikazi,setPrikazi] = useState(false);
@@ -289,11 +290,8 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
                 centered
                 onHide={handleClose3}
             >
-                <Modal.Body style={{textAlign: "center"}}>
-                    <h4>Izbrisati objavu?</h4>
-                    <p style={{textAlign: "center"}}>
-                        Ukoliko izbrišite objavu, zauvijek će nestati sa Vašeg profila i ne možemo je vratiti.
-                    </p>
+                <Modal.Body>
+                    <EditKomentarComponent id={komentarId} close={handleClose3} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button className="dugme-warning" onClick={handleClose3}>

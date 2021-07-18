@@ -12,14 +12,64 @@ function EditKomentarComponent({handler,id,close}){
             text: ""
         }
     });
+
+    console.log(id);
     const [duzina,setDuzina]=useState(250)
     const [prosli,setProsli]=useState(0)
+
+
+    function uzmiPodatke(){
+        axios.post('https://dwsproject.herokuapp.com/getCommentById',{
+            id: id
+        })
+            .then((response)=>{
+                console.log(response.data.text)
+                setText(response.data.text);
+                setDuzina(duzina-response.data.text.length)
+                setProsli(response.data.text.length)
+            })
+            .catch((error)=>{
+
+            })
+    }
+
+    useEffect(()=>{
+       uzmiPodatke()
+    },[reset])
+
+    useEffect(() => {
+        reset({text: text})
+    }, [text]);
 
 
 
 
     const onSubmit = data=>{
-
+        console.log(data);
+        axios.post('https://dwsproject.herokuapp.com/editComment',{
+            comment_id: id,
+            text: data.text
+        })
+            .then((response)=>{
+                if(!response.data.success){
+                    console.log(response.data)
+                }else{
+                    Swal.fire({
+                        title: 'Super!',
+                        text: 'Uspješno ste promjenili komentar.',
+                        icon: 'success',
+                        confirmButtonText: 'Nastavi dalje'
+                    })
+                    document.getElementById('preostalo').classList.remove('preostalo-manje')
+                    document.getElementById('preostalo').classList.remove('preostalo-nista')
+                    document.getElementById('preostalo').classList.add('preostalo-poruka')
+                    handler()
+                    close()
+                }
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
     }
 
     function promjena(event){
@@ -60,7 +110,7 @@ function EditKomentarComponent({handler,id,close}){
                 <Form.Control as="textarea" id="text" maxLength="250" rows={3} {...register('text',{
                     required: "Morate unijeti text"
                 })}
-                              onChange={promjena.bind(this)} placeholder={"Unesite sadržaj nove objave..."}
+                              onChange={promjena.bind(this)}      placeholder={"Unesite sadržaj nove objave..."}
                 />
                 <Form.Text className="text-muted">
                     Preostaje Vam još <b className="preostalo-poruka" id="preostalo">{duzina}</b> karaktera.
