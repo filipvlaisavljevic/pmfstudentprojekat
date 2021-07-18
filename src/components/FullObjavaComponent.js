@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {Button, Card, Dropdown, ListGroup, Modal} from "react-bootstrap";
+import {Button, Card, Col, Dropdown, ListGroup, Modal, Row} from "react-bootstrap";
 import {
     ChatDots,
     ChatQuoteFill,
@@ -108,19 +108,8 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
           <Card className={"mb-3"}>
               {/*<Card.Img variant="top" src="https://i.imgur.com/FW4FhbQ.png" className={"d-none d-lg-block"}/>*/}
               <Card.Body>
-                  {sesija.id===objava.post.author_id ?
-                      <Dropdown>
-                          <Dropdown.Toggle className="dugme-dropdown" noCaret>
-                              <ThreeDots/>
-                          </Dropdown.Toggle>
-
-                          <Dropdown.Menu>
-                              <Dropdown.Item style={{color: "#D83A56"}} onClick={handleShow.bind(this, objava.post.id)}><Trash/> Izbrišite
-                                  objavu</Dropdown.Item>
-                          </Dropdown.Menu>
-                      </Dropdown>
-                      : <></>
-                  }
+                  <Row>
+                  <Col xs={11}>
 
                   <blockquote className="blockquote mb-0">
                       <p>
@@ -137,6 +126,24 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
                               <HandThumbsDownFill className={"palac pokazivac"} onClick={() => dislajk()}/>} <small> {objava.post.likes} oznaka sviđa mi se</small>
                       </Card.Text>
                   </blockquote>
+                  </Col>
+                      <Col xs={1} className="bezpaddinga" style={{textAlign: "center"}}>
+                          {sesija.id===objava.post.author_id ?
+                              <Dropdown>
+                                  <Dropdown.Toggle className="dugme-dropdown" noCaret>
+                                      <ThreeDots/>
+                                  </Dropdown.Toggle>
+
+                                  <Dropdown.Menu>
+                                      <Dropdown.Item style={{color: "#D83A56"}} onClick={handleShow.bind(this, objava.post.id)}><Trash/> Izbrišite
+                                          objavu</Dropdown.Item>
+                                  </Dropdown.Menu>
+                              </Dropdown>
+                              : <></>
+                          }
+                      </Col>
+
+                  </Row>
               </Card.Body>
           </Card>
 
