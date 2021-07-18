@@ -147,9 +147,9 @@ function NjihovProfilComponent({unistiSesiju}){
                         </div>
                         <div className={"scrollbar2 w-100 containerm"} id={"style-2"}>
                             <div className="force-overflow">
-                                {/*{korisnik.posts.map((objava) =>(
+                                {korisnik.posts.map((objava) =>(
                                     <FullObjavaComponent objava={objava} handler={() => handler()}/>
-                                ))}*/}
+                                ))}
                                 {console.info(korisnik)}
                             </div>
                         </div>
