@@ -8,15 +8,17 @@ import axios from "axios";
 
 function EditProfilaComponent({korisnik,unistiSesiju}){
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const {register: register1, handleSubmit: handleSubmit1, formState: {errors: errors1}}=useForm();
+    const [podaci,setPodaci]=useState({
+        ime: "",
+        prezime: "",
+        username: "",
+        email: ""
+    })
+    const {register: register1, handleSubmit: handleSubmit1, formState: {errors: errors1},reset: reset1}=useForm({
+        defaultValues: podaci
+    });
     const {register: register2, handleSubmit: handleSubmit2, formState: {errors: errors2}}=useForm()
     const onSubmit = data => console.log(data);
-    const [podaci,setPodaci]=useState({
-        ime: korisnik.first_name,
-        prezime: "",
-        email: "",
-        user: ""
-    })
     const [image, setImage ] = useState("");
     const [ url, setUrl ] = useState("");
     const [upload,setUpload] = useState(false);
@@ -89,6 +91,14 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
                         response.data.reason
                     );
                     setShow(true)
+                }else{
+                    Swal.fire({
+                        title: 'Super!',
+                        text: 'Uspješno ste se promjenili podatke.',
+                        icon: 'success',
+                        confirmButtonText: 'Nastavi dalje'
+                    })
+                    uzmiPodatke()
                 }
 
 
@@ -137,21 +147,28 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
             })
     }
 
-    useEffect(()=>{
-       axios.get('https://dwsproject.herokuapp.com/getMyProfileInformation')
-           .then((response)=>{
+    function uzmiPodatke(){
+        axios.get('https://dwsproject.herokuapp.com/getMyProfileInformation')
+            .then((response)=>{
                 setPodaci({
                     ime: response.data.first_name,
                     prezime: response.data.last_name,
-                    user: response.data.username,
+                    username: response.data.username,
                     email: response.data.email
                 })
-           })
-           .catch((error)=>{
+            })
+            .catch((error)=>{
 
-           })
-    },[])
+            })
+    }
 
+    useEffect(()=>{
+        uzmiPodatke()
+    },[reset1])
+
+    useEffect(() => {
+        reset1(podaci)
+    }, [podaci]);
 
     return(
         <div className={"mt-5"}>
@@ -174,53 +191,52 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
                 </Alert>
                 <Form.Group className="mb-3">
                     <Form.Label>Nova email adresa:</Form.Label>
-                    <Form.Control type="email" aria-invalid={errors1.email ? 'true' : 'false'} placeholder={korisnik.email} value={podaci.email}
+                    <Form.Control type="email" aria-invalid={errors1.email ? 'true' : 'false'} placeholder={korisnik.email}
+                                  name="email"
                                   {...register1('email',{
-                                      required: "Morate unijeti mail"
+                                      required: "Morate unijeti mail",
+                                      pattern: {
+                                          value: /\S+@\S+\.\S+/,
+                                          message: "Niste unijeli dobar format"
+                                      }
                                   })}
-                                 onChange={(e)=>{
-                                     setPodaci({email: e.target.value})
-                                 }}
+
                     />
                     {errors1.email && <p className='greska'><XCircle/> {errors1.email.message}</p> }
                 </Form.Group>
 
                 <Form.Group className="mb-3">
                     <Form.Label>Novo korisničko ime:</Form.Label>
-                    <Form.Control type="text" aria-invalid={errors1.username ? 'true' : 'false'} placeholder={korisnik.username} value={podaci.user}
-
+                    <Form.Control type="text" aria-invalid={errors1.username ? 'true' : 'false'} placeholder={korisnik.username}
+                                  name="username"
                                   {...register1('username',{
                                       required: "Morate unijet korisničko ime"
                                   })}
-                                  onChange={(e)=>{
-                                      setPodaci({user: e.target.value})
-                                  }}
+
                     />
                     {errors1.username && <p className='greska'><XCircle/> {errors1.username.message}</p> }
                 </Form.Group>
 
                 <Form.Group className="mb-3">
                     <Form.Label>Novo ime:</Form.Label>
-                    <Form.Control type="text" aria-invalid={errors1.ime ? 'true' : 'false'} placeholder={korisnik.first_name} value={podaci.ime}
+                    <Form.Control type="text" aria-invalid={errors1.ime ? 'true' : 'false'} placeholder={korisnik.first_name}
+                                  name="ime"
                                   {...register1('ime',{
                                       required: "Morate unijeti ime"
                                   })}
-                                  onChange={(e)=>{
-                                      setPodaci({ime: e.target.value})
-                                  }}
+
                     />
                     {errors1.ime && <p className='greska'><XCircle/> {errors1.ime.message}</p> }
                 </Form.Group>
 
                 <Form.Group className="mb-3" >
                     <Form.Label>Novo prezime:</Form.Label>
-                    <Form.Control type="text" aria-invalid={errors1.prezime ? 'true' : 'false'} placeholder={korisnik.last_name} value={podaci.prezime}
+                    <Form.Control type="text" aria-invalid={errors1.prezime ? 'true' : 'false'} placeholder={korisnik.last_name}
+                                  name="prezime"
                                   {...register1('prezime',{
                                       required: "Morate unijeti prezime"
                                   })}
-                                  onChange={(e)=>{
-                                      setPodaci({prezime: e.target.value})
-                                  }}
+
                     />
                     {errors1.prezime && <p className='greska'><XCircle/> {errors1.prezime.message}</p> }
                 </Form.Group>
