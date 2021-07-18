@@ -173,6 +173,7 @@ function ProfilComponent({korisnik,unistiSesiju}){
                                 <div className={"banner pt-2 pb-2 mb-4"}>
                                     <CaretRightFill/> Nemate objavljenih objava.
                                 </div>
+                            //    Testiram discord bota.
                             }
                             </div>
                         </div>
