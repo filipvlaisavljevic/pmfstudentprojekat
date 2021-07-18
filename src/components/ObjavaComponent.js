@@ -17,12 +17,17 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
     const[prikazi,setPrikazi] = useState(false);
     const [show, setShow] = useState(false);
     const [show1,setShow1]=useState(false);
+    const [show2, setShow2] = useState(false);
+    const [show3,setShow3]=useState(false);
     const [id,setId]=useState(0)
+    const [komentarId,setKomentarId]=useState(0)
 
     const handleClose = () => setShow(false);
     const handleClose1 = () => setShow1(false);
     const handleShow = (id) =>{setId(id); setShow(true);}
     const handleShow1 = () => {setShow1(true);}
+    const handleClose2 = () =>{setShow2(false)}
+    const handleShow2 = (idK) =>{console.log(idK);setKomentarId(idK); setShow2(true)}
     function postaviPrikaz(){
         setPrikazi(!prikazi);
     }
@@ -99,6 +104,38 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
             })
     }
 
+    function obrisiKomentar(){
+        console.log(komentarId)
+        axios.post('https://dwsproject.herokuapp.com/removeComment',{
+            comment_id: komentarId
+        })
+            .then((response)=>{
+                if(!response.data.success){
+                    console.log(response.data)
+                }else{
+                    Swal.fire({
+                        title: 'Super!',
+                        text: 'Uspješno ste izbrisali komentar.',
+                        icon: 'success',
+                        confirmButtonText: 'Nastavi dalje'
+                    })
+                    handler()
+                }
+            })
+            .catch((error)=>{
+                console.log(error)
+                switch (error.response.status) {
+                    case 403:
+                        unistiSesiju();
+                    default:
+                        console.log(error)
+                }
+            })
+    }
+
+    console.log(sesija)
+    console.log(objava)
+
     return(
         <div className="bezpaddinga">
             <Card className={"mb-3"}>
@@ -150,9 +187,36 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
                                 <a href={"/profil/"+komentar.author_id} className={"bez-dekoracije2"}>{komentar.first_name} {komentar.last_name}</a>
                             </Card.Header>
                             <ListGroup variant="flush" className={"w-70"}>
-                                <ListGroup.Item><ChatQuoteFill/> {komentar.text}</ListGroup.Item>
+                                <ListGroup.Item>
+                                    <Row>
+                                        <Col xs={11}>
+                                            <ChatQuoteFill/> {komentar.text}
+                                        </Col>
+                                        <Col xs={1}>
+                                            {
+                                                sesija.id===komentar.author_id ?
+                                                    <Dropdown>
+                                                        <Dropdown.Toggle className="dugme-dropdown">
+                                                            <ThreeDots/>
+                                                        </Dropdown.Toggle>
+
+                                                        <Dropdown.Menu>
+                                                            <Dropdown.Item style={{color: "#D83A56"}} onClick={handleShow2.bind(this, komentar.id)}><Trash/> Izbrišite
+                                                                komentar</Dropdown.Item>
+                                                            <Dropdown.Item onClick={handleShow1.bind(this)}><Pencil/> Editujte komentar
+                                                            </Dropdown.Item>
+                                                        </Dropdown.Menu>
+                                                    </Dropdown>
+                                                    : <></>
+
+                                            }
+
+                                        </Col>
+                                    </Row>
+                                </ListGroup.Item>
                             </ListGroup>
                         </Card>
+
                     ))}
 
                     <ObjaviKomentarComponent objava={objava.post} handler={() => handler()}/>
@@ -193,6 +257,28 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
                 <Modal.Footer>
                     <Button className="dugme-warning" onClick={handleClose1}>
                         Zatvori
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal
+                show={show2}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                onHide={handleClose2}
+            >
+                <Modal.Body style={{textAlign: "center"}}>
+                    <h4>Izbrisati objavu?</h4>
+                    <p style={{textAlign: "center"}}>
+                        Ukoliko izbrišite objavu, zauvijek će nestati sa Vašeg profila i ne možemo je vratiti.
+                    </p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose2}>
+                        Otkaži
+                    </Button>
+                    <Button className="dugme-warning" onClick={obrisiKomentar.bind(this)}>
+                        Izbriši
                     </Button>
                 </Modal.Footer>
             </Modal>
