@@ -129,7 +129,7 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
                       <Card.Text>
                           <ChatSquareText onClick={() => postaviPrikaz()}
                                           className={"pokazivac"}/> <small>{objava.comments.length} </small>
-                          {!objava.i_have_liked? <HandThumbsUpFill className={"palac pokazivac"} onClick={() => lajkaj()}/> :
+                          {!objava.post.i_have_liked ? <HandThumbsUpFill className={"palac pokazivac"} onClick={() => lajkaj()}/> :
                               <HandThumbsDownFill className={"palac pokazivac"} onClick={() => dislajk()}/>} <small> {objava.post.likes} oznaka sviđa mi se</small>
                       </Card.Text>
                   </blockquote>
