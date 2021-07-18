@@ -43,6 +43,12 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
             })
             .catch((error)=>{
                 console.log(error)
+                switch (error.response.status) {
+                    case 403:
+                        unistiSesiju();
+                    default:
+                        console.log(error)
+                }
             })
     }
 
@@ -111,6 +117,7 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
                           <Dropdown.Item style={{color: "#D83A56"}} onClick={handleShow.bind(this,objava.post.id)}><Trash/> Izbrišite objavu</Dropdown.Item>
                       </Dropdown.Menu>
                   </Dropdown>
+
                   <blockquote className="blockquote mb-0">
                       <p>
                           {' '}
