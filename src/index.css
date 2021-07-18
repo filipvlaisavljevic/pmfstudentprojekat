@@ -214,6 +214,16 @@ p{
   color: #6c757d;
 }
 
+.objavaa{
+  text-decoration: none;
+  color: black;
+}
+
+.objavaa:hover{
+  text-decoration: none;
+  color: black;
+}
+
 .btn:focus{
   outline: none !important;
 }

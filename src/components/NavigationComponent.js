@@ -41,7 +41,6 @@ function NavigationComponent({sesija,unistiSesiju,korisnik}){
                             <NavDropdown.Item href={"/mojprofil/"+korisnik.id}>Profil</NavDropdown.Item>
                             <NavDropdown.Item href="/profil/edit">Postavke</NavDropdown.Item>
                         </NavDropdown> : <div></div> }
-                        { sesija ? <Nav.Link href="/objava">Objava</Nav.Link> : <div></div> }
                         { sesija ? <Nav.Link href="/chat">Chat</Nav.Link> : <div></div> }
                         { sesija ? <Nav.Link onClick={() => odlogujKorisnika()}>Logout</Nav.Link> : <div></div>}
                     </Nav>

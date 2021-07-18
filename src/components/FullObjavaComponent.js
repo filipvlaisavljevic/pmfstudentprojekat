@@ -114,7 +114,7 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
                   <blockquote className="blockquote mb-0">
                       <p>
                           {' '}
-                          {objava.post.text}{' '}
+                          <a href={"/objava/"+objava.post.id} className={"objavaa"}>{objava.post.text}{' '}</a>
                       </p>
                       <footer className="blockquote-footer mt-2">
                           {objava.post.first_name} {objava.post.last_name}

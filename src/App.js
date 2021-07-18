@@ -28,6 +28,7 @@ import ZaboravljenaSifraMailComponent from "./components/ZaboravljenaSifraMailCo
 import ZaboravljenaSifraComponet from "./components/ZaboravljenaSifraComponet";
 import FollowersComponent from "./components/FollowersComponent";
 import FollowingComponent from "./components/FollowingComponent";
+import KlikObjavaComponent from "./components/KlikObjavaComponent";
 
 axios.defaults.withCredentials = true;
 
@@ -129,9 +130,9 @@ function App() {
                     <Route path="/profil/:id">
                         {sesija ? <NjihovProfilComponent unistiSesiju={() => unistiSesiju()} sesija={korisnik}/> : <Redirect to={'/login/'}/>}
                     </Route>
-                    {/*<Route path="/objava">
-                        {sesija ? <FullObjavaComponent/> : <Redirect to={'/login/'}/>}
-                    </Route>*/}
+                    <Route path="/objava/:ide">
+                        {sesija ? <KlikObjavaComponent unistiSesiju={() => unistiSesiju()} sesija={korisnik}/> : <Redirect to={'/login/'}/>}
+                    </Route>
                     <Route path="/pretraga/:query">
                         {sesija ? <PretragaComponent  unistiSesiju={() => unistiSesiju()}/> : <Redirect to={'/login/'}/>}
                     </Route>
