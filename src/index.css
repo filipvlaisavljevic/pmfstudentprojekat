@@ -376,3 +376,18 @@ p{
   text-decoration: none;
   color: #0EBD60;
 }
+.dugme-warning{
+  background-color: #D83A56!important;
+  color: white;
+}
+.dugme-dropdown:after {
+  display: none!important;
+}
+.dugme-dropdown{
+  border: 0!important;
+  color: black!important;
+  background-color: white!important;
+  top: 0!important;
+  right: 0!important;
+  position: absolute;
+}
