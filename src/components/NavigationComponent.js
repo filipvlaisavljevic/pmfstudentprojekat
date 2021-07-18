@@ -1,8 +1,15 @@
-import React from "react"
+import React, {useState} from "react"
 import {Container, Nav, Navbar,Form,FormControl,Button,NavDropdown} from "react-bootstrap";
 import axios from "axios";
+import {useForm} from "react-hook-form";
+import {Redirect} from "react-router-dom";
 
 function NavigationComponent({sesija,unistiSesiju,korisnik}){
+
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const[redirect,setRedirect] = useState(false);
+    const[kveri,setKveri] = useState("");
+    const onSubmit = data => postaviSearch(data.example);
 
     function odlogujKorisnika(){
         axios.post("https://dwsproject.herokuapp.com/logoutUser").then(
@@ -16,9 +23,15 @@ function NavigationComponent({sesija,unistiSesiju,korisnik}){
         )
     }
 
+    function postaviSearch(data){
+        setKveri(data);
+        setRedirect(true);
+    }
+
     return(
         <Navbar bg="light" expand="lg" className={"mt-3"}>
             <Container>
+                {redirect ? <Redirect to={"/pretraga/"+kveri}/> : null}
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
@@ -34,14 +47,15 @@ function NavigationComponent({sesija,unistiSesiju,korisnik}){
                         { sesija ? <Nav.Link onClick={() => odlogujKorisnika()}>Logout</Nav.Link> : <div></div>}
                     </Nav>
                     {/*Pretraživanje*/}
-                    <Form className="d-flex">
+                    <Form className="d-flex" onSubmit={handleSubmit(onSubmit)}>
                         <FormControl
                             type="search"
                             placeholder="Pronađi prijatelje"
                             className="mr-2"
                             aria-label="Search"
+                            {...register("example")}
                         />
-                        <Button variant="primary">Pretraži</Button>
+                        <Button variant="primary" type={"submit"}>Pretraži</Button>
                     </Form>
 
                 </Navbar.Collapse>

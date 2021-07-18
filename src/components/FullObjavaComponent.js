@@ -11,8 +11,10 @@ import {
 } from "react-bootstrap-icons";
 import ObjaviPostComponent from "./ObjaviPostComponent";
 import ObjaviKomentarComponent from "./ObjaviKomentarComponent";
+import axios from "axios";
+import Swal from "sweetalert2";
 
-function FullObjavaComponent({objava,handler}){
+function FullObjavaComponent({objava,handler,unistiSesiju}){
 
     const[prikazi,setPrikazi] = useState(false);
 
@@ -21,7 +23,45 @@ function FullObjavaComponent({objava,handler}){
     }
 
     function lajkaj(){
+            axios.post("https://dwsproject.herokuapp.com/likePost",{
+                post_id: objava.post.id
+            }).then(
+                (response) =>{
+                    handler();
+                },
+                (error) =>{
+                    console.log(error)
+                }
+            ).catch((error) => {
+                console.log(error)
+                switch (error.response.status) {
+                    case 403:
+                        unistiSesiju();
+                    default:
+                        console.log(error)
+                }
+            });
+        }
 
+    function dislajk(){
+        axios.post("https://dwsproject.herokuapp.com/removeLikeFromPost",{
+            post_id: objava.post.id
+        }).then(
+            (response) =>{
+                handler();
+            },
+            (error) =>{
+                console.log(error)
+            }
+        ).catch((error) => {
+            console.log(error)
+            switch (error.response.status) {
+                case 403:
+                    unistiSesiju();
+                default:
+                    console.log(error)
+            }
+        });
     }
 
 
@@ -45,8 +85,8 @@ function FullObjavaComponent({objava,handler}){
                       <Card.Text>
                           <ChatSquareText onClick={() => postaviPrikaz()}
                                           className={"pokazivac"}/> <small>{objava.comments.length} </small>
-                          {!objava.i_have_liked? <HandThumbsUpFill className={"palac pokazivac"}/> :
-                              <HandThumbsDownFill className={"palac pokazivac"}/>} <small> {objava.post.likes} oznaka sviđa mi se</small>
+                          {!objava.i_have_liked? <HandThumbsUpFill className={"palac pokazivac"} onClick={() => lajkaj()}/> :
+                              <HandThumbsDownFill className={"palac pokazivac"} onClick={() => dislajk()}/>} <small> {objava.post.likes} oznaka sviđa mi se</small>
                       </Card.Text>
                   </blockquote>
               </Card.Body>

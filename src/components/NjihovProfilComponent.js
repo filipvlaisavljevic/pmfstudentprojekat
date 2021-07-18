@@ -134,6 +134,7 @@ function NjihovProfilComponent({unistiSesiju}){
         });
     }
 
+
     useEffect(() =>{
         fetchKorisnik()
     },[])
