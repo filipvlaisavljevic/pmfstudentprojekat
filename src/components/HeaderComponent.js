@@ -4,10 +4,10 @@ import NavigationComponent from "./NavigationComponent";
 
 function HeaderComponent({sesija,unistiSesiju,korisnik}){
     return(
-        <div className={"mt-5"}>
-            <a href={"/"}><Image src={"../logo.png"}/></a>
+        <Row className={"mt-5"}>
+            <a href={"/"}><Image src={"../logo.png"} className={"logo"}/></a>
             <NavigationComponent sesija={sesija} unistiSesiju={() => unistiSesiju()} korisnik={korisnik}/>
-        </div>
+        </Row>
     );
 }
 
