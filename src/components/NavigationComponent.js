@@ -31,7 +31,7 @@ function NavigationComponent({sesija,unistiSesiju,korisnik}){
     return(
         <Navbar bg="light" expand="lg" className={"mt-3"}>
             <Container>
-                {redirect ? <Redirect to={"/pretraga/"+kveri}/> : null}
+                {redirect ? <div><Redirect to={"/pretraga/"+kveri}/></div> : null}
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
