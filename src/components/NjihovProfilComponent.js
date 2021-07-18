@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 
 axios.defaults.withCredentials = true;
 
-function NjihovProfilComponent({unistiSesiju}){
+function NjihovProfilComponent({unistiSesiju,sesija}){
 
     const[loading,setLoading] = useState(true);
     const[korisnik,setKorisnik] = useState([]);
@@ -215,7 +215,7 @@ function NjihovProfilComponent({unistiSesiju}){
                                 }
                                 {korisnik.posts.length > 0 ?
                                     korisnik.posts.map((objava) =>(
-                                        <FullObjavaComponent objava={objava} handler={() => handler()}/>
+                                        <FullObjavaComponent objava={objava} handler={() => handler()} sesija={sesija}/>
                                     )) :
                                     <div className={"banner pt-2 pb-2 mb-4"}>
                                         <CaretRightFill/> {korisnik.first_name} {korisnik.last_name} trenutno nema nikakvih objava.
