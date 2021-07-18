@@ -154,10 +154,10 @@ function ProfilComponent({korisnik,unistiSesiju}){
                                     </Row>
                                     <Row className="mb-1 mt-1">
                                         <Col md="auto">
-                                            <span>Pratitelji: <b><a href={"#"} className={"followeri"}>{user.number_of_followers}</a></b></span>
+                                            <span>Pratitelji: <b><a href={"/followers/"+user.id} className={"followeri"}>{user.number_of_followers}</a></b></span>
                                         </Col>
                                         <Col md="auto">
-                                            <span>Pratim: <b><a href={"#"} className={"followeri"}>{user.number_of_people_i_follow}</a></b></span>
+                                            <span>Pratim: <b><a href={"/following/"+user.id} className={"followeri"}>{user.number_of_people_i_follow}</a></b></span>
                                         </Col>
                                     </Row>
                                 </Col>

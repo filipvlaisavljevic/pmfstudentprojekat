@@ -26,6 +26,8 @@ import LoadingComponent from "./components/LoadingComponent";
 import NjihovProfilComponent from "./components/NjihovProfilComponent";
 import ZaboravljenaSifraMailComponent from "./components/ZaboravljenaSifraMailComponent";
 import ZaboravljenaSifraComponet from "./components/ZaboravljenaSifraComponet";
+import FollowersComponent from "./components/FollowersComponent";
+import FollowingComponent from "./components/FollowingComponent";
 
 axios.defaults.withCredentials = true;
 
@@ -113,24 +115,30 @@ function App() {
                             unistiSesiju={() => unistiSesiju()}
                         /> : <Redirect to={'/login/'}/>}
                     </Route>
-                    <Route path="/:id" exact>
+                    <Route path="/mojprofil/:id" exact>
                         {sesija ? <ProfilComponent korisnik={korisnik}
                             unistiSesiju={() => unistiSesiju()}
                         /> : <Redirect to={'/login/'}/>}
                     </Route>
-                    <Route path="/profil/:id/">
+                    <Route path="/followers/:id">
+                        {sesija ? <FollowersComponent unistiSesiju={() => unistiSesiju()}/> : <Redirect to={"/login"}/>}
+                    </Route>
+                    <Route path="/following/:id">
+                        {sesija ? <FollowingComponent unistiSesiju={() => unistiSesiju()}/> : <Redirect to={"/login"}/>}
+                    </Route>
+                    <Route path="/profil/:id">
                         {sesija ? <NjihovProfilComponent unistiSesiju={() => unistiSesiju()}/> : <Redirect to={'/login/'}/>}
                     </Route>
-                    <Route path="/objava/">
+                    <Route path="/objava">
                         {sesija ? <FullObjavaComponent/> : <Redirect to={'/login/'}/>}
                     </Route>
-                    <Route path="/pretraga/">
+                    <Route path="/pretraga">
                         {sesija ? <PretragaComponent/> : <Redirect to={'/login/'}/>}
                     </Route>
-                    <Route path="/chat/">
+                    <Route path="/chat">
                         {sesija ? <ChatComponent/> : <Redirect to={'/login/'}/>}
                     </Route>
-                    <Route path="/novaporuka/">
+                    <Route path="/novaporuka">
                         {sesija ?  <NovaPorukaComponent/> : <Redirect to={'/login/'}/>}
                     </Route>
                     <Route path="/">
