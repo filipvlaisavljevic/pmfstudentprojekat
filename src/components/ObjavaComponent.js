@@ -91,6 +91,7 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
                         confirmButtonText: 'Nastavi dalje'
                     })
                     handler()
+                    handleClose()
                 }
             })
             .catch((error)=>{
@@ -120,6 +121,7 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
                         confirmButtonText: 'Nastavi dalje'
                     })
                     handler()
+                    handleClose2()
                 }
             })
             .catch((error)=>{
