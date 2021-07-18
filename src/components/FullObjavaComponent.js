@@ -99,24 +99,28 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
     }
 
 
-    /*
     console.log("OBJAVA")
-    console.log(objava)*/
+    console.log(objava)
+    console.log(sesija)
 
     return(
       <div>
           <Card className={"mb-3"}>
               {/*<Card.Img variant="top" src="https://i.imgur.com/FW4FhbQ.png" className={"d-none d-lg-block"}/>*/}
               <Card.Body>
-                  <Dropdown>
-                      <Dropdown.Toggle className="dugme-dropdown" noCaret>
-                          <ThreeDots/>
-                      </Dropdown.Toggle>
+                  {sesija.id===objava.post.author_id ?
+                      <Dropdown>
+                          <Dropdown.Toggle className="dugme-dropdown" noCaret>
+                              <ThreeDots/>
+                          </Dropdown.Toggle>
 
-                      <Dropdown.Menu>
-                          <Dropdown.Item style={{color: "#D83A56"}} onClick={handleShow.bind(this,objava.post.id)}><Trash/> Izbrišite objavu</Dropdown.Item>
-                      </Dropdown.Menu>
-                  </Dropdown>
+                          <Dropdown.Menu>
+                              <Dropdown.Item style={{color: "#D83A56"}} onClick={handleShow.bind(this, objava.post.id)}><Trash/> Izbrišite
+                                  objavu</Dropdown.Item>
+                          </Dropdown.Menu>
+                      </Dropdown>
+                      : <></>
+                  }
 
                   <blockquote className="blockquote mb-0">
                       <p>
