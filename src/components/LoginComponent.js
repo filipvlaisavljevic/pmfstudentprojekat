@@ -3,7 +3,7 @@ import {Form, Button, Alert} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 import {XCircle} from "react-bootstrap-icons";
-import {Redirect} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 axios.defaults.withCredentials = true;
 
@@ -72,6 +72,9 @@ function LoginComponent({postaviSesiju,unistiSesiju}){
                 <Form.Text className="text-muted">
                     Vaš password nećemo dijeliti sa drugima.
                 </Form.Text>
+            </Form.Group>
+            <Form.Group className="mb-3">
+                Zaboravili šifru? <Link to="/zaboravljenaSifra" className="linkin">Promjenite!</Link>
             </Form.Group>
             <Button variant="primary" type="submit" className={"w-100"}>
                 Loguj se

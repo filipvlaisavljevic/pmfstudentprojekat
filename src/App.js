@@ -24,6 +24,8 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import LoadingComponent from "./components/LoadingComponent";
 import NjihovProfilComponent from "./components/NjihovProfilComponent";
+import ZaboravljenaSifraMailComponent from "./components/ZaboravljenaSifraMailComponent";
+import ZaboravljenaSifraComponet from "./components/ZaboravljenaSifraComponet";
 
 axios.defaults.withCredentials = true;
 
@@ -93,6 +95,18 @@ function App() {
                         {!sesija ? <RegisterComponent postaviSesiju={() => postaviSesiju()}
                           unistiSesiju={() => unistiSesiju()}
                         /> :<Redirect to={'/'}/>}
+                    </Route>
+                    <Route path="/zaboravljenaSifra/:id">
+                        {!sesija ? <ZaboravljenaSifraComponet postaviSesiju={()=>postaviSesiju()}
+                                    unistiSesiju={()=>unistiSesiju()}
+                        /> : <Redirect to={'/'}/>
+                        }
+                    </Route>
+                    <Route path="/zaboravljenaSifra">
+                        {!sesija ? <ZaboravljenaSifraMailComponent postaviSesiju={()=>postaviSesiju()}
+                            unistiSesiju={()=>unistiSesiju()}
+                        /> : <Redirect to={'/'}/>}
+
                     </Route>
                     <Route path="/profil/edit">
                         {sesija ? <EditProfilaComponent korisnik={korisnik}

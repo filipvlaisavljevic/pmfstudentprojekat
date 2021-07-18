@@ -329,3 +329,8 @@ input[aria-invalid=true]{
 p{
   word-break: break-all!important;
 }
+
+.linkin{
+  text-decoration: none;
+  color: #0EBD60;
+}
