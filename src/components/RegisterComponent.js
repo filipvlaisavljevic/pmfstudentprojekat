@@ -35,6 +35,7 @@ function RegisterComponent({postaviSesiju,unistiSesiju}){
                     );
                     setShow(true)
                 }
+                return <Redirect to={'/login'}/>;
 
         //        window.location.href = "/login";
             },

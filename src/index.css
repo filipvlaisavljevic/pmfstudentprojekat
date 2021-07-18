@@ -161,6 +161,16 @@ p{
   font-size: 14px;
 }
 
+.nick-recommended a{
+  text-decoration: none;
+  color: black;
+}
+
+.nick-recommended a:hover{
+  text-decoration: none;
+  color: #0EBD60;
+}
+
 .inline-htag{
   display: inline-block;
   font-size: 26px;

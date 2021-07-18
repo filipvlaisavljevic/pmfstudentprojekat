@@ -50,7 +50,9 @@ function SugestijaComponent({predlozen,handler,unistiSesiju}){
                             </div>
                         </Row>
                         <Row className={"nick-recommended"}>
-                            <span className={"ml-1"}>@{predlozen.username}</span>
+                            <span className={"ml-1"}>
+                                <a href={"/profil/"+predlozen.me_id}>@{predlozen.username}</a>
+                            </span>
                         </Row>
                     </Card.Text>
                 </Card.Body>

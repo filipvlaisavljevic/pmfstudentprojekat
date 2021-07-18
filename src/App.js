@@ -23,6 +23,7 @@ import NovaPorukaComponent from "./components/NovaPorukaComponent";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import LoadingComponent from "./components/LoadingComponent";
+import NjihovProfilComponent from "./components/NjihovProfilComponent";
 
 axios.defaults.withCredentials = true;
 
@@ -80,7 +81,7 @@ function App() {
     else return (
           <Router>
             <Container>
-              <HeaderComponent sesija={sesija} unistiSesiju={() => unistiSesiju()}/>
+              <HeaderComponent sesija={sesija} unistiSesiju={() => unistiSesiju()} korisnik={korisnik}/>
                 {/*  Prikaz početne stranice za sve logovane korisnike*/}
                 <Switch>
                     <Route path="/login">
@@ -98,10 +99,13 @@ function App() {
                             unistiSesiju={() => unistiSesiju()}
                         /> : <Redirect to={'/login'}/>}
                     </Route>
-                    <Route path="/profil">
+                    <Route path="/:id" exact>
                         {sesija ? <ProfilComponent korisnik={korisnik}
                             unistiSesiju={() => unistiSesiju()}
                         /> : <Redirect to={'/login'}/>}
+                    </Route>
+                    <Route path="/profil/:id">
+                        {sesija ? <NjihovProfilComponent unistiSesiju={() => unistiSesiju()}/> : <Redirect to={'/login'}/>}
                     </Route>
                     <Route path="/objava">
                         {sesija ? <FullObjavaComponent/> : <Redirect to={'/login'}/>}

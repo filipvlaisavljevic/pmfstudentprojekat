@@ -2,7 +2,7 @@ import React from "react"
 import {Container, Nav, Navbar,Form,FormControl,Button,NavDropdown} from "react-bootstrap";
 import axios from "axios";
 
-function NavigationComponent({sesija,unistiSesiju}){
+function NavigationComponent({sesija,unistiSesiju,korisnik}){
 
     function odlogujKorisnika(){
         axios.post("https://dwsproject.herokuapp.com/logoutUser").then(
@@ -25,7 +25,7 @@ function NavigationComponent({sesija,unistiSesiju}){
                         {!sesija ? <Nav.Link href="/login">Loguj se</Nav.Link> : <div></div>}
                         {!sesija ? <Nav.Link href="/register">Registruj se</Nav.Link> : <div></div>}
                         { sesija ? <NavDropdown title="Moj profil">
-                            <NavDropdown.Item href="/profil">Profil</NavDropdown.Item>
+                            <NavDropdown.Item href={"/"+korisnik.id}>Profil</NavDropdown.Item>
                             <NavDropdown.Item href="/profil/edit">Postavke</NavDropdown.Item>
                         </NavDropdown> : <div></div> }
                         { sesija ? <Nav.Link href="/objava">Objava</Nav.Link> : <div></div> }
