@@ -369,7 +369,7 @@ input[aria-invalid=true]{
 }
 
 p{
-  word-break: break-all!important;
+  word-break: break-word!important;
 }
 
 .linkin{

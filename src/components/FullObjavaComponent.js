@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {Button, Card, Dropdown, ListGroup, Modal} from "react-bootstrap";
+import {Button, Card, Dropdown, ListGroup, Modal, Row} from "react-bootstrap";
 import {
     ChatDots,
     ChatQuoteFill,
@@ -108,35 +108,37 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
           <Card className={"mb-3"}>
               {/*<Card.Img variant="top" src="https://i.imgur.com/FW4FhbQ.png" className={"d-none d-lg-block"}/>*/}
               <Card.Body>
-                  {sesija.id===objava.post.author_id ?
-                      <Dropdown>
-                          <Dropdown.Toggle className="dugme-dropdown" noCaret>
-                              <ThreeDots/>
-                          </Dropdown.Toggle>
+                  <Row>
+                      {sesija.id===objava.post.author_id ?
+                          <Dropdown>
+                              <Dropdown.Toggle className="dugme-dropdown" noCaret>
+                                  <ThreeDots/>
+                              </Dropdown.Toggle>
 
-                          <Dropdown.Menu>
-                              <Dropdown.Item style={{color: "#D83A56"}} onClick={handleShow.bind(this, objava.post.id)}><Trash/> Izbrišite
-                                  objavu</Dropdown.Item>
-                          </Dropdown.Menu>
-                      </Dropdown>
-                      : <></>
-                  }
+                              <Dropdown.Menu>
+                                  <Dropdown.Item style={{color: "#D83A56"}} onClick={handleShow.bind(this, objava.post.id)}><Trash/> Izbrišite
+                                      objavu</Dropdown.Item>
+                              </Dropdown.Menu>
+                          </Dropdown>
+                          : <></>
+                      }
 
-                  <blockquote className="blockquote mb-0">
-                      <p>
-                          {' '}
-                          {objava.post.text}{' '}
-                      </p>
-                      <footer className="blockquote-footer mt-2">
-                          {objava.post.first_name} {objava.post.last_name}
-                      </footer>
-                      <Card.Text>
-                          <ChatSquareText onClick={() => postaviPrikaz()}
-                                          className={"pokazivac"}/> <small>{objava.comments.length} </small>
-                          {!objava.i_have_liked? <HandThumbsUpFill className={"palac pokazivac"} onClick={() => lajkaj()}/> :
-                              <HandThumbsDownFill className={"palac pokazivac"} onClick={() => dislajk()}/>} <small> {objava.post.likes} oznaka sviđa mi se</small>
-                      </Card.Text>
-                  </blockquote>
+                      <blockquote className="blockquote mb-0">
+                          <p>
+                              {' '}
+                              {objava.post.text}{' '}
+                          </p>
+                          <footer className="blockquote-footer mt-2">
+                              {objava.post.first_name} {objava.post.last_name}
+                          </footer>
+                          <Card.Text>
+                              <ChatSquareText onClick={() => postaviPrikaz()}
+                                              className={"pokazivac"}/> <small>{objava.comments.length} </small>
+                              {!objava.i_have_liked? <HandThumbsUpFill className={"palac pokazivac"} onClick={() => lajkaj()}/> :
+                                  <HandThumbsDownFill className={"palac pokazivac"} onClick={() => dislajk()}/>} <small> {objava.post.likes} oznaka sviđa mi se</small>
+                          </Card.Text>
+                      </blockquote>
+                  </Row>
               </Card.Body>
           </Card>
 
