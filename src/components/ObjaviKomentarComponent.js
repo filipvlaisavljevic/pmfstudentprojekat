@@ -11,7 +11,7 @@ function ObjaviKomentarComponent({objava,handler}){
     const onSubmit=data=>{
         console.log(data)
         console.log(objava.id)
-        axios.post('https://dwsproject.herokuapp.com/addComment/',{
+        axios.post('https://dwsproject.herokuapp.com/addComment',{
             text: data.text,
             post_id: objava.id
         })

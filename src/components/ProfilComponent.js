@@ -26,7 +26,7 @@ function ProfilComponent({korisnik,unistiSesiju}){
 
     function azurirajKorisnika(){
         setLoading(true);
-        axios.get("https://dwsproject.herokuapp.com/getMyProfileInformation/").then(
+        axios.get("https://dwsproject.herokuapp.com/getMyProfileInformation").then(
             (response) =>{
                 setUser(response.data);
                 setLoading(false);
@@ -47,7 +47,7 @@ function ProfilComponent({korisnik,unistiSesiju}){
     },[promjena])
 
     function getPredlozeni(){
-        axios.get("https://dwsproject.herokuapp.com/recommendations/").then(
+        axios.get("https://dwsproject.herokuapp.com/recommendations").then(
             (response) =>{
                 setPredlozeni(response.data);
             },
@@ -65,7 +65,7 @@ function ProfilComponent({korisnik,unistiSesiju}){
     }
 
     function getObjave(){
-        axios.get("https://dwsproject.herokuapp.com/getMyPosts/").then(
+        axios.get("https://dwsproject.herokuapp.com/getMyPosts").then(
             (response) =>{
                 setObjave(response.data);
                 setLoading(false);

@@ -84,7 +84,7 @@ function App() {
               <HeaderComponent sesija={sesija} unistiSesiju={() => unistiSesiju()} korisnik={korisnik}/>
                 {/*  Prikaz početne stranice za sve logovane korisnike*/}
                 <Switch>
-                    <Route path="/login">
+                    <Route path="/login/">
                         {!sesija ? <LoginComponent postaviSesiju={() => postaviSesiju()}
                             unistiSesiju={() => unistiSesiju()}
                         /> :<Redirect to={'/'}/>}
@@ -97,30 +97,30 @@ function App() {
                     <Route path="/profil/edit">
                         {sesija ? <EditProfilaComponent korisnik={korisnik}
                             unistiSesiju={() => unistiSesiju()}
-                        /> : <Redirect to={'/login'}/>}
+                        /> : <Redirect to={'/login/'}/>}
                     </Route>
                     <Route path="/:id" exact>
                         {sesija ? <ProfilComponent korisnik={korisnik}
                             unistiSesiju={() => unistiSesiju()}
-                        /> : <Redirect to={'/login'}/>}
+                        /> : <Redirect to={'/login/'}/>}
                     </Route>
-                    <Route path="/profil/:id">
-                        {sesija ? <NjihovProfilComponent unistiSesiju={() => unistiSesiju()}/> : <Redirect to={'/login'}/>}
+                    <Route path="/profil/:id/">
+                        {sesija ? <NjihovProfilComponent unistiSesiju={() => unistiSesiju()}/> : <Redirect to={'/login/'}/>}
                     </Route>
-                    <Route path="/objava">
-                        {sesija ? <FullObjavaComponent/> : <Redirect to={'/login'}/>}
+                    <Route path="/objava/">
+                        {sesija ? <FullObjavaComponent/> : <Redirect to={'/login/'}/>}
                     </Route>
-                    <Route path="/pretraga">
-                        {sesija ? <PretragaComponent/> : <Redirect to={'/login'}/>}
+                    <Route path="/pretraga/">
+                        {sesija ? <PretragaComponent/> : <Redirect to={'/login/'}/>}
                     </Route>
-                    <Route path="/chat">
-                        {sesija ? <ChatComponent/> : <Redirect to={'/login'}/>}
+                    <Route path="/chat/">
+                        {sesija ? <ChatComponent/> : <Redirect to={'/login/'}/>}
                     </Route>
-                    <Route path="/novaporuka">
-                        {sesija ?  <NovaPorukaComponent/> : <Redirect to={'/login'}/>}
+                    <Route path="/novaporuka/">
+                        {sesija ?  <NovaPorukaComponent/> : <Redirect to={'/login/'}/>}
                     </Route>
                     <Route path="/">
-                        {sesija ? <HomeComponent unistiSesiju={() => unistiSesiju()}/> : <Redirect to={'/login'}/>}
+                        {sesija ? <HomeComponent unistiSesiju={() => unistiSesiju()}/> : <Redirect to={'/login/'}/>}
                     </Route>
                 </Switch>
               <FooterComponent/>

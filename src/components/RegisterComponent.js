@@ -23,7 +23,7 @@ function RegisterComponent({postaviSesiju,unistiSesiju}){
     }
 
     function registrujKorisnika(data){
-        axios.post("https://dwsproject.herokuapp.com/register/",{
+        axios.post("https://dwsproject.herokuapp.com/register",{
             username: data.username,
             password: data.password,
             email: data.email,

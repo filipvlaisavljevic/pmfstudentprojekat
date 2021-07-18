@@ -5,7 +5,7 @@ import axios from "axios";
 function NavigationComponent({sesija,unistiSesiju,korisnik}){
 
     function odlogujKorisnika(){
-        axios.post("https://dwsproject.herokuapp.com/logoutUser/").then(
+        axios.post("https://dwsproject.herokuapp.com/logoutUser").then(
             (response) =>{
                 console.log(response.data.success)
                 unistiSesiju();

@@ -20,7 +20,7 @@ function LoginComponent({postaviSesiju,unistiSesiju}){
     }
 
     function logujKorisnika(data){
-        axios.post("https://dwsproject.herokuapp.com/loginUser/",{
+        axios.post("https://dwsproject.herokuapp.com/loginUser",{
             username: data.username,
             password: data.password
         }).then(
@@ -44,7 +44,7 @@ function LoginComponent({postaviSesiju,unistiSesiju}){
             switch (error.response.status) {
                 case 403:
                     unistiSesiju();
-                    return <Redirect to={'/login'}/>;
+                    return <Redirect to={'/login/'}/>;
                 default:
                     console.log(error)
             }
