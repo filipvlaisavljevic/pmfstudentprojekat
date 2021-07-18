@@ -12,16 +12,39 @@ import ObjaviPostComponent from "./ObjaviPostComponent";
 
 axios.defaults.withCredentials = true;
 
-function ProfilComponent({korisnik,unistiSesiju,handlerhome}){
+function ProfilComponent({korisnik,unistiSesiju}){
 
     const[predlozeni,setPredlozeni] = useState([]);
     const[promjena,setPromjena] = useState(false);
     const[objave,setObjave] = useState([]);
     const[loading,setLoading] = useState(true);
+    const[user,setUser] = useState(korisnik);
 
     function handler(){
         setPromjena(!promjena);
     }
+
+    function azurirajKorisnika(){
+        setLoading(true);
+        axios.get("https://dwsproject.herokuapp.com/getMyProfileInformation").then(
+            (response) =>{
+                setUser(response.data);
+                setLoading(false);
+            }
+        ).catch((error) => {
+            switch (error.response.status) {
+                case 403:
+                    unistiSesiju();
+                default:
+                    unistiSesiju()
+                    setLoading(false)
+            }
+        });
+    }
+
+    useEffect(() => {
+        azurirajKorisnika()
+    },[promjena])
 
     function getPredlozeni(){
         axios.get("https://dwsproject.herokuapp.com/recommendations").then(
@@ -98,14 +121,14 @@ function ProfilComponent({korisnik,unistiSesiju,handlerhome}){
                         <div className="mt-5 banner mb-4">
                             <Row>
                                 <Col md="auto">
-                                    <Image src={korisnik.picture}
+                                    <Image src={user.picture}
                                            className='profilna-slika d-none d-lg-block' fluid/>
                                 </Col>
                                 <Col md="auto" className={"mt-1"}>
                                     <Row>
                                         <Col>
                                             <span className='font-podaci'>
-                                                {korisnik.active ?
+                                                {user.active ?
                                                     <OverlayTrigger
                                                         placement="top"
                                                         delay={{ show: 250, hide: 400 }}
@@ -121,20 +144,20 @@ function ProfilComponent({korisnik,unistiSesiju,handlerhome}){
                                                     >
                                                         <CircleFill className={"neaktivan"} size={12}/>
                                                     </OverlayTrigger>}
-                                                <b> {korisnik.first_name} {korisnik.last_name}</b></span>
+                                                <b> {user.first_name} {user.last_name}</b></span>
                                         </Col>
                                     </Row>
                                     <Row>
                                         <Col>
-                                            <span className='font-nick'>@{korisnik.username}</span>
+                                            <span className='font-nick'>@{user.username}</span>
                                         </Col>
                                     </Row>
                                     <Row className="mb-1 mt-1">
                                         <Col md="auto">
-                                            <span>Pratitelji: <b><a href={"#"} className={"followeri"}>{korisnik.number_of_followers}</a></b></span>
+                                            <span>Pratitelji: <b><a href={"#"} className={"followeri"}>{user.number_of_followers}</a></b></span>
                                         </Col>
                                         <Col md="auto">
-                                            <span>Pratim: <b><a href={"#"} className={"followeri"}>{korisnik.number_of_people_i_follow}</a></b></span>
+                                            <span>Pratim: <b><a href={"#"} className={"followeri"}>{user.number_of_people_i_follow}</a></b></span>
                                         </Col>
                                     </Row>
                                 </Col>
@@ -161,7 +184,6 @@ function ProfilComponent({korisnik,unistiSesiju,handlerhome}){
                                 <div className="force-overflow">
                                     {predlozeni.map((predlozen)=>(
                                         <SugestijaComponent predlozen={predlozen} handler={() => handler()} unistiSesiju={() => unistiSesiju()}
-                                            handlerhome={() => handlerhome()}
                                         />
                                     ))}
                                 </div>

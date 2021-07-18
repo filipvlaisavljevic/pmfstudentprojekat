@@ -7,7 +7,7 @@ function ObjavaComponent({objava}){
         <div className="bezpaddinga">
             <Card className={"mb-3"}>
                 <Card.Img variant="top" src={objava.post.picture} className={"d-none d-lg-block"}/>
-                <Card.Body>
+                <Card.Body className={"w-70"}>
                     <div className="blockquote mb-0">
                         <p>
                             {objava.post.text}

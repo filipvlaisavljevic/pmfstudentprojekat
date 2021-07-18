@@ -24,6 +24,8 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import LoadingComponent from "./components/LoadingComponent";
 
+axios.defaults.withCredentials = true;
+
 function App() {
 
     const [sesija,setSesija] = useState(true);
@@ -99,7 +101,6 @@ function App() {
                     <Route path="/profil">
                         {sesija ? <ProfilComponent korisnik={korisnik}
                             unistiSesiju={() => unistiSesiju()}
-                            handlerhome={() => handler()}
                         /> : <Redirect to={'/login'}/>}
                     </Route>
                     <Route path="/objava">
