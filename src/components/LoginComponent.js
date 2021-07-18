@@ -44,7 +44,7 @@ function LoginComponent({postaviSesiju,unistiSesiju}){
             switch (error.response.status) {
                 case 403:
                     unistiSesiju();
-                    return <Redirect to={'/login'}/>;
+                    return <Redirect to={'/login/'}/>;
                 default:
                     console.log(error)
             }

@@ -7,6 +7,8 @@ import ObjaviPostComponent from "./ObjaviPostComponent";
 import axios from "axios";
 import MiniLoadingComponent from "./MiniLoadingComponent";
 
+axios.defaults.withCredentials = true;
+
 function HomeComponent({unistiSesiju}){
 
     const[predlozeni,setPredlozeni] = useState([]);

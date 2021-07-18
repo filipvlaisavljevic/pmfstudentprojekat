@@ -171,6 +171,12 @@ p{
   color: #6c757d;
 }
 
+.logo{
+  max-width: 100% !important;
+  height: auto !important;
+  width: auto !important; /* ie8 */
+}
+
 .bez-dekoracije:hover{
   text-decoration: none;
   color: #6c757d;
