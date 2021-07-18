@@ -5,6 +5,7 @@ import axios from "axios";
 import Feedback from "react-bootstrap/Feedback";
 import {XCircle} from "react-bootstrap-icons";
 import {Redirect} from "react-router-dom";
+import Swal from "sweetalert2";
 
 axios.defaults.withCredentials = true;
 
@@ -13,6 +14,7 @@ function RegisterComponent({postaviSesiju,unistiSesiju}){
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [show, setShow] = useState(false);
     const [poruka,setPoruka]=useState("");
+    const [redirectLogin,setRedirectLogin] = useState(false);
     const onSubmit = data => registrujKorisnika(data);
 
     function zatvoriAlert(){
@@ -34,11 +36,16 @@ function RegisterComponent({postaviSesiju,unistiSesiju}){
                         response.data.reason
                     );
                     setShow(true)
-                    return <Redirect to={'/login'}/>;
                 }
-                return <Redirect to={'/login'}/>;
-
-        //        window.location.href = "/login";
+                else {
+                    Swal.fire({
+                        title: 'Super!',
+                        text: 'Uspješno ste se registrovali, molimo Vas da se sada logujete.',
+                        icon: 'success',
+                        confirmButtonText: 'Nastavi dalje'
+                    })
+                    setRedirectLogin(true);
+                }
             },
             (error) =>{
                 console.log(error)
@@ -47,17 +54,15 @@ function RegisterComponent({postaviSesiju,unistiSesiju}){
             switch (error.response.status) {
                 case 403:
                     unistiSesiju();
-                    return <Redirect to={'/login'}/>;
-         //           window.location.href = "/login";
                 default:
                     console.log(error)
             }
         });
-        return <Redirect to={'/login'}/>;
     }
 
     return(
         <Form className={"mt-4 mb-4"} onSubmit={handleSubmit(onSubmit)} noValidate>
+            {redirectLogin ? (<Redirect push to={"/login"}/>) : null}
             <Alert variant="danger" show={show} onClose={zatvoriAlert.bind(this)} dismissible>
                 <p className="bez-margine">
                     <XCircle style={{marginBottom: "3px"}}/> <span>{poruka}</span>
