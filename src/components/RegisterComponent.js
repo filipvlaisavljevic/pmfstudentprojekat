@@ -34,6 +34,7 @@ function RegisterComponent({postaviSesiju,unistiSesiju}){
                         response.data.reason
                     );
                     setShow(true)
+                    return <Redirect to={'/login'}/>;
                 }
                 return <Redirect to={'/login'}/>;
 
@@ -52,6 +53,7 @@ function RegisterComponent({postaviSesiju,unistiSesiju}){
                     console.log(error)
             }
         });
+        return <Redirect to={'/login'}/>;
     }
 
     return(
