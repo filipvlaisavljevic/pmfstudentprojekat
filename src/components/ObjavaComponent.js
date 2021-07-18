@@ -11,7 +11,7 @@ import {
 import ObjaviKomentarComponent from "./ObjaviKomentarComponent";
 import axios from "axios";
 
-function ObjavaComponent({objava,handler,unistiSesiju}){
+function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
     const[prikazi,setPrikazi] = useState(false);
 
     function postaviPrikaz(){

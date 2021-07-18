@@ -142,7 +142,7 @@ function App() {
                         {sesija ?  <NovaPorukaComponent/> : <Redirect to={'/login/'}/>}
                     </Route>
                     <Route path="/">
-                        {sesija ? <HomeComponent unistiSesiju={() => unistiSesiju()}/> : <Redirect to={'/login/'}/>}
+                        {sesija ? <HomeComponent unistiSesiju={() => unistiSesiju()} sesija={korisnik}/> : <Redirect to={'/login/'}/>}
                     </Route>
                 </Switch>
               <FooterComponent/>

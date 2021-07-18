@@ -9,7 +9,7 @@ import MiniLoadingComponent from "./MiniLoadingComponent";
 
 axios.defaults.withCredentials = true;
 
-function HomeComponent({unistiSesiju}){
+function HomeComponent({unistiSesiju,sesija}){
 
     const[predlozeni,setPredlozeni] = useState([]);
     const[promjena,setPromjena] = useState(false);
@@ -88,7 +88,7 @@ function HomeComponent({unistiSesiju}){
                             <div className="scrollbar2 w-100 containerm" id="style-1">
                                 <div className="force-overflow">
                                     {feed.length > 0 ? feed.map((objava)=>(
-                                        <ObjavaComponent objava={objava} handler={() => handler()} unistiSesiju={() => unistiSesiju()}/>
+                                        <ObjavaComponent objava={objava} handler={() => handler()} unistiSesiju={() => unistiSesiju()} sesija={sesija}/>
                                     ))
                                     :
                                         <div className={"banner pt-2 pb-2 mb-4"}>
