@@ -51,6 +51,7 @@ function ZaboravljenaSifraComponet({postaviSesiju,unistiSesiju}){
     const onSubmit=data=>zaboravljena(data);
     return(
         <Form className={"mt-4 mb-4"} onSubmit={handleSubmit(onSubmit)}>
+            {redirectLogin ? (<Redirect push to={"/login"}/>) : null}
             <Alert variant="danger" show={show} onClose={zatvoriAlert.bind(this)} dismissible>
                 <p className="bez-margine">
                     <XCircle style={{marginBottom: "3px"}}/> <span>{poruka}</span>
