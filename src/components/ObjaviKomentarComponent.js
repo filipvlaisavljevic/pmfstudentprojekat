@@ -17,6 +17,8 @@ function ObjaviKomentarComponent({objava,handler}){
         })
             .then((response)=>{
                 console.log(response)
+                document.getElementById('t').value=""
+                setDuzina(250)
                 handler();
             })
             .catch((error)=>{
@@ -59,7 +61,7 @@ function ObjaviKomentarComponent({objava,handler}){
     return(
         <Form className={"mb-3 mt-3"} onSubmit={handleSubmit(onSubmit)}>
             <Form.Group className="mb-3">
-                <Form.Control as="textarea" maxLength="250" placeholder={"Unesite sadržaj komentara..."} rows={3}
+                <Form.Control as="textarea" id="t" maxLength="250" placeholder={"Unesite sadržaj komentara..."} rows={3}
                               {...register('text',{
                                   required: "Morate unijeti text"
                               })}

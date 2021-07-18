@@ -1,8 +1,21 @@
-import React from "react"
-import {Card,Row,Col} from "react-bootstrap";
-import {CaretDownFill, HandThumbsUp, HandThumbsDown, Facebook, HandThumbsUpFill} from 'react-bootstrap-icons';
+import React, {useState} from "react"
+import {Card, Row, Col, ListGroup} from "react-bootstrap";
+import {
+    CaretDownFill,
+    HandThumbsUp,
+    HandThumbsDown,
+    Facebook,
+    HandThumbsUpFill,
+    ChatSquareText, ChatQuoteFill
+} from 'react-bootstrap-icons';
+import ObjaviKomentarComponent from "./ObjaviKomentarComponent";
 
-function ObjavaComponent({objava}){
+function ObjavaComponent({objava,handler}){
+    const[prikazi,setPrikazi] = useState(false);
+
+    function postaviPrikaz(){
+        setPrikazi(!prikazi);
+    }
     return(
         <div className="bezpaddinga">
             <Card className={"mb-3"}>
@@ -16,12 +29,27 @@ function ObjavaComponent({objava}){
                             {objava.post.first_name} {objava.post.last_name}
                         </footer>
 
-                        <Card.Text>
-                            <HandThumbsUpFill className={"palac"}/> <small>{objava.post.likes} oznaka sviđa mi se</small>
+                        <Card.Text> <ChatSquareText onClick={() => postaviPrikaz()}
+                                                    className={"pokazivac"}/> <small>{objava.comments.length}</small> <HandThumbsUpFill className={"palac"}/> <small>{objava.post.likes} oznaka sviđa mi se</small>
                         </Card.Text>
                     </div>
                 </Card.Body>
             </Card>
+
+            {prikazi ?
+                <div id={objava.id}>
+                    {objava.comments.map((komentar) => (
+                        <Card className={"mt-1"}>
+                            <Card.Header className={"w-30"}>{komentar.first_name} {komentar.last_name}</Card.Header>
+                            <ListGroup variant="flush" className={"w-70"}>
+                                <ListGroup.Item><ChatQuoteFill/> {komentar.text}</ListGroup.Item>
+                            </ListGroup>
+                        </Card>
+                    ))}
+
+                    <ObjaviKomentarComponent objava={objava.post} handler={() => handler()}/>
+                </div> :
+                <div></div>}
         </div>
     )
 }

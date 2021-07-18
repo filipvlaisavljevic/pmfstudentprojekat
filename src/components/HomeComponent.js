@@ -86,7 +86,7 @@ function HomeComponent({unistiSesiju}){
                             <div className="scrollbar2 w-100 containerm" id="style-1">
                                 <div className="force-overflow">
                                     {feed.map((objava)=>(
-                                        <ObjavaComponent objava={objava}/>
+                                        <ObjavaComponent objava={objava} handler={() => handler()}/>
                                     ))}
                                 </div>
                             </div>
