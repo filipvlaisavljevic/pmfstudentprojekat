@@ -166,6 +166,26 @@ p{
   color: black;
 }
 
+.bez-dekoracije{
+  text-decoration: none;
+  color: #6c757d;
+}
+
+.bez-dekoracije:hover{
+  text-decoration: none;
+  color: #6c757d;
+}
+
+.bez-dekoracije2{
+  text-decoration: none;
+  color: black;
+}
+
+.bez-dekoracije2:hover{
+  text-decoration: none;
+  color: black;
+}
+
 .nick-recommended a:hover{
   text-decoration: none;
   color: #0EBD60;

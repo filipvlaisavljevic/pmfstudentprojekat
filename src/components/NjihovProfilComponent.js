@@ -4,7 +4,7 @@ import  {useParams
 import MiniLoadingComponent from "./MiniLoadingComponent";
 import axios from "axios";
 import {Col, Container, Image, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
-import {CaretDownFill, CircleFill} from "react-bootstrap-icons";
+import {CaretDownFill, CaretRightFill, CircleFill, Info, InfoCircle} from "react-bootstrap-icons";
 import ObjaviPostComponent from "./ObjaviPostComponent";
 import FullObjavaComponent from "./FullObjavaComponent";
 import SugestijaComponent from "./SugestijaComponent";
@@ -147,9 +147,14 @@ function NjihovProfilComponent({unistiSesiju}){
                         </div>
                         <div className={"scrollbar2 w-100 containerm"} id={"style-2"}>
                             <div className="force-overflow">
-                                {korisnik.posts.map((objava) =>(
-                                    <FullObjavaComponent objava={objava} handler={() => handler()}/>
-                                ))}
+                                {korisnik.posts.length > 0 ?
+                                    korisnik.posts.map((objava) =>(
+                                        <FullObjavaComponent objava={objava} handler={() => handler()}/>
+                                    )) :
+                                    <div className={"banner pt-2 pb-2 mb-4"}>
+                                        <CaretRightFill/> {korisnik.first_name} {korisnik.last_name} trenutno nema nikakvih objava.
+                                    </div>
+                                }
                                 {console.info(korisnik)}
                             </div>
                         </div>

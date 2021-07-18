@@ -26,7 +26,7 @@ function ObjavaComponent({objava,handler}){
                             {objava.post.text}
                         </p>
                         <footer className="blockquote-footer mt-2">
-                            {objava.post.first_name} {objava.post.last_name}
+                            <a href={"/profil/"+objava.post.author_id} className={"bez-dekoracije"}>{objava.post.first_name} {objava.post.last_name}</a>
                         </footer>
 
                         <Card.Text> <ChatSquareText onClick={() => postaviPrikaz()}
@@ -40,7 +40,9 @@ function ObjavaComponent({objava,handler}){
                 <div id={objava.id}>
                     {objava.comments.map((komentar) => (
                         <Card className={"mt-1"}>
-                            <Card.Header className={"w-30"}>{komentar.first_name} {komentar.last_name}</Card.Header>
+                            <Card.Header className={"w-30"}>
+                                <a href={"/profil/"+komentar.author_id} className={"bez-dekoracije2"}>{komentar.first_name} {komentar.last_name}</a>
+                            </Card.Header>
                             <ListGroup variant="flush" className={"w-70"}>
                                 <ListGroup.Item><ChatQuoteFill/> {komentar.text}</ListGroup.Item>
                             </ListGroup>

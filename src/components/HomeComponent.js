@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react"
 import {Row,Col,Container} from "react-bootstrap";
-import { CaretDownFill } from 'react-bootstrap-icons';
+import {CaretDownFill, CaretRightFill} from 'react-bootstrap-icons';
 import ObjavaComponent from "./ObjavaComponent";
 import SugestijaComponent from "./SugestijaComponent";
 import ObjaviPostComponent from "./ObjaviPostComponent";
@@ -85,9 +85,14 @@ function HomeComponent({unistiSesiju}){
                             </div> :
                             <div className="scrollbar2 w-100 containerm" id="style-1">
                                 <div className="force-overflow">
-                                    {feed.map((objava)=>(
+                                    {feed.length > 0 ? feed.map((objava)=>(
                                         <ObjavaComponent objava={objava} handler={() => handler()}/>
-                                    ))}
+                                    ))
+                                    :
+                                        <div className={"banner pt-2 pb-2 mb-4"}>
+                                            <CaretRightFill/> Trenutno nema objava za prikazati.
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         }

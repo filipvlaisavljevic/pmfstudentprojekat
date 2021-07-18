@@ -3,7 +3,7 @@ import {Container, Row, Col, Image, Button, Card,ListGroup,OverlayTrigger,Toolti
 import SugestijaComponent from "./SugestijaComponent";
 import ObjavaComponent from "./ObjavaComponent";
 import {Link} from "react-router-dom";
-import {CaretDownFill, CircleFill, HandThumbsUpFill} from "react-bootstrap-icons";
+import {CaretDownFill, CaretRightFill, CircleFill, HandThumbsUpFill} from "react-bootstrap-icons";
 import {PencilSquare} from "react-bootstrap-icons";
 import FullObjavaComponent from "./FullObjavaComponent";
 import axios from "axios";
@@ -166,9 +166,14 @@ function ProfilComponent({korisnik,unistiSesiju}){
                         <ObjaviPostComponent handler={() => handler()}/>
                         <div className={"scrollbar2 w-100 containerm"} id={"style-2"}>
                             <div className="force-overflow">
-                            {objave.map((objava) =>(
+                            {objave.length > 0 ? objave.map((objava) =>(
                                 <FullObjavaComponent objava={objava} handler={() => handler()}/>
-                            ))}
+                            ))
+                            :
+                                <div className={"banner pt-2 pb-2 mb-4"}>
+                                    <CaretRightFill/> Nemate objavljenih objava.
+                                </div>
+                            }
                             </div>
                         </div>
                     </Col>
