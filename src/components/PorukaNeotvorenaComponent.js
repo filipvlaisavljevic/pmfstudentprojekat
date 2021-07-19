@@ -1,36 +1,32 @@
 import React from "react"
 import {Card, Row} from "react-bootstrap";
 
-function PorukaNeotvorenaComponent(){
+function PorukaNeotvorenaComponent({podaci,korisnik}){
     return(
         <div>
             <Card className={"mb-3"}>
-                <Card.Img variant="top" src="https://i.imgur.com/MLKU6yM.jpg" className={"d-none d-lg-block recommended-slika"}
+                <Card.Img variant="top" src={podaci.sender_picture} className={"d-none d-lg-block"}
                 />
-                <Card.Body>
+                <Card.Body className={"w-70"}>
                     <Card.Text className={"follow"}>
+                        <Row className={"nick-recommended"}>
+                            <span className={"ml-1"}>{
+                                (podaci.seen && podaci.sender_id != korisnik.id) ? <span className={"datum"}>{podaci.datetime}</span>
+                                    : <b className={"datum"}>{podaci.datetime}</b>
+                            }</span>
+                        </Row>
                         <Row>
-                            <span className={"ml-1"}>Edah Siječić</span>
+                            <span className={"ml-1 mt-1"}>{
+                                (podaci.seen && podaci.sender_id != korisnik.id) ? <span>{podaci.sender_first_name} {podaci.sender_last_name}</span> :
+                                    <b>{podaci.sender_first_name} {podaci.sender_last_name}</b>
+                            }</span>
                         </Row>
                         <Row className={"nick-recommended"}>
-                            <span className={"ml-1"}>Brate, evo ne znam stvarno kako mi nije prošao kod koji sam napravio. Šta se dešava? Ako
-                                budemo probali ovo raditi na onaj drugi način desit će se za promjenu neka nova code react pro...</span>
-                        </Row>
-                    </Card.Text>
-                </Card.Body>
-            </Card>
-            <Card className={"mb-3"}>
-                <Card.Img variant="top" src="https://i.imgur.com/S4gTsXX.jpg" className={"d-none d-lg-block recommended-slika"}
-                />
-                <Card.Body>
-                    <Card.Text className={"follow"}>
-                        <Row>
-                            <span className={"ml-1"}>Tarik Pašić</span>
-                        </Row>
-                        <Row className={"nick-recommended"}>
-                            <span className={"ml-1"}>Njemačka se suočava s velikom prirodnom
-                                katastrofom koju su uzrokovale velike padavine i poplava. Broj
-                                smrtno stradalih je viši od 100, ali se strahuje da će još rasti.</span>
+                            <span className={"ml-1"}>
+                                {(podaci.seen && podaci.sender_id != korisnik.id)?
+                                    podaci.sender_id == korisnik.id ? <span>You: {podaci.text}</span> : <span>{podaci.sender_first_name}: {podaci.text}</span> :
+                                <b>{podaci.sender_id == korisnik.id ?  <span>You: {podaci.text}</span> : <span>{podaci.sender_first_name}: {podaci.text}</span>}</b>}
+                            </span>
                         </Row>
                     </Card.Text>
                 </Card.Body>

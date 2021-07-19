@@ -137,10 +137,10 @@ function App() {
                         {sesija ? <PretragaComponent  unistiSesiju={() => unistiSesiju()}/> : <Redirect to={'/login/'}/>}
                     </Route>
                     <Route path="/chat">
-                        {sesija ? <ChatComponent/> : <Redirect to={'/login/'}/>}
+                        {sesija ? <ChatComponent korisnik={korisnik} unistiSesiju={() => unistiSesiju()}/> : <Redirect to={'/login/'}/>}
                     </Route>
                     <Route path="/novaporuka">
-                        {sesija ?  <NovaPorukaComponent/> : <Redirect to={'/login/'}/>}
+                        {sesija ?  <NovaPorukaComponent unistiSesiju={() => unistiSesiju()}/> : <Redirect to={'/login/'}/>}
                     </Route>
                     <Route path="/">
                         {sesija ? <HomeComponent unistiSesiju={() => unistiSesiju()} sesija={korisnik}/> : <Redirect to={'/login/'}/>}

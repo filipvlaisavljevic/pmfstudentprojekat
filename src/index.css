@@ -132,6 +132,16 @@ p{
   height: 85px !important;
 }
 
+.chat-slika{
+  object-fit: cover;
+  width: 85px !important;
+  height: 100% !important;
+}
+
+.datum{
+  font-size: 11px !important;
+}
+
 .form-select{
   color: #212529 !important;
 }
