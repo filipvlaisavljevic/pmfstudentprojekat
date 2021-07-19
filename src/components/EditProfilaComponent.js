@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {Container, Row, Col, Image, Form, Button, Alert} from "react-bootstrap";
+import {Container, Row, Col, Image, Form, Button, Alert, Modal} from "react-bootstrap";
 import {CaretDownFill, XCircle} from "react-bootstrap-icons";
 import {useForm} from "react-hook-form";
 import Swal from 'sweetalert2'
@@ -24,8 +24,12 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
     const [upload,setUpload] = useState(false);
     const [show, setShow] = useState(false);
     const [show1,setShow1]=useState(false)
+    const [showModal,setShowModal]=useState(false)
     const [poruka,setPoruka]=useState("");
     const [pass,setPass]=useState("");
+
+    const handleClose = () => setShowModal(false);
+    const handleShow = () =>  setShowModal(true);
 
     const uploadImage = () => {
         if(image) {
@@ -170,6 +174,10 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
         reset1(podaci)
     }, [podaci]);
 
+    function brisanjeProfila(){
+        console.log(korisnik)
+    }
+
     return(
         <div className={"mt-5"}>
             <div className={"banner pt-2 pb-2 mb-4"}>
@@ -290,6 +298,33 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
                     </Button>
                 </Form.Group>
             </Form>
+
+
+            <Button className="dugme-warning w-100 mt-5" onClick={handleShow.bind(this)}>Izbriši profil</Button>
+
+
+            <Modal
+                show={showModal}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                onHide={handleClose}
+            >
+                <Modal.Body style={{textAlign: "center"}}>
+                    <h4>Izbrisati profil?</h4>
+                    <p style={{textAlign: "center"}}>
+                        Jeste li sigurni da želite izbrisati profil? Nakon brisanja više ga nećemo moći vratiti.
+                    </p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Otkaži
+                    </Button>
+                    <Button className="dugme-warning" onClick={brisanjeProfila.bind(this)}>
+                        Izbriši
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
 
         </div>
