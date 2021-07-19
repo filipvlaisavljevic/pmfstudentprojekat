@@ -4,7 +4,15 @@ import  {useParams
 import MiniLoadingComponent from "./MiniLoadingComponent";
 import axios from "axios";
 import {Col, Container, Image, OverlayTrigger, Row, Tooltip,Button} from "react-bootstrap";
-import {CaretDownFill, CaretRightFill, CircleFill, Info, InfoCircle, PersonPlusFill} from "react-bootstrap-icons";
+import {
+    CaretDownFill,
+    CaretRightFill,
+    CircleFill,
+    Info,
+    InfoCircle,
+    PatchCheckFill,
+    PersonPlusFill
+} from "react-bootstrap-icons";
 import ObjaviPostComponent from "./ObjaviPostComponent";
 import FullObjavaComponent from "./FullObjavaComponent";
 import SugestijaComponent from "./SugestijaComponent";
@@ -184,7 +192,7 @@ function NjihovProfilComponent({unistiSesiju,sesija}){
                                                     >
                                                         <CircleFill className={"neaktivan"} size={12}/>
                                                     </OverlayTrigger>}
-                                                <b> {korisnik.first_name} {korisnik.last_name}</b>
+                                                <b> {korisnik.first_name} {korisnik.last_name} {korisnik.verified ? <PatchCheckFill className={"verifikovan"}/> : null}</b>
                                             </span>
                                         </Col>
                                     </Row>

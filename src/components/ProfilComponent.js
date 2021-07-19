@@ -3,7 +3,14 @@ import {Badge,Container, Row, Col, Image, Button, Card,ListGroup,OverlayTrigger,
 import SugestijaComponent from "./SugestijaComponent";
 import ObjavaComponent from "./ObjavaComponent";
 import {Link} from "react-router-dom";
-import {CaretDownFill, CaretRightFill, CheckCircle, CircleFill, HandThumbsUpFill} from "react-bootstrap-icons";
+import {
+    CaretDownFill,
+    CaretRightFill,
+    CheckCircle,
+    CircleFill,
+    HandThumbsUpFill,
+    PatchCheckFill
+} from "react-bootstrap-icons";
 import {PencilSquare} from "react-bootstrap-icons";
 import FullObjavaComponent from "./FullObjavaComponent";
 import axios from "axios";
@@ -144,7 +151,7 @@ function ProfilComponent({korisnik,unistiSesiju}){
                                                     >
                                                         <CircleFill className={"neaktivan"} size={12}/>
                                                     </OverlayTrigger>}
-                                                <b> {user.first_name} {user.last_name}</b></span>
+                                                <b> {user.first_name} {user.last_name} {user.verified ? <PatchCheckFill className={"verifikovan"}/> : null}</b></span>
                                         </Col>
                                     </Row>
                                     <Row>

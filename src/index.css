@@ -138,6 +138,12 @@ p{
   height: 100% !important;
 }
 
+.verifikovan{
+  color: rgba(29,161,242,1.00) !important;
+  font-size: 18px !important;
+  margin-bottom: 5px !important;
+}
+
 .datum{
   font-size: 11px !important;
 }
