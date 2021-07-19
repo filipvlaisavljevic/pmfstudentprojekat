@@ -28,7 +28,7 @@ function PretragaComponent({unistiSesiju}){
 
 
     function dohvatiSearch(){
-        axios.post("https://dwsproject.herokuapp.com/getProfilesWithThatUsername ",{
+        axios.post("https://dwsproject.herokuapp.com/searchProfile",{
             phrase: query
         }).then(
             (response) =>{

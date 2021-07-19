@@ -146,7 +146,7 @@ function App() {
                         {sesija ? <HomeComponent unistiSesiju={() => unistiSesiju()} sesija={korisnik}/> : <Redirect to={'/login/'}/>}
                     </Route>
                 </Switch>
-              <FooterComponent/>
+                <FooterComponent/>
             </Container>
           </Router>
       );
