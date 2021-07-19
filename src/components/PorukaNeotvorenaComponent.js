@@ -15,8 +15,8 @@ function PorukaNeotvorenaComponent({podaci,korisnik,prikazime,prikazprezime,prik
                         <Row className={"nick-recommended"}>
                             <span className={"ml-1"}>{
                                 (!podaci.seen && podaci.sender_id != korisnik.id) ?
-                                    <b className={"datum"}>{datum.getDate()}.{datum.getMonth()}.{datum.getFullYear()} {datum.getHours()}:{datum.getMinutes()}</b>:
-                                    <span className={"datum"}>{datum.getDate()}.{datum.getMonth()}.{datum.getFullYear()} {datum.getHours()}:{datum.getMinutes()}</span>
+                                    <b className={"datum"}>{datum.getDate()}.{datum.getMonth()}.{datum.getFullYear()} {datum.getHours()}:{(datum.getMinutes() < 10 ? '0' : '')+datum.getMinutes()}</b>:
+                                    <span className={"datum"}>{datum.getDate()}.{datum.getMonth()}.{datum.getFullYear()} {datum.getHours()}:{(datum.getMinutes() < 10 ? '0' : '')+datum.getMinutes()}</span>
 
                             }</span>
                         </Row>
