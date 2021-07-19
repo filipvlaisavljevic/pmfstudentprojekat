@@ -36,6 +36,7 @@ function ChatComponent({unistiSesiju,korisnik}){
         getLatestMessages()
     },[])
 
+
     if(loading)
         return <MiniLoadingComponent/>
     return(

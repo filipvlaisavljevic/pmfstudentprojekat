@@ -4,6 +4,7 @@ import {checkText} from "smile2emoji";
 import {decode} from "html-entities";
 
 function PorukaNeotvorenaComponent({podaci,korisnik,prikazime,prikazprezime,prikazslika}){
+    let datum=new Date(podaci.datetime)
     return(
         <div>
             <Card className={"mb-3"}>
@@ -14,8 +15,8 @@ function PorukaNeotvorenaComponent({podaci,korisnik,prikazime,prikazprezime,prik
                         <Row className={"nick-recommended"}>
                             <span className={"ml-1"}>{
                                 (!podaci.seen && podaci.sender_id != korisnik.id) ?
-                                    <b className={"datum"}>{podaci.datetime}</b>:
-                                    <span className={"datum"}>{podaci.datetime}</span>
+                                    <b className={"datum"}>{datum.getDate()}.{datum.getMonth()}.{datum.getFullYear()} {datum.getHours()}:{datum.getMinutes()}</b>:
+                                    <span className={"datum"}>{datum.getDate()}.{datum.getMonth()}.{datum.getFullYear()} {datum.getHours()}:{datum.getMinutes()}</span>
 
                             }</span>
                         </Row>

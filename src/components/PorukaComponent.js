@@ -4,6 +4,7 @@ import {checkText} from "smile2emoji";
 import {decode} from "html-entities";
 
 function PorukaComponent({poruka}){
+    let datum=new Date(poruka.datetime)
     return(
         <div>
             <Card className={"mb-3"}>
@@ -12,7 +13,7 @@ function PorukaComponent({poruka}){
                 <Card.Body className={"w-70"}>
                     <Card.Text className={"follow"}>
                         <Row className={"nick-recommended"}>
-                            <span className={"datum"}>{poruka.datetime}</span>
+                            <span className={"datum"}>{datum.getDate()}.{datum.getMonth()}.{datum.getFullYear()} {datum.getHours()}:{datum.getMinutes()}</span>
                         </Row>
                         <Row>
                             <span>{poruka.sender_first_name} {poruka.sender_last_name}</span>
