@@ -120,6 +120,13 @@ function ProfilComponent({korisnik,unistiSesiju}){
         </Tooltip>
     );
 
+    const renderVerified = (props) => (
+        <Tooltip id="button-tooltip-2" {...props}>
+            Verifikovan
+        </Tooltip>
+    );
+
+
     return(
         <div>
             <Container>
@@ -151,7 +158,16 @@ function ProfilComponent({korisnik,unistiSesiju}){
                                                     >
                                                         <CircleFill className={"neaktivan"} size={12}/>
                                                     </OverlayTrigger>}
-                                                <b> {user.first_name} {user.last_name} {user.verified ? <PatchCheckFill className={"verifikovan"}/> : null}</b></span>
+                                                <b> {user.first_name} {user.last_name} {
+                                                    user.verified ?
+                                                        <OverlayTrigger
+                                                            placement="top"
+                                                            delay={{ show: 250, hide: 400 }}
+                                                            overlay={renderVerified()}
+                                                        >
+                                                    <PatchCheckFill className={"verifikovan"}/>
+                                                        </OverlayTrigger>
+                                                    : null}</b></span>
                                         </Col>
                                     </Row>
                                     <Row>

@@ -143,6 +143,12 @@ function NjihovProfilComponent({unistiSesiju,sesija}){
     }
 
 
+    const renderVerified = (props) => (
+        <Tooltip id="button-tooltip-2" {...props}>
+            Verifikovan
+        </Tooltip>
+    );
+
     useEffect(() =>{
         fetchKorisnik()
     },[])
@@ -192,7 +198,15 @@ function NjihovProfilComponent({unistiSesiju,sesija}){
                                                     >
                                                         <CircleFill className={"neaktivan"} size={12}/>
                                                     </OverlayTrigger>}
-                                                <b> {korisnik.first_name} {korisnik.last_name} {korisnik.verified ? <PatchCheckFill className={"verifikovan"}/> : null}</b>
+                                                <b> {korisnik.first_name} {korisnik.last_name} {korisnik.verified ?
+                                                    <OverlayTrigger
+                                                        placement="top"
+                                                        delay={{ show: 250, hide: 400 }}
+                                                        overlay={renderVerified()}
+                                                    >
+                                                    <PatchCheckFill className={"verifikovan"}/>
+                                                    </OverlayTrigger>
+                                                    : null}</b>
                                             </span>
                                         </Col>
                                     </Row>
