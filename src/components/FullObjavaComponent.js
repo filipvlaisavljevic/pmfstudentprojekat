@@ -17,6 +17,7 @@ import EditObjaveComponent from "./EditObjaveComponent";
 import {checkText} from "smile2emoji";
 import {decode} from "html-entities";
 import EditKomentarComponent from "./EditKomentarComponent";
+import LjudiKojiSuLikealiComponent from "./LjudiKojiSuLikealiComponent";
 
 function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
 
@@ -24,8 +25,10 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
     const [show1,setShow1]=useState(false);
     const [show2, setShow2] = useState(false);
     const [show3,setShow3]=useState(false);
+    const [showLikes,setShowLikes]=useState(false);
     const [id,setId]=useState(0)
     const [korisnik,setKorisnik]=useState([])
+    const [lajkovi,setLajkovi]=useState([]);
     const [komentarId,setKomentarId]=useState(0)
 
     const handleClose = () => setShow(false);
@@ -36,6 +39,8 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
     const handleShow2 = (idK) =>{console.log(idK);setKomentarId(idK); setShow2(true)}
     const handleClose3 = () =>{setShow3(false);}
     const handleShow3 = (idK) =>{console.log(idK); setKomentarId(idK); setShow3(true);}
+    const handleShow4 = () =>{setShowLikes(true);}
+    const handleClose4 = () =>{setShowLikes(false);}
 
     const[prikazi,setPrikazi] = useState(false);
 
@@ -159,6 +164,27 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
         console.log("")
     }
 
+    function koJeSveLajkao(id){
+        console.log(id);
+        axios.post("https://dwsproject.herokuapp.com/getPeopleWhoLikedThePost",{
+            id: id
+        })
+            .then((response)=>{
+                let pomoc=[];
+                response.data.map((x)=>{
+                    pomoc.push(
+                        <LjudiKojiSuLikealiComponent ime={x.first_name} prezime={x.last_name} slika={x.picture} username={x.username}/>
+                    )
+
+                })
+                setLajkovi(pomoc)
+                setShowLikes(true);
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
+    }
+
 
    /* console.log("OBJAVA")
     console.log(objava)
@@ -184,7 +210,7 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
                           <ChatSquareText onClick={() => postaviPrikaz()}
                                           className={"pokazivac"}/> <small>{objava.comments.length} </small>
                           {!objava.post.i_have_liked ? <HandThumbsUpFill className={"palac pokazivac"} onClick={() => lajkaj()}/> :
-                              <HandThumbsDownFill className={"palac pokazivac"} onClick={() => dislajk()}/>} <small> {objava.post.likes} oznaka sviđa mi se</small>
+                              <HandThumbsDownFill className={"palac pokazivac"} onClick={() => dislajk()}/>} <small onClick={koJeSveLajkao.bind(this,objava.post.id)} style={{cursor: "pointer"}}> {objava.post.likes} oznaka sviđa mi se</small>
                       </Card.Text>
                   </blockquote>
                   </Col>
@@ -321,6 +347,22 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
               </Modal.Body>
               <Modal.Footer>
                   <Button className="dugme-warning" onClick={handleClose3}>
+                      Zatvori
+                  </Button>
+              </Modal.Footer>
+          </Modal>
+          <Modal
+              show={showLikes}
+              size="lg"
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+              onHide={handleClose4}
+          >
+              <Modal.Body>
+                  {lajkovi}
+              </Modal.Body>
+              <Modal.Footer>
+                  <Button className="dugme-warning" onClick={handleClose4}>
                       Zatvori
                   </Button>
               </Modal.Footer>

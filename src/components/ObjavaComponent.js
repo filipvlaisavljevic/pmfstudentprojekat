@@ -15,6 +15,7 @@ import Swal from "sweetalert2";
 import EditKomentarComponent from "./EditKomentarComponent";
 import {checkText} from "smile2emoji";
 import {decode} from "html-entities";
+import LjudiKojiSuLikealiComponent from "./LjudiKojiSuLikealiComponent";
 
 function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
     const[prikazi,setPrikazi] = useState(false);
@@ -22,8 +23,10 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
     const [show1,setShow1]=useState(false);
     const [show2, setShow2] = useState(false);
     const [show3,setShow3]=useState(false);
+    const [showLikes,setShowLikes]=useState(false);
     const [korisnik,setKorisnik]=useState([])
     const [id,setId]=useState(0)
+    const [lajkovi,setLajkovi]=useState([]);
     const [komentarId,setKomentarId]=useState(0)
 
     const handleClose = () => setShow(false);
@@ -34,6 +37,8 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
     const handleShow2 = (idK) =>{console.log(idK);setKomentarId(idK); setShow2(true)}
     const handleClose3 = () =>{setShow3(false);}
     const handleShow3 = (idK) =>{console.log(idK); setKomentarId(idK); setShow3(true);}
+    const handleShow4 = () =>{setShowLikes(true);}
+    const handleClose4 = () =>{setShowLikes(false);}
     function postaviPrikaz(){
         setPrikazi(!prikazi);
     }
@@ -154,7 +159,28 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
     }
 
     if(korisnik){
-        console.log("")
+        console.log()
+    }
+
+    function koJeSveLajkao(id){
+        console.log(id);
+        axios.post("https://dwsproject.herokuapp.com/getPeopleWhoLikedThePost",{
+            id: id
+        })
+            .then((response)=>{
+                let pomoc=[];
+                response.data.map((x)=>{
+                    pomoc.push(
+                        <LjudiKojiSuLikealiComponent ime={x.first_name} prezime={x.last_name} slika={x.picture} username={x.username}/>
+                    )
+
+                })
+                setLajkovi(pomoc)
+                setShowLikes(true);
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
     }
 
     return(
@@ -176,7 +202,7 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
                                 <Card.Text> <ChatSquareText onClick={() => postaviPrikaz()}
                                                             className={"pokazivac"}/> <small>{objava.comments.length}</small>
                                     {!objava.post.i_have_liked? <HandThumbsUpFill className={"palac pokazivac"}  onClick={() => lajkaj()}/> :
-                                        <HandThumbsDownFill className={"palac pokazivac"} onClick={() => dislajk()}/>}  <small>{objava.post.likes} oznaka sviđa mi se</small>
+                                        <HandThumbsDownFill className={"palac pokazivac"} onClick={() => dislajk()}/>}  <small onClick={koJeSveLajkao.bind(this,objava.post.id)} style={{cursor: "pointer"}}>{objava.post.likes} oznaka sviđa mi se</small>
                                 </Card.Text>
                             </div>
                         </Col>
@@ -315,6 +341,44 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
                 </Modal.Body>
                 <Modal.Footer>
                     <Button className="dugme-warning" onClick={handleClose3}>
+                        Zatvori
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal
+                show={show2}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                onHide={handleClose2}
+            >
+                <Modal.Body style={{textAlign: "center"}}>
+                    <h4>Izbrisati objavu?</h4>
+                    <p style={{textAlign: "center"}}>
+                        Ukoliko izbrišite objavu, zauvijek će nestati sa Vašeg profila i ne možemo je vratiti.
+                    </p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose2}>
+                        Otkaži
+                    </Button>
+                    <Button className="dugme-warning" onClick={obrisiKomentar.bind(this)}>
+                        Izbriši
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal
+                show={showLikes}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                onHide={handleClose4}
+            >
+                <Modal.Body>
+                    {lajkovi}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className="dugme-warning" onClick={handleClose4}>
                         Zatvori
                     </Button>
                 </Modal.Footer>
