@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react"
-import {Container, Row, Col, Image, Button, Card,ListGroup,OverlayTrigger,Tooltip} from "react-bootstrap";
+import {Badge,Container, Row, Col, Image, Button, Card,ListGroup,OverlayTrigger,Tooltip} from "react-bootstrap";
 import SugestijaComponent from "./SugestijaComponent";
 import ObjavaComponent from "./ObjavaComponent";
 import {Link} from "react-router-dom";
-import {CaretDownFill, CaretRightFill, CircleFill, HandThumbsUpFill} from "react-bootstrap-icons";
+import {CaretDownFill, CaretRightFill, CheckCircle, CircleFill, HandThumbsUpFill} from "react-bootstrap-icons";
 import {PencilSquare} from "react-bootstrap-icons";
 import FullObjavaComponent from "./FullObjavaComponent";
 import axios from "axios";

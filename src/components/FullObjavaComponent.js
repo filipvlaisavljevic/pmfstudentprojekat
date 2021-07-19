@@ -19,6 +19,8 @@ import {decode} from "html-entities";
 import EditKomentarComponent from "./EditKomentarComponent";
 import LjudiKojiSuLikealiComponent from "./LjudiKojiSuLikealiComponent";
 
+const processString = require('react-process-string');
+
 function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
 
     const [show, setShow] = useState(false);
@@ -41,6 +43,24 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
     const handleShow3 = (idK) =>{console.log(idK); setKomentarId(idK); setShow3(true);}
     const handleShow4 = () =>{setShowLikes(true);}
     const handleClose4 = () =>{setShowLikes(false);}
+
+    function obradi(text){
+        let config = [{
+            regex: /(http|https):\/\/(\S+)\.([a-z]{2,}?)(.*?)( |\,|$|\.)/gim,
+            fn: (key, result) => <span key={key}>
+                                     <a target="_blank" href={`${result[1]}://${result[2]}.${result[3]}${result[4]}`}>{result[2]}.{result[3]}{result[4]}</a>{result[5]}
+                                 </span>
+        }, {
+            regex: /(\S+)\.([a-z]{2,}?)(.*?)( |\,|$|\.)/gim,
+            fn: (key, result) => <span key={key}>
+                                     <a target="_blank" href={`http://${result[1]}.${result[2]}${result[3]}`}>{result[1]}.{result[2]}{result[3]}</a>{result[4]}
+                                 </span>
+        }];
+
+        let stringWithLinks = text;
+        let processed = processString(config)(stringWithLinks);
+        return processed;
+    }
 
     const[prikazi,setPrikazi] = useState(false);
 
@@ -201,7 +221,7 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
                   <blockquote className="blockquote mb-0">
                       <p>
                           {' '}
-                          <a href={"/objava/"+objava.post.id} className={"objavaa"}>{checkText(decode(objava.post.text))}{' '}</a>
+                          <a href={"/objava/"+objava.post.id} className={"objavaa"}>{obradi(checkText(decode(objava.post.text)))}{' '}</a>
                       </p>
                       <footer className="blockquote-footer mt-2">
                           {objava.post.first_name} {objava.post.last_name}
@@ -245,7 +265,7 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
                               <ListGroup.Item>
                                   <Row>
                                       <Col xs={11}>
-                                          <ChatQuoteFill/> {checkText(decode(komentar.text))}
+                                          <ChatQuoteFill/> {obradi(checkText(decode(komentar.text)))}
                                       </Col>
                                       <Col xs={1}>
                                           {

@@ -7,6 +7,7 @@ import ObjaviPostComponent from "./ObjaviPostComponent";
 import axios from "axios";
 import MiniLoadingComponent from "./MiniLoadingComponent";
 import { checkText } from 'smile2emoji'
+import YouTube from "react-youtube";
 
 axios.defaults.withCredentials = true;
 
@@ -73,6 +74,7 @@ function HomeComponent({unistiSesiju,sesija}){
     useEffect(() =>{
         getPredlozeni()
     },[])
+
 
     return(
         <div>

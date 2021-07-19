@@ -16,6 +16,7 @@ import EditKomentarComponent from "./EditKomentarComponent";
 import {checkText} from "smile2emoji";
 import {decode} from "html-entities";
 import LjudiKojiSuLikealiComponent from "./LjudiKojiSuLikealiComponent";
+const processString = require('react-process-string');
 
 function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
     const[prikazi,setPrikazi] = useState(false);
@@ -52,6 +53,24 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
     useEffect(()=>{
        uzmiOKorisniku()
     },[])
+
+    function obradi(text){
+        let config = [{
+            regex: /(http|https):\/\/(\S+)\.([a-z]{2,}?)(.*?)( |\,|$|\.)/gim,
+            fn: (key, result) => <span key={key}>
+                                     <a target="_blank" href={`${result[1]}://${result[2]}.${result[3]}${result[4]}`}>{result[2]}.{result[3]}{result[4]}</a>{result[5]}
+                                 </span>
+        }, {
+            regex: /(\S+)\.([a-z]{2,}?)(.*?)( |\,|$|\.)/gim,
+            fn: (key, result) => <span key={key}>
+                                     <a target="_blank" href={`http://${result[1]}.${result[2]}${result[3]}`}>{result[1]}.{result[2]}{result[3]}</a>{result[4]}
+                                 </span>
+        }];
+
+        let stringWithLinks = text;
+        let processed = processString(config)(stringWithLinks);
+        return processed;
+    }
 
 
 
@@ -193,7 +212,7 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
                         <Col xs={11}>
                             <div className="blockquote mb-0">
                                 <p>
-                                    <a href={"/objava/"+objava.post.id} className={"objavaa"}>{checkText(decode(objava.post.text))}</a>
+                                    <a href={"/objava/"+objava.post.id} className={"objavaa"}>{obradi(checkText(decode(objava.post.text)))}</a>
                                 </p>
                                 <footer className="blockquote-footer mt-2">
                                     {sesija.id != objava.post.author_id ? <a href={"/profil/"+objava.post.author_id} className={"bez-dekoracije"}>{objava.post.first_name} {objava.post.last_name}</a> :
@@ -239,7 +258,7 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
                                 <ListGroup.Item>
                                     <Row>
                                         <Col xs={11}>
-                                            <ChatQuoteFill/> {checkText(decode(komentar.text))}
+                                            <ChatQuoteFill/> {obradi(checkText(decode(komentar.text)))}
                                         </Col>
                                         <Col xs={1}>
                                             {
