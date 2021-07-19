@@ -31,6 +31,7 @@ function NavigationComponent({sesija,unistiSesiju,korisnik}){
     return(
         <Container>
             <Navbar bg="light" expand="lg" className={"mt-3"}>
+                <Container>
                     {redirect ? <div><Redirect to={"/pretraga/"+kveri}/></div> : null}
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
@@ -57,6 +58,7 @@ function NavigationComponent({sesija,unistiSesiju,korisnik}){
                         </Form>
 
                     </Navbar.Collapse>
+                </Container>
             </Navbar>
         </Container>
     );
