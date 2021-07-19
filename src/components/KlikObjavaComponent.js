@@ -21,6 +21,7 @@ import {decode} from "html-entities";
 import EditObjaveComponent from "./EditObjaveComponent";
 import EditKomentarComponent from "./EditKomentarComponent";
 import LjudiKojiSuLikealiComponent from "./LjudiKojiSuLikealiComponent";
+const processString = require('react-process-string');
 
 function KlikObjavaComponent({unistiSesiju,sesija}){
 
@@ -221,6 +222,24 @@ function KlikObjavaComponent({unistiSesiju,sesija}){
             })
     }
 
+    function obradi(text){
+        let config = [{
+            regex: /(http|https):\/\/(\S+)\.([a-z]{2,}?)(.*?)( |\,|$|\.)/gim,
+            fn: (key, result) => <span key={key}>
+                                     <a target="_blank" href={`${result[1]}://${result[2]}.${result[3]}${result[4]}`}>{result[2]}.{result[3]}{result[4]}</a>{result[5]}
+                                 </span>
+        }, {
+            regex: /(\S+)\.([a-z]{2,}?)(.*?)( |\,|$|\.)/gim,
+            fn: (key, result) => <span key={key}>
+                                     <a target="_blank" href={`http://${result[1]}.${result[2]}${result[3]}`}>{result[1]}.{result[2]}{result[3]}</a>{result[4]}
+                                 </span>
+        }];
+
+        let stringWithLinks = text;
+        let processed = processString(config)(stringWithLinks);
+        return processed;
+    }
+
     if(korisnik){
         console.log("")
     }
@@ -243,7 +262,7 @@ function KlikObjavaComponent({unistiSesiju,sesija}){
                             <blockquote className="blockquote mb-0">
                                 <p>
                                     {' '}
-                                    {checkText(decode(objava.post.text))}{' '}
+                                    {obradi(checkText(decode(objava.post.text)))}{' '}
                                 </p>
                                 <footer className="blockquote-footer mt-2">
                                     <a href={"/profil/"+objava.post.author_id} className={"bez-dekoracije"}>{objava.post.first_name} {objava.post.last_name}</a>
