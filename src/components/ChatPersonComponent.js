@@ -18,7 +18,6 @@ function ChatPersonComponent({korisnik,unistiSesiju}){
     const[chat,setChat] = useState([]);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
-    window.scrollTo(0,document.body.scrollHeight);
     let {id} = useParams();
 
     function handler(){
@@ -119,6 +118,14 @@ function ChatPersonComponent({korisnik,unistiSesiju}){
         }, 5000);
         return () => clearInterval(interval);
     }, []);
+
+    function scrollajDole(){
+        window.scrollTo(0,document.body.scrollHeight);
+    }
+
+    useEffect(() =>{
+       scrollajDole();
+    },[])
 
     useEffect(() =>{
        getChat()
