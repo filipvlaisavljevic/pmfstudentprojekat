@@ -102,7 +102,7 @@ function ProfilComponent({korisnik,unistiSesiju}){
     },[promjena])
 
     const renderAktivan = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
+        <Tooltip id="button-tooltip-2" {...props}>
             Aktivan
         </Tooltip>
     );

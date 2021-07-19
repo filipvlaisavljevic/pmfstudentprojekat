@@ -79,6 +79,30 @@ function ChatPersonComponent({korisnik,unistiSesiju}){
         });
     }
 
+    function getChat1(){
+        axios.post("https://dwsproject.herokuapp.com/getMessagesBeetweenUsers ",{
+            id: id
+        }).then(
+            (response) =>{
+                console.info(response)
+                setChat(response.data)
+                setLoading(false);
+                scrollajDole();
+            },
+            (error) =>{
+                console.log(error)
+            }
+        ).catch((error) => {
+            console.log(error)
+            switch (error.response.status) {
+                case 403:
+                    unistiSesiju();
+                default:
+                    console.log(error)
+            }
+        });
+    }
+
     function postaljiPoruku(text){
         axios.post("https://dwsproject.herokuapp.com/sendMessage ",{
             id: id,
@@ -119,9 +143,12 @@ function ChatPersonComponent({korisnik,unistiSesiju}){
         return () => clearInterval(interval);
     }, []);
 
+    function scrollajDole(){
+        window.scrollTo(0,document.body.scrollHeight);
+    }
 
     useEffect(() =>{
-       getChat()
+       getChat1()
     },[])
 
     useEffect(() =>{
