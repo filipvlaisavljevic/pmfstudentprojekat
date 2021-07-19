@@ -1,5 +1,7 @@
 import React from "react"
 import {Card, Row} from "react-bootstrap";
+import {checkText} from "smile2emoji";
+import {decode} from "html-entities";
 
 function PorukaNeotvorenaComponent({podaci,korisnik,prikazime,prikazprezime,prikazslika}){
     return(
@@ -28,8 +30,10 @@ function PorukaNeotvorenaComponent({podaci,korisnik,prikazime,prikazprezime,prik
                         <Row className={"nick-recommended"}>
                             <span className={"ml-1"}>
                                 {(!podaci.seen && podaci.sender_id != korisnik.id)?
-                                    <b>{podaci.sender_id == korisnik.id ?  <span>You: {podaci.text}</span> : <span>{podaci.sender_first_name}: {podaci.text}</span>}</b>:
-                                    podaci.sender_id == korisnik.id ? <span>You: {podaci.text}</span> : <span>{podaci.sender_first_name}: {podaci.text}</span>
+                                    <b>{podaci.sender_id == korisnik.id ?  <span>You: {checkText(decode(podaci.text))}</span> : <span>{podaci.sender_first_name}:
+                                        {checkText(decode(podaci.text))}</span>}</b>:
+                                    podaci.sender_id == korisnik.id ? <span>You: {checkText(decode(podaci.text))}</span> :
+                                        <span>{podaci.sender_first_name}: {checkText(decode(podaci.text))}</span>
                                 }
                             </span>
                         </Row>

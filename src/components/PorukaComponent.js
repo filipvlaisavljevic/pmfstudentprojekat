@@ -1,5 +1,7 @@
 import React from "react"
 import {Card, Row} from "react-bootstrap";
+import {checkText} from "smile2emoji";
+import {decode} from "html-entities";
 
 function PorukaComponent({poruka}){
     return(
@@ -16,7 +18,7 @@ function PorukaComponent({poruka}){
                             <span>{poruka.sender_first_name} {poruka.sender_last_name}</span>
                         </Row>
                         <Row className={"nick-recommended"}>
-                                <span>{poruka.text}</span>
+                                <span>{checkText(decode(poruka.text))}</span>
                         </Row>
                     </Card.Text>
                 </Card.Body>
