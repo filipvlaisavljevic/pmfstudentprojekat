@@ -78,7 +78,7 @@ function HomeComponent({unistiSesiju,sesija}){
         <div>
             <Container>
                 <Row className={"mb-4"}>
-                    <Col md={8} style={{paddingLeft: 0}}>
+                    <Col md={8} className="lijevi-dio">
                         <div className={"mt-5 banner pt-2 pb-2 mb-4"}>
                             <CaretDownFill/> Nedavne objave ostalih studenata
                         </div>
@@ -100,7 +100,7 @@ function HomeComponent({unistiSesiju,sesija}){
                             </div>
                         }
                     </Col>
-                    <Col md={4} style={{paddingRight: 0}}>
+                    <Col md={4} className="desni-dio">
                         <div className={"mt-5 banner pt-2 pb-2 mb-4"}>
                             <CaretDownFill/> Dodajte i nove studente
                         </div>

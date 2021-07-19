@@ -369,7 +369,21 @@ textarea {
   background-color: #0EBD60;
 }
 
+.lijevi-dio{
+  padding-left: 0!important;
+}
+
+.desni-dio{
+  padding-right: 0!important;
+}
+
 @media screen and (max-width: 768px){
+  .lijevi-dio{
+    padding-right: 0!important;
+  }
+  .desni-dio{
+    padding-left: 0!important;
+  }
   .okvir-desni{
     border-right: 0;
   }
