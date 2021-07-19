@@ -147,6 +147,10 @@ p{
   color: black;
 }
 
+.slikica{
+  height: 120px !important;
+}
+
 
 .lastmessage:hover{
   text-decoration: none;
