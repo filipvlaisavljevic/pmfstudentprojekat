@@ -25,6 +25,7 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
     const [show2, setShow2] = useState(false);
     const [show3,setShow3]=useState(false);
     const [id,setId]=useState(0)
+    const [korisnik,setKorisnik]=useState([])
     const [komentarId,setKomentarId]=useState(0)
 
     const handleClose = () => setShow(false);
@@ -37,6 +38,16 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
     const handleShow3 = (idK) =>{console.log(idK); setKomentarId(idK); setShow3(true);}
 
     const[prikazi,setPrikazi] = useState(false);
+
+    const uzmiOKorisniku=async ()=>{
+        const upit=await axios.get("https://dwsproject.herokuapp.com/getMyProfileInformation")
+
+        setKorisnik(upit.data)
+    }
+
+    useEffect(()=>{
+        uzmiOKorisniku()
+    },[])
 
     function obrisiObjavu(){
         console.log(id)
@@ -144,6 +155,10 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
             })
     }
 
+    if(korisnik){
+        console.log("")
+    }
+
 
    /* console.log("OBJAVA")
     console.log(objava)
@@ -174,7 +189,7 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
                   </blockquote>
                   </Col>
                       <Col xs={1} className="bezpaddinga" style={{textAlign: "center"}}>
-                          {sesija.id===objava.post.author_id ?
+                          {korisnik.id===objava.post.author_id ?
                               <Dropdown>
                                   <Dropdown.Toggle className="dugme-dropdown">
                                       <ThreeDots/>
@@ -208,7 +223,7 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
                                       </Col>
                                       <Col xs={1}>
                                           {
-                                              sesija.id===komentar.author_id ?
+                                              korisnik.id===komentar.author_id ?
                                                   <Dropdown>
                                                       <Dropdown.Toggle className="dugme-dropdown">
                                                           <ThreeDots/>
