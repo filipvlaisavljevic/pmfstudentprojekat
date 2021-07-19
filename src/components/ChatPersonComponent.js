@@ -83,6 +83,12 @@ function ChatPersonComponent({korisnik,unistiSesiju}){
         }).then(
             (response) =>{
                 console.info(response)
+                document.getElementById('t').value="";
+                document.getElementById('preostalo').classList.remove('preostalo-manje')
+                document.getElementById('preostalo').classList.remove('preostalo-nista')
+                document.getElementById('preostalo').classList.add('preostalo-poruka')
+                setDuzina(250)
+                setProsli(0)
                 setPromjena(!promjena)
             },
             (error) =>{

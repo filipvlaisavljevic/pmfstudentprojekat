@@ -45,6 +45,12 @@ function NovaPorukaComponent({unistiSesiju,korisnik}){
             text:text
         }).then(
             (response) =>{
+                document.getElementById('t').value="";
+                document.getElementById('preostalo').classList.remove('preostalo-manje')
+                document.getElementById('preostalo').classList.remove('preostalo-nista')
+                document.getElementById('preostalo').classList.add('preostalo-poruka')
+                setDuzina(250)
+                setProsli(0)
                 setRedirect(true);
             },
             (error) =>{
@@ -119,10 +125,10 @@ function NovaPorukaComponent({unistiSesiju,korisnik}){
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Control as="textarea" id="t" maxLength="250" rows={3} placeholder={"Unesite sadržaj nove poruke..."}
-                                  onChange={promjenaTexta.bind(this)}
                                   {...register('text',{
                                       required: "Morate unijeti text"
                                   })}
+                                  onChange={promjenaTexta.bind(this)}
                     />
                     <Form.Text className="text-muted">
                         Preostaje Vam još <b className="preostalo-poruka" id="preostalo">{duzina}</b> karaktera.
