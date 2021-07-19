@@ -96,7 +96,7 @@ function EditObjaviPostComponent({handler,objava,close}){
                     Preostaje Vam još <b className="preostalo-poruka" id="preostalo">{duzina}</b> karaktera.
                 </Form.Text>
             </Form.Group>
-            <Button type={"primary"} className={"w-100"}>Objavite novi post</Button>
+            <Button type={"primary"} className={"w-100"}>Spasite promjenu objave</Button>
         </Form>
     );
 }

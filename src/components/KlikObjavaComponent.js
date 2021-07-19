@@ -14,7 +14,7 @@ import ObjaviPostComponent from "./ObjaviPostComponent";
 import ObjaviKomentarComponent from "./ObjaviKomentarComponent";
 import axios from "axios";
 import Swal from "sweetalert2";
-import {useParams} from "react-router-dom";
+import {Redirect, useParams} from "react-router-dom";
 import MiniLoadingComponent from "./MiniLoadingComponent";
 import {checkText} from "smile2emoji";
 import {decode} from "html-entities";
@@ -37,6 +37,7 @@ function KlikObjavaComponent({unistiSesiju,sesija}){
     const [korisnik,setKorisnik]=useState([])
     const [lajkovi,setLajkovi]=useState([]);
     const[loading,setLoading] =useState(true);
+    const [redirectLogin,setRedirectLogin] = useState(false);
 
     let { ide } = useParams();
 
@@ -140,7 +141,7 @@ function KlikObjavaComponent({unistiSesiju,sesija}){
                         icon: 'success',
                         confirmButtonText: 'Nastavi dalje'
                     })
-                    handler()
+                    setRedirectLogin(true);
                 }
             })
             .catch((error)=>{
@@ -250,6 +251,7 @@ function KlikObjavaComponent({unistiSesiju,sesija}){
     if(loading) return <MiniLoadingComponent/>
     return(
         <div className={"mt-5"}>
+            {redirectLogin ? (<Redirect push to={"/"}/>) : null}
             <div className={"banner pt-2 pb-2 mb-4"}>
                 <CaretDownFill/> Pročitajte punu objavu:
             </div>
