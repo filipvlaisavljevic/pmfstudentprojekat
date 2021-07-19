@@ -84,7 +84,7 @@ function NjihovProfilComponent({unistiSesiju,sesija}){
 
     const renderNeaktivan = (props) => (
         <Tooltip id="button-tooltip" {...props}>
-            {korisnik.last_active ? 'Zadnji put online prije '+korisnik.last_active : 'Neaktivan'}
+            {korisnik.last_active ? 'Aktivan prije '+korisnik.last_active : 'Neaktivan'}
         </Tooltip>
     );
 
