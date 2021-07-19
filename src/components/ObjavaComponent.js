@@ -160,7 +160,7 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
     return(
         <div className="bezpaddinga">
             <Card className={"mb-3"}>
-                <Card.Img variant="top" src={objava.post.picture} className={"d-none d-lg-block"}/>
+                <a href={"/profil/"+objava.post.author_id}><Card.Img variant="top" src={objava.post.picture} className={"d-none d-lg-block h-100"}/></a>
                 <Card.Body className={"w-70"}>
                     <Row>
                         <Col xs={11}>

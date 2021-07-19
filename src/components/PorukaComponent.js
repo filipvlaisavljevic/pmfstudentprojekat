@@ -9,8 +9,8 @@ function PorukaComponent({poruka}){
     return(
         <div>
             <Card className={"mb-3"}>
-                <Card.Img variant="top" src={poruka.sender_picture} className={"d-none d-lg-block slikica"}
-                />
+                <a href={"/profil/"+poruka.sender_id}><Card.Img variant="top" src={poruka.sender_picture} className={"d-none d-lg-block slikica"}
+                /></a>
                 <Card.Body className={"w-70"}>
                     <Card.Text className={"follow"}>
                         <Row className={"nick-recommended"}>
