@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import {Button, Card, Col, Dropdown, ListGroup, Modal, Row} from "react-bootstrap";
 import {
+    CaretDownFill,
     ChatDots,
     ChatQuoteFill,
     ChatRightText,
@@ -197,6 +198,7 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
                     )
 
                 })
+                console.log(pomoc.length)
                 setLajkovi(pomoc)
                 setShowLikes(true);
             })
