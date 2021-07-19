@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import {Card, Row, Col, ListGroup, Dropdown, Modal, Button} from "react-bootstrap";
 import {
     CaretDownFill,
@@ -22,6 +22,7 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
     const [show1,setShow1]=useState(false);
     const [show2, setShow2] = useState(false);
     const [show3,setShow3]=useState(false);
+    const [korisnik,setKorisnik]=useState([])
     const [id,setId]=useState(0)
     const [komentarId,setKomentarId]=useState(0)
 
@@ -36,6 +37,18 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
     function postaviPrikaz(){
         setPrikazi(!prikazi);
     }
+
+    const uzmiOKorisniku=async ()=>{
+        const upit=await axios.get("https://dwsproject.herokuapp.com/getMyProfileInformation")
+
+        setKorisnik(upit.data)
+    }
+
+    useEffect(()=>{
+       uzmiOKorisniku()
+    },[])
+
+
 
     function lajkaj(){
         axios.post("https://dwsproject.herokuapp.com/likePost",{
@@ -140,6 +153,10 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
             })
     }
 
+    if(korisnik){
+        console.log(korisnik)
+    }
+
     return(
         <div className="bezpaddinga">
             <Card className={"mb-3"}>
@@ -163,7 +180,7 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
                             </div>
                         </Col>
                         <Col xs={1} className="bezpaddinga" style={{textAlign: "center"}}>
-                            {sesija.id===objava.post.author_id ?
+                            {korisnik.id===objava.post.author_id ?
                                 <Dropdown>
                                     <Dropdown.Toggle className="dugme-dropdown">
                                         <ThreeDots/>
@@ -198,7 +215,7 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
                                         </Col>
                                         <Col xs={1}>
                                             {
-                                                sesija.id===komentar.author_id ?
+                                                korisnik.id===komentar.author_id ?
                                                     <Dropdown>
                                                         <Dropdown.Toggle className="dugme-dropdown">
                                                             <ThreeDots/>

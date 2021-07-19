@@ -162,6 +162,12 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
                 })
             })
             .catch((error)=>{
+                switch (error.response.status) {
+                    case 403:
+                        unistiSesiju();
+                    default:
+                        console.log(error)
+                }
 
             })
     }
@@ -175,7 +181,26 @@ function EditProfilaComponent({korisnik,unistiSesiju}){
     }, [podaci]);
 
     function brisanjeProfila(){
-        console.log(korisnik)
+        axios.get('https://dwsproject.herokuapp.com/deleteProfile')
+            .then((response)=>{
+                console.log(response)
+                if(response.data.success){
+                    Swal.fire({
+                        title: 'Super!',
+                        text: 'Uspješno ste se izbrisali profil.',
+                        icon: 'success',
+                        confirmButtonText: 'Nastavi dalje'
+                    })
+                    showModal(false);
+                    unistiSesiju();
+
+                }
+            })
+            .catch((error)=>{
+               console.log(error)
+                unistiSesiju();
+
+            })
     }
 
     return(
