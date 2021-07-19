@@ -36,6 +36,13 @@ function ChatComponent({unistiSesiju,korisnik}){
         getLatestMessages()
     },[])
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getLatestMessages()
+        }, 7000);
+        return () => clearInterval(interval);
+    }, []);
+
 
     if(loading)
         return <MiniLoadingComponent/>

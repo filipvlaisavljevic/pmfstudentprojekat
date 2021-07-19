@@ -119,9 +119,6 @@ function ChatPersonComponent({korisnik,unistiSesiju}){
         return () => clearInterval(interval);
     }, []);
 
-    function scrollajDole(){
-        window.scrollTo(0,document.body.scrollHeight);
-    }
 
     useEffect(() =>{
        getChat()
@@ -135,7 +132,6 @@ function ChatPersonComponent({korisnik,unistiSesiju}){
         return <MiniLoadingComponent/>
     return(
         <div className={"mt-5"}>
-            {scrollajDole()}
             <div className={"banner pt-2 pb-2 mb-4"}>
                 <CaretDownFill/> Konverzacija
             </div>
