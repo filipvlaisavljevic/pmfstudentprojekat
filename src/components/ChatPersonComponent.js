@@ -13,10 +13,44 @@ import {useForm} from "react-hook-form";
 function ChatPersonComponent({korisnik,unistiSesiju}){
     const[loading,setLoading] = useState(true);
     const[promjena,setPromjena] = useState(false);
+    const [duzina,setDuzina]=useState(250)
+    const [prosli,setProsli]=useState(0)
     const[chat,setChat] = useState([]);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     let {id} = useParams();
+
+    function promjenaTexta(event){
+        let input=event.target.value;
+        if(input.length>prosli) {
+            setDuzina(duzina + (prosli-input.length))
+            if(duzina+(prosli-input.length)===0){
+                document.getElementById('preostalo').classList.remove('preostalo-manje')
+                document.getElementById('preostalo').classList.remove('preostalo-poruka')
+                document.getElementById('preostalo').classList.add('preostalo-nista')
+            }
+            else if (duzina + (prosli-input.length) < 20) {
+                document.getElementById('preostalo').classList.remove('preostalo-poruka')
+                document.getElementById('preostalo').classList.remove('preostalo-nista')
+                document.getElementById('preostalo').classList.add('preostalo-manje')
+            }
+            setProsli(input.length)
+        }else{
+            setDuzina(duzina+(prosli-input.length))
+            if(duzina+(prosli-input.length)>=20){
+                document.getElementById('preostalo').classList.remove('preostalo-manje')
+                document.getElementById('preostalo').classList.remove('preostalo-nista')
+                document.getElementById('preostalo').classList.add('preostalo-poruka')
+
+            }else if(duzina+(prosli-input.length)<20){
+                document.getElementById('preostalo').classList.remove('preostalo-poruka')
+                document.getElementById('preostalo').classList.remove('preostalo-nista')
+                document.getElementById('preostalo').classList.add('preostalo-manje')
+            }
+            setProsli(input.length)
+        }
+
+    }
 
     function getChat(){
         axios.post("https://dwsproject.herokuapp.com/getMessagesBeetweenUsers ",{
@@ -66,7 +100,12 @@ function ChatPersonComponent({korisnik,unistiSesiju}){
 
             <Form className={"mb-3 mt-3"} onSubmit={handleSubmit(onSubmit)}>
                 <Form.Group className="mb-3">
-                    <Form.Control as="textarea" id="t" maxLength="250" rows={3}/>
+                    <Form.Control as="textarea" id="t" maxLength="250" rows={3} placeholder="Unesite poruku..."
+                                  onChange={promjenaTexta.bind(this)}
+                    />
+                    <Form.Text className="text-muted">
+                        Preostaje Vam još <b className="preostalo-poruka" id="preostalo">{duzina}</b> karaktera.
+                    </Form.Text>
                 </Form.Group>
                 <Button type={"primary"} className={"w-100"} id="dugme">Pošaljite poruku</Button>
             </Form>
