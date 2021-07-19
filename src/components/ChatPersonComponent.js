@@ -109,6 +109,13 @@ function ChatPersonComponent({korisnik,unistiSesiju}){
         postaljiPoruku(data.text)
     }
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setPromjena(!promjena)
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
+
     useEffect(() =>{
        getChat()
     },[])
