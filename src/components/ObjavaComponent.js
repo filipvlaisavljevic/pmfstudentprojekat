@@ -154,7 +154,7 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
     }
 
     if(korisnik){
-        console.log(korisnik)
+        console.log("")
     }
 
     return(
