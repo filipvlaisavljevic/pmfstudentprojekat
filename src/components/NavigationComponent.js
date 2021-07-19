@@ -15,6 +15,7 @@ function NavigationComponent({sesija,unistiSesiju,korisnik}){
         axios.post("https://dwsproject.herokuapp.com/logoutUser").then(
             (response) =>{
                 console.log(response.data.success)
+                window.location.href = "/login";
                 unistiSesiju();
             },
             (error) =>{

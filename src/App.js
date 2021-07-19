@@ -143,8 +143,8 @@ function App() {
                     <Route path="/conversation/:id">
                         {sesija ? <ChatPersonComponent korisnik={korisnik} unistiSesiju={() => unistiSesiju()}/> : <Redirect to={'/login/'}/>}
                     </Route>
-                    <Route path="/novaporuka">
-                        {sesija ?  <NovaPorukaComponent unistiSesiju={() => unistiSesiju()}/> : <Redirect to={'/login/'}/>}
+                    <Route path="/novaporuka/:id">
+                        {sesija ?  <NovaPorukaComponent unistiSesiju={() => unistiSesiju()} korisnik={korisnik}/> : <Redirect to={'/login/'}/>}
                     </Route>
                     <Route path="/">
                         {sesija ? <HomeComponent unistiSesiju={() => unistiSesiju()} sesija={korisnik}/> : <Redirect to={'/login/'}/>}

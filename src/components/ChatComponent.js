@@ -43,14 +43,18 @@ function ChatComponent({unistiSesiju,korisnik}){
             <div className={"banner pt-2 pb-2 mb-4"}>
                 <CaretDownFill/> Konverzacije sa ostalim studentima
             </div>
-            <form action={"/novaporuka"}>
+            <form action={"/novaporuka/"+korisnik.id}>
                 <Button type={"primary"} className={"w-100 mb-3"}>Nova poruka</Button>
             </form>
             {rezultat.map((poruka) =>(
                 poruka.recipient_id != korisnik.id ?
-                        <a href={"/conversation/"+poruka.recipient_id} className={"lastmessage"}><PorukaNeotvorenaComponent podaci={poruka} korisnik={korisnik}/></a>
+                        <a href={"/conversation/"+poruka.recipient_id} className={"lastmessage"}><PorukaNeotvorenaComponent podaci={poruka} korisnik={korisnik}
+                            prikazslika={poruka.recipient_picture} prikazime={poruka.recipient_first_name} prikazprezime={poruka.recipient_last_name}
+                        /></a>
                         :
-                        <a href={"/conversation/"+poruka.sender_id} className={"lastmessage"}><PorukaNeotvorenaComponent podaci={poruka} korisnik={korisnik}/></a>
+                        <a href={"/conversation/"+poruka.sender_id} className={"lastmessage"}><PorukaNeotvorenaComponent podaci={poruka} korisnik={korisnik}
+                             prikazslika={poruka.sender_picture} prikazime={poruka.sender_first_name} prikazprezime={poruka.sender_last_name}
+                        /></a>
 
             ))}
         </div>

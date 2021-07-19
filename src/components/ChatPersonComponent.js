@@ -75,8 +75,31 @@ function ChatPersonComponent({korisnik,unistiSesiju}){
         });
     }
 
+    function postaljiPoruku(text){
+        axios.post("https://dwsproject.herokuapp.com/sendMessage ",{
+            id: id,
+            text:text
+        }).then(
+            (response) =>{
+                console.info(response)
+                setPromjena(!promjena)
+            },
+            (error) =>{
+                console.log(error)
+            }
+        ).catch((error) => {
+            console.log(error)
+            switch (error.response.status) {
+                case 403:
+                    unistiSesiju();
+                default:
+                    console.log(error)
+            }
+        });
+    }
+
     const onSubmit = async data=>{
-        console.log(data)
+        postaljiPoruku(data.text)
     }
 
     useEffect(() =>{
@@ -101,6 +124,9 @@ function ChatPersonComponent({korisnik,unistiSesiju}){
             <Form className={"mb-3 mt-3"} onSubmit={handleSubmit(onSubmit)}>
                 <Form.Group className="mb-3">
                     <Form.Control as="textarea" id="t" maxLength="250" rows={3} placeholder="Unesite poruku..."
+                                  {...register('text',{
+                                      required: "Morate unijeti text"
+                                  })}
                                   onChange={promjenaTexta.bind(this)}
                     />
                     <Form.Text className="text-muted">
