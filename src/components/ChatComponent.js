@@ -5,6 +5,7 @@ import {Button, Card, Row} from "react-bootstrap";
 import PorukaNeotvorenaComponent from "./PorukaNeotvorenaComponent";
 import axios from "axios";
 import MiniLoadingComponent from "./MiniLoadingComponent";
+var Sound = require('react-sound').default;
 
 function ChatComponent({unistiSesiju,korisnik}){
 
@@ -48,6 +49,7 @@ function ChatComponent({unistiSesiju,korisnik}){
         return <MiniLoadingComponent/>
     return(
         <div className={"mt-5"}>
+            <Sound url={"../alert.mp3"} playStatus={Sound.status.PLAYING}/>
             <div className={"banner pt-2 pb-2 mb-4"}>
                 <CaretDownFill/> Konverzacije sa ostalim studentima
             </div>
