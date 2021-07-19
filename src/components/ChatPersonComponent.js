@@ -21,6 +21,10 @@ function ChatPersonComponent({korisnik,unistiSesiju}){
     window.scrollTo(0,document.body.scrollHeight);
     let {id} = useParams();
 
+    function handler(){
+        setPromjena(!promjena)
+    }
+
     function promjenaTexta(event){
         let input=event.target.value;
         if(input.length>prosli) {
@@ -111,7 +115,7 @@ function ChatPersonComponent({korisnik,unistiSesiju}){
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setPromjena(!promjena)
+            getChat()
         }, 5000);
         return () => clearInterval(interval);
     }, []);
