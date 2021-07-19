@@ -29,6 +29,7 @@ import ZaboravljenaSifraComponet from "./components/ZaboravljenaSifraComponet";
 import FollowersComponent from "./components/FollowersComponent";
 import FollowingComponent from "./components/FollowingComponent";
 import KlikObjavaComponent from "./components/KlikObjavaComponent";
+import ChatPersonComponent from "./components/ChatPersonComponent";
 
 axios.defaults.withCredentials = true;
 
@@ -138,6 +139,9 @@ function App() {
                     </Route>
                     <Route path="/chat">
                         {sesija ? <ChatComponent korisnik={korisnik} unistiSesiju={() => unistiSesiju()}/> : <Redirect to={'/login/'}/>}
+                    </Route>
+                    <Route path="/conversation/:id">
+                        {sesija ? <ChatPersonComponent korisnik={korisnik} unistiSesiju={() => unistiSesiju()}/> : <Redirect to={'/login/'}/>}
                     </Route>
                     <Route path="/novaporuka">
                         {sesija ?  <NovaPorukaComponent unistiSesiju={() => unistiSesiju()}/> : <Redirect to={'/login/'}/>}

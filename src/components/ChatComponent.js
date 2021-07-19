@@ -47,7 +47,11 @@ function ChatComponent({unistiSesiju,korisnik}){
                 <Button type={"primary"} className={"w-100 mb-3"}>Nova poruka</Button>
             </form>
             {rezultat.map((poruka) =>(
-                <PorukaNeotvorenaComponent podaci={poruka} korisnik={korisnik}/>
+                poruka.recipient_id != korisnik.id ?
+                        <a href={"/conversation/"+poruka.recipient_id} className={"lastmessage"}><PorukaNeotvorenaComponent podaci={poruka} korisnik={korisnik}/></a>
+                        :
+                        <a href={"/conversation/"+poruka.sender_id} className={"lastmessage"}><PorukaNeotvorenaComponent podaci={poruka} korisnik={korisnik}/></a>
+
             ))}
         </div>
     )

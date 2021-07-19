@@ -142,6 +142,17 @@ p{
   font-size: 11px !important;
 }
 
+.lastmessage{
+  text-decoration: none;
+  color: black;
+}
+
+
+.lastmessage:hover{
+  text-decoration: none;
+  color: black;
+}
+
 .form-select{
   color: #212529 !important;
 }
