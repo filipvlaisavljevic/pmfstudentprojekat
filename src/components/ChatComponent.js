@@ -11,6 +11,7 @@ function ChatComponent({unistiSesiju,korisnik}){
 
     const [loading,setLoading] = useState(true);
     const [rezultat,setRezultat] = useState([]);
+    const [prikazi,setPrikazi] = useState(false);
 
     function getLatestMessages(){
         axios.get("https://dwsproject.herokuapp.com/getMessageFeed ").then(
@@ -49,7 +50,6 @@ function ChatComponent({unistiSesiju,korisnik}){
         return <MiniLoadingComponent/>
     return(
         <div className={"mt-5"}>
-            <Sound url={"../alert.mp3"} playStatus={Sound.status.PLAYING}/>
             <div className={"banner pt-2 pb-2 mb-4"}>
                 <CaretDownFill/> Konverzacije sa ostalim studentima
             </div>
