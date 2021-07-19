@@ -16,18 +16,28 @@ import Swal from "sweetalert2";
 import EditObjaveComponent from "./EditObjaveComponent";
 import {checkText} from "smile2emoji";
 import {decode} from "html-entities";
+import EditKomentarComponent from "./EditKomentarComponent";
 
 function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
 
     const [show, setShow] = useState(false);
     const [show1,setShow1]=useState(false);
+    const [show2, setShow2] = useState(false);
+    const [show3,setShow3]=useState(false);
     const [id,setId]=useState(0)
+    const [komentarId,setKomentarId]=useState(0)
 
     const handleClose = () => setShow(false);
     const handleClose1 = () => setShow1(false);
     const handleShow = (id) =>{setId(id); setShow(true);}
     const handleShow1 = () => {setShow1(true);}
+    const handleClose2 = () =>{setShow2(false)}
+    const handleShow2 = (idK) =>{console.log(idK);setKomentarId(idK); setShow2(true)}
+    const handleClose3 = () =>{setShow3(false);}
+    const handleShow3 = (idK) =>{console.log(idK); setKomentarId(idK); setShow3(true);}
+
     const[prikazi,setPrikazi] = useState(false);
+
     function obrisiObjavu(){
         console.log(id)
         setShow(false);
@@ -104,6 +114,36 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
         });
     }
 
+    function obrisiKomentar(){
+        console.log(komentarId)
+        axios.post('https://dwsproject.herokuapp.com/removeComment',{
+            comment_id: komentarId
+        })
+            .then((response)=>{
+                if(!response.data.success){
+                    console.log(response.data)
+                }else{
+                    Swal.fire({
+                        title: 'Super!',
+                        text: 'Uspješno ste izbrisali komentar.',
+                        icon: 'success',
+                        confirmButtonText: 'Nastavi dalje'
+                    })
+                    handler()
+                    handleClose2()
+                }
+            })
+            .catch((error)=>{
+                console.log(error)
+                switch (error.response.status) {
+                    case 403:
+                        unistiSesiju();
+                    default:
+                        console.log(error)
+                }
+            })
+    }
+
 
    /* console.log("OBJAVA")
     console.log(objava)
@@ -161,7 +201,32 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
                       <Card className={"mt-1"}>
                           <Card.Header className={"w-30"}>{komentar.first_name} {komentar.last_name}</Card.Header>
                           <ListGroup variant="flush" className={"w-70"}>
-                              <ListGroup.Item><ChatQuoteFill/> {checkText(decode(komentar.text))}</ListGroup.Item>
+                              <ListGroup.Item>
+                                  <Row>
+                                      <Col xs={11}>
+                                          <ChatQuoteFill/> {checkText(decode(komentar.text))}
+                                      </Col>
+                                      <Col xs={1}>
+                                          {
+                                              sesija.id===komentar.author_id ?
+                                                  <Dropdown>
+                                                      <Dropdown.Toggle className="dugme-dropdown">
+                                                          <ThreeDots/>
+                                                      </Dropdown.Toggle>
+
+                                                      <Dropdown.Menu>
+                                                          <Dropdown.Item style={{color: "#D83A56"}} onClick={handleShow2.bind(this, komentar.id)}><Trash/> Izbrišite
+                                                              komentar</Dropdown.Item>
+                                                          <Dropdown.Item onClick={handleShow3.bind(this,komentar.id)}><Pencil/> Editujte komentar
+                                                          </Dropdown.Item>
+                                                      </Dropdown.Menu>
+                                                  </Dropdown>
+                                                  : <></>
+                                          }
+
+                                      </Col>
+                                  </Row>
+                              </ListGroup.Item>
                           </ListGroup>
                       </Card>
                   ))}
@@ -203,6 +268,44 @@ function FullObjavaComponent({objava,handler,unistiSesiju,sesija}){
               </Modal.Body>
               <Modal.Footer>
                   <Button className="dugme-warning" onClick={handleClose1}>
+                      Zatvori
+                  </Button>
+              </Modal.Footer>
+          </Modal>
+          <Modal
+              show={show2}
+              size="lg"
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+              onHide={handleClose2}
+          >
+              <Modal.Body style={{textAlign: "center"}}>
+                  <h4>Izbrisati objavu?</h4>
+                  <p style={{textAlign: "center"}}>
+                      Ukoliko izbrišite objavu, zauvijek će nestati sa Vašeg profila i ne možemo je vratiti.
+                  </p>
+              </Modal.Body>
+              <Modal.Footer>
+                  <Button variant="secondary" onClick={handleClose2}>
+                      Otkaži
+                  </Button>
+                  <Button className="dugme-warning" onClick={obrisiKomentar.bind(this)}>
+                      Izbriši
+                  </Button>
+              </Modal.Footer>
+          </Modal>
+          <Modal
+              show={show3}
+              size="lg"
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+              onHide={handleClose3}
+          >
+              <Modal.Body>
+                  <EditKomentarComponent id={komentarId} close={handleClose3} handler={handler} />
+              </Modal.Body>
+              <Modal.Footer>
+                  <Button className="dugme-warning" onClick={handleClose3}>
                       Zatvori
                   </Button>
               </Modal.Footer>
