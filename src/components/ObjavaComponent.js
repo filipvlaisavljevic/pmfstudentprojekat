@@ -196,7 +196,8 @@ function ObjavaComponent({objava,handler,unistiSesiju,sesija}){
                                     <a href={"/objava/"+objava.post.id} className={"objavaa"}>{checkText(decode(objava.post.text))}</a>
                                 </p>
                                 <footer className="blockquote-footer mt-2">
-                                    <a href={"/profil/"+objava.post.author_id} className={"bez-dekoracije"}>{objava.post.first_name} {objava.post.last_name}</a>
+                                    {sesija.id != objava.post.author_id ? <a href={"/profil/"+objava.post.author_id} className={"bez-dekoracije"}>{objava.post.first_name} {objava.post.last_name}</a> :
+                                        <a href={"/mojprofil/"+objava.post.author_id} className={"bez-dekoracije"}>{objava.post.first_name} {objava.post.last_name}</a>}
                                 </footer>
 
                                 <Card.Text> <ChatSquareText onClick={() => postaviPrikaz()}
